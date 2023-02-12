@@ -1,0 +1,32 @@
+syntax="proto3";
+package cmsg;
+ 
+import "cmsgtype.proto";
+
+// 消息头
+message CMsgHead {
+  int32 msg_size = 1;			// 消息内容大小，不包含消息头
+  CMsgType msg_type = 2;	    // 消息类型
+  string token = 3;			// 令牌，如果是登录消息则为空
+  string service_name = 4;		// 微服务的名称，用于路由
+ 
+}
+
+
+// 用户登录请求 MSG_LOGIN_REQ
+message CLoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+// 服务端响应消息 MSG_LOGIN_RES
+message CLoginRes {
+  enum CLoginResType {
+    OK = 0;		// 登录成功
+	ERROR = 1;  // 用户名密码错误
+	NOUSER = 2; // 用户不存在
+  }
+  CLoginResType res = 1;
+  string token = 2;			// 登录成功返回令牌，失败为空
+
+}

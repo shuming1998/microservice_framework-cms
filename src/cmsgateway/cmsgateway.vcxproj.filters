@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cmsgateway.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cdirservicehandle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cplatform\cmsgtype.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cplatform\cmsgcom.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="crouterserver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="crouterhandle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cserviceproxy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cserviceproxyclient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\registerclient\cregisterclient.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{879fed69-3780-4222-b0d3-0521efcdadd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{373238c7-aff4-4d5d-b86d-04573d448ebe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cdirservicehandle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cplatform\cmsgtype.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\cplatform\cmsgcom.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crouterserver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crouterhandle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cserviceproxy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cserviceproxyclient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\registerclient\cregisterclient.h" />
+  </ItemGroup>
+</Project>

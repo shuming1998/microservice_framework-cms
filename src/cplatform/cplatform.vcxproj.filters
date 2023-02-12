@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cthreadpool.cpp">
+      <Filter>threadpool</Filter>
+    </ClCompile>
+    <ClCompile Include="cthread.cpp">
+      <Filter>protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="cmsgtype.pb.cc">
+      <Filter>protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="cmsgcom.pb.cc">
+      <Filter>protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="ctools.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cmsgevent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ccometask.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cserviceclient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cservicehandle.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="cservice.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cthreadpool.h">
+      <Filter>threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="cthread.h">
+      <Filter>threadpool</Filter>
+    </ClInclude>
+    <ClInclude Include="cmsgtype.pb.h">
+      <Filter>protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="cmsgcom.pb.h">
+      <Filter>protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="ctask.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ctools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cmsg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ccometask.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cmsgevent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cserviceclient.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cservice.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cservicehandle.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="protobuf">
+      <UniqueIdentifier>{ab85fd9e-f6f6-4142-8a0c-f481866c1939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="threadpool">
+      <UniqueIdentifier>{e02bfa20-34a3-43a6-a155-c98cae10558a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{69041782-e4a5-42df-9cec-f723f7fd3743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{af1eeb21-fe7a-48a7-912b-43f44cf824a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{b2d81bdc-0ad0-43af-b37d-a9a236d39176}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cmsgtype.proto">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="cmsgcom.proto">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="buildmsg.bat">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+</Project>

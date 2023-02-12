@@ -1,0 +1,2 @@
+#define CMYSQL_API __declspec(dllexport)
+#define CMYSQL_API __declspec(dllimport)

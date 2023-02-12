@@ -1,0 +1,2 @@
+#define CCOME_API __declspec(dllexport)
+#define CCOME_API __declspec(dllimport)

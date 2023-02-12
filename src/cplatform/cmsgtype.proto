@@ -1,0 +1,26 @@
+syntax="proto3";
+package cmsg;
+
+enum CMsgType {
+  NONE_DO_NOT_USE = 0;
+  MSG_LOGIN_REQ = 1;				// 客户端用户名和密码登录请求		CLoginReq
+  MSG_LOGIN_RES = 2;				// 服务端响应回复消息				CLoginRes
+  MSG_DIR_REQ = 3;					// 获取目录请求					CDirReq
+  MSG_DIR_RES = 4;					// 目录列表响应					CDirRes
+  MSG_REGISTER_REQ = 5;				// 注册服务请求					CRegisterReq
+  MSG_REGISTER_RES = 6;				// 注册服务响应					CMessageRes
+  MSG_GET_SERVICE_REQ = 7;			// 发现服务请求					CGetServiceReq
+  MSG_GET_SERVICE_RES = 8;			// 发现服务响应				    CServiceMap
+  MSG_UPLOAD_CONFIG_REQ = 9;		// 向配置中心上传配置请求			CConfig
+  MSG_UPLOAD_CONFIG_RES = 10;		// 向配置中心上传配置响应			CMessageRes
+  MSG_DOWNLOAD_CONFIG_REQ = 11;		// 从配置中心下载配置请求			CDownloadconfigReq
+  MSG_DOWNLOAD_CONFIG_RES = 12;		// 从配置中心下载配置响应			CConfig
+  MSG_DOWNLOAD_ALL_CONFIG_REQ = 13; // 从配置中心下载所有配置请求		CDownloadAllconfigReq
+  MSG_DOWNLOAD_ALL_CONFIG_RES = 14; // 从配置中心下载所有配置响应		CConfigList
+  MSG_DELETE_CONFIG_REQ = 15;		// 删除指定微服务配置请求			CDownloadconfigReq
+  MSG_DELETE_CONFIG_RES = 16;		// 删除指定微服务配置响应			CMessageRes
+
+
+
+  MSG_MAX_TYPE = 65535;				// 边界用于排除错误数据
+}

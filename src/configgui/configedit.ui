@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigEdit</class>
+ <widget class="QDialog" name="ConfigEdit">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>599</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ConfigEdit</string>
+  </property>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>-10</y>
+     <width>601</width>
+     <height>801</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QPushButton" name="saveButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>保存</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="loadProtoButton">
+      <property name="text">
+       <string>载入proto</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="typeLineEdit"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="loadTypeLabel">
+      <property name="text">
+       <string>配置类型名</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="loadProtoLabel">
+      <property name="text">
+       <string>载入proto</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="protoLabel">
+      <property name="text">
+       <string>proto</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QTextEdit" name="protoTextEdit"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="serviceNameLabel">
+      <property name="text">
+       <string>微服务名称</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="serviceNameLineEdit"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="servicePortLabel">
+      <property name="text">
+       <string>微服务端口</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="serviceIpLabel">
+      <property name="text">
+       <string>微服务IP</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="serviceIpLineEdit"/>
+    </item>
+    <item row="7" column="1">
+     <widget class="QSpinBox" name="servicePortSpinBox">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>65535</number>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>saveButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigEdit</receiver>
+   <slot>save()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>599</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1878</x>
+     <y>413</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>loadProtoButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigEdit</receiver>
+   <slot>loadProto()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>48</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>663</x>
+     <y>408</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>save()</slot>
+  <slot>loadProto()</slot>
+ </slots>
+</ui>

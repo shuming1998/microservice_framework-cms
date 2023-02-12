@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfigGuiClass</class>
+ <widget class="QWidget" name="ConfigGuiClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1278</width>
+    <height>716</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ConfigGui</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:!hover
+{
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(120, 120, 120, 255), stop:0.496 rgba(39, 39, 39, 255), stop:0.505 rgba(39, 39, 39, 255), stop:1 rgba(120, 120, 120, 255));
+border: none;
+border-radius:5px;
+color:rgb(255, 255, 255);
+font: 75 12pt &quot;黑体&quot;;
+}
+
+QPushButton:hover
+{
+background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(39, 39, 39, 255), stop:0.495 rgba(120, 120, 120, 255), stop:0.505 rgba(120, 120, 120, 255), stop:1 rgba(39, 39, 39, 255));
+border: none;
+border-radius:5px;
+color:rgb(255, 255, 255);
+font: 75 12pt &quot;黑体&quot;;
+}
+
+QLabel
+{
+color: rgb(255, 255, 255);
+font: 75 10pt &quot;黑体&quot;;
+}
+
+#back
+{
+border-radius:5px;
+background-color: rgb(53, 53, 53);
+}
+
+
+
+#title
+{
+color: rgb(0, 170, 255);
+font: 75 12pt &quot;黑体&quot;;
+}
+
+#line
+{
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(28, 28, 28, 255), stop:1 rgba(68, 68, 68, 255));
+color: rgb(255, 255, 255);
+}
+
+
+
+</string>
+  </property>
+  <widget class="QWidget" name="back" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>720</height>
+    </rect>
+   </property>
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>361</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CMS微服务配置管理中心</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="closeButton">
+    <property name="geometry">
+     <rect>
+      <x>1250</x>
+      <y>0</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>x</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="line" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>52</y>
+      <width>751</width>
+      <height>2</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>70</y>
+      <width>460</width>
+      <height>651</height>
+     </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <row>
+     <property name="text">
+      <string>测试</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>微服务名称</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>IP</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>端口</string>
+     </property>
+    </column>
+    <item row="0" column="0">
+     <property name="text">
+      <string>dir</string>
+     </property>
+    </item>
+    <item row="0" column="1">
+     <property name="text">
+      <string>127.0.0.1</string>
+     </property>
+    </item>
+    <item row="0" column="2">
+     <property name="text">
+      <string>8080</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="refreshButton">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>70</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>刷新</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="serverIpEdit">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>190</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>127.0.0.1</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="servicePortBox">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>240</y>
+      <width>111</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>65535</number>
+    </property>
+    <property name="value">
+     <number>20019</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="ipLabel">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>190</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置中心IP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>240</y>
+      <width>111</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置中心端口</string>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="logListWidget">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>70</y>
+      <width>521</width>
+      <height>651</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addConfigButton">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>70</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>新增配置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="delConfigButton">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>130</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>删除配置</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editConfigButton">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>130</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>修改配置</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="configgui.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>addConfigButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>addConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1046</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1294</x>
+     <y>512</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>refreshButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>refresh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1214</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1300</x>
+     <y>318</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>closeButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1260</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2037</x>
+     <y>388</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delConfigButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>delConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1092</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1287</x>
+     <y>468</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>editConfigButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>editConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1176</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1293</x>
+     <y>381</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>ConfigGuiClass</receiver>
+   <slot>editConfig()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>256</x>
+     <y>240</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>231</x>
+     <y>-46</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>refresh()</slot>
+  <slot>addConfig()</slot>
+  <slot>delConfig()</slot>
+  <slot>editConfig()</slot>
+ </slots>
+</ui>

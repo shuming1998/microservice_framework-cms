@@ -1,0 +1,130 @@
+syntax="proto3";
+package cmsg;
+ 
+import "cmsgtype.proto";
+
+// 消息头
+message CMsgHead {
+  int32 msg_size = 1;			// 消息内容大小，不包含消息头
+  CMsgType msg_type = 2;	    // 消息类型
+  string token = 3;				// 令牌，如果是登录消息则为空
+  string service_name = 4;		// 微服务的名称，用于路由
+  int64 msg_id = 5;				// 事件 id，用于 在 CServiceProxyClient 中标识事件
+ 
+}
+
+// 用户登录请求 MSG_LOGIN_REQ
+message CLoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+// 服务端响应消息 MSG_LOGIN_RES
+message CLoginRes {
+  enum CLoginResType {
+    OK = 0;		// 登录成功
+	ERROR = 1;  // 用户名密码错误
+	NOUSER = 2; // 用户不存在
+  }
+  CLoginResType res = 1;
+  string token = 2;			// 登录成功返回令牌，失败为空
+
+}
+
+// 客户端请求目录消息 MSG_DIR_REQ
+message CDirReq {
+  string path = 1;
+
+}
+
+// 服务端响应目录消息 MSG_DIR_RES
+message CDirRes {
+  enum CDirType {
+    OK = 0;		// 目录获取成功 
+	ERROR = 1;  // 目录获取错误
+	NODIR = 2;  // 目录不存在
+  }
+  message CDir {
+	string filename = 1;	// 文件名
+	int32 filesize = 2;		// 文件大小
+  }
+  CDirType res = 1;
+  repeated CDir dirs = 2;	// 目录文件列表
+
+}
+
+// MSG_REGISTER_REQ 注册服务请求
+message CRegisterReq {
+  string name = 1;		// 服务名称
+  int32 port = 2;		// 服务端口
+  string ip = 3;		// 服务 ip
+}
+
+// 通用响应 MSG_REGISTER_RES 注册中心注册服务响应
+message CMessageRes {
+  enum CReturn {
+    OK = 0;
+	ERROR = 1;
+  }
+  CReturn return = 1;
+  bytes msg = 2;
+}
+
+// MSG_GET_SERVICE_REQ
+message CGetServiceReq {
+  string name = 1;  // 服务名称，如果为空，则获取所有服务
+  enum CType {
+    ONE = 0;	// 只取指定的一类微服务
+	ALL = 1;	// 取全部类型的微服务
+  }
+  CType type = 2;
+}
+
+// 存放微服务名称和微服务列表的 map
+message CServiceMap {
+  // 微服务
+  message CService {
+    string name = 1;
+	string ip = 2;
+	int32 port = 3;
+  }
+  // 微服务列表
+  message CServiceList {
+    repeated CService service = 1;
+  }
+  map<string, CServiceList> serviceMap = 1;
+  CMessageRes res  = 2;
+}
+
+// 存储配置内容
+message CConfig {
+  string serviceName = 1;
+  int32 servicePort = 2;
+  string serviceIp = 3;
+  bytes privatePb = 4;
+  bytes proto = 5;
+}
+
+// 下载配置请求，响应是 CConfig
+message CDownloadconfigReq {
+  int32 servicePort = 1;
+  string serviceIp = 2;
+}
+
+// 响应配置列表
+// 只包含 服务名称、ip、port
+message CConfigList {
+  repeated CConfig config = 1; 
+}
+
+// 下载所有配置请求，响应是 CConfigList
+message CDownloadAllConfigReq {
+  int32 page = 1;			// 分页的页数，从 1 开始
+  int32 pageCount = 2;		// 每一页现实的记录数量
+}
+
+
+// 测试的配置项
+message CDirConfig {
+  string root = 1;
+}

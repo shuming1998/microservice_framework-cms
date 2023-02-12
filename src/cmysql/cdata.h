@@ -1,0 +1,131 @@
+#ifndef CDATA_H
+#define CDATA_H
+
+#include <string>
+#include <vector>
+#include <map>
+
+#ifdef STATIC
+#define CMYSQL_API
+#else // NOT STATIC
+#ifdef _WIN32
+#ifdef CMYSQL_EXPORTS
+#define CMYSQL_API __declspec(dllexport)
+#else
+#define CMYSQL_API __declspec(dllimport)
+#endif
+#else  // NOT _WIN32
+#define CMYSQL_API
+#endif // _WIN32
+#endif  // STATIC
+
+namespace cmysql {
+
+enum COption {
+  CMYSQL_OPT_CONNECT_TIMEOUT,
+  CMYSQL_OPT_COMPRESS,
+  CMYSQL_OPT_NAMED_PIPE,
+  CMYSQL_INIT_COMMAND,
+  CMYSQL_READ_DEFAULT_FILE,
+  CMYSQL_READ_DEFAULT_GROUP,
+  CMYSQL_SET_CHARSET_DIR,
+  CMYSQL_SET_CHARSET_NAME,
+  CMYSQL_OPT_LOCAL_INFILE,
+  CMYSQL_OPT_PROTOCOL,
+  CMYSQL_SHARED_MEMORY_BASE_NAME,
+  CMYSQL_OPT_READ_TIMEOUT,
+  CMYSQL_OPT_WRITE_TIMEOUT,
+  CMYSQL_OPT_USE_RESULT,
+  CMYSQL_REPORT_DATA_TRUNCATION,
+  CMYSQL_OPT_RECONNECT,
+  CMYSQL_PLUGIN_DIR,
+  CMYSQL_DEFAULT_AUTH,
+  CMYSQL_OPT_BIND,
+  CMYSQL_OPT_SSL_KEY,
+  CMYSQL_OPT_SSL_CERT,
+  CMYSQL_OPT_SSL_CA,
+  CMYSQL_OPT_SSL_CAPATH,
+  CMYSQL_OPT_SSL_CIPHER,
+  CMYSQL_OPT_SSL_CRL,
+  CMYSQL_OPT_SSL_CRLPATH,
+  CMYSQL_OPT_CONNECT_ATTR_RESET,
+  CMYSQL_OPT_CONNECT_ATTR_ADD,
+  CMYSQL_OPT_CONNECT_ATTR_DELETE,
+  CMYSQL_SERVER_PUBLIC_KEY,
+  CMYSQL_ENABLE_CLEARTEXT_PLUGIN,
+  CMYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS,
+  CMYSQL_OPT_MAX_ALLOWED_PACKET,
+  CMYSQL_OPT_NET_BUFFER_LENGTH,
+  CMYSQL_OPT_TLS_VERSION,
+  CMYSQL_OPT_SSL_MODE,
+  CMYSQL_OPT_GET_SERVER_PUBLIC_KEY,
+  CMYSQL_OPT_RETRY_COUNT,
+  CMYSQL_OPT_OPTIONAL_RESULTSET_METADATA,
+  CMYSQL_OPT_SSL_FIPS_MODE
+};
+
+enum CFieldType {
+  CMYSQL_TYPE_DECIMAL,
+  CMYSQL_TYPE_TINY,
+  CMYSQL_TYPE_SHORT,
+  CMYSQL_TYPE_LONG,
+  CMYSQL_TYPE_FLOAT,
+  CMYSQL_TYPE_DOUBLE,
+  CMYSQL_TYPE_NULL,
+  CMYSQL_TYPE_TIMESTAMP,
+  CMYSQL_TYPE_LONGLONG,
+  CMYSQL_TYPE_INT24,
+  CMYSQL_TYPE_DATE,
+  CMYSQL_TYPE_TIME,
+  CMYSQL_TYPE_DATETIME,
+  CMYSQL_TYPE_YEAR,
+  CMYSQL_TYPE_NEWDATE, /**< Internal to MySQL. Not used in protocol */
+  CMYSQL_TYPE_VARCHAR,
+  CMYSQL_TYPE_BIT,
+  CMYSQL_TYPE_TIMESTAMP2,
+  CMYSQL_TYPE_DATETIME2, /**< Internal to MySQL. Not used in protocol */
+  CMYSQL_TYPE_TIME2,     /**< Internal to MySQL. Not used in protocol */
+  CMYSQL_TYPE_JSON = 245,
+  CMYSQL_TYPE_NEWDECIMAL = 246,
+  CMYSQL_TYPE_ENUM = 247,
+  CMYSQL_TYPE_SET = 248,
+  CMYSQL_TYPE_TINY_BLOB = 249,
+  CMYSQL_TYPE_MEDIUM_BLOB = 250,
+  CMYSQL_TYPE_LONG_BLOB = 251,
+  CMYSQL_TYPE_BLOB = 252,
+  CMYSQL_TYPE_VAR_STRING = 253,
+  CMYSQL_TYPE_STRING = 254,
+  CMYSQL_TYPE_GEOMETRY = 255
+};
+
+enum ConvType {
+  UTF82GBK = 1,
+  GBK2UTF8 = 2,
+};
+
+struct CMYSQL_API CData {
+  CData(const char *data = nullptr);
+  CData(const int *d);
+  // 读取文件，内容写入到data，size，会在堆中申请 data 空间，需要 drop 释放
+  bool loadFile(const char *fileName);
+  bool saveFile(const char *fileName);
+  // 释放 loadFile 申请的 data 空间
+  void drop();
+  // utf8 与 gbk 相互转换
+  std::string utf8ConvGbk(ConvType direction);
+
+  const char *data = nullptr;
+  int size = 0;
+  CFieldType type;
+};
+
+// 插入和更新数据的数据结构
+using MData = std::map<std::string, CData>;
+
+// 数据列表
+using CRows = std::vector<std::vector<CData> >;
+
+} // namespace cmysql
+
+#endif // ! CDATA_H
+
