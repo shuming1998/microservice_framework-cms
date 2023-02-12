@@ -1,2 +1,1 @@
-protoc -I./ --cpp_out=./ cmsgcom.proto 
-protoc -I./ --cpp_out=./ cmsgtype.proto
+protoc --cpp_out=./ cmsgcom.proto cmsgtype.proto
