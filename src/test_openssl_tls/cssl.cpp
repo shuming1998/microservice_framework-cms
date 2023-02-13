@@ -42,6 +42,28 @@ bool CSSL::connect() {
   return true;
 }
 
+int CSSL::write(const void *data, int dataSize) {
+  if (!ssl_) {
+    return 0;
+  }
+  return SSL_write(ssl_, data, dataSize);
+}
+
+int CSSL::read(void *buf, int bufSize) {
+  if (!ssl_) {
+    return 0;
+  }
+  return SSL_read(ssl_, buf, bufSize);
+}
+
+void CSSL::close() {
+  if (ssl_) {
+    SSL_shutdown(ssl_);
+    SSL_free(ssl_);
+    ssl_ = nullptr;
+  }
+}
+
 void CSSL::printCipher() {
   if (!ssl_) {
     return;
@@ -76,4 +98,7 @@ void CSSL::printCert() {
   if (str) {
     std::cout << "issuer: [" << str << "]\n";
   }
+
+  // 释放证书
+  X509_free(cert);
 }

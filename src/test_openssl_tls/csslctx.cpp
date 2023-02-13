@@ -97,3 +97,10 @@ void CSSLCtx::verify(const char *caCrt) {
   // 指定证书
   SSL_CTX_load_verify_locations(sslCtx_, caCrt, 0);
 }
+
+void CSSLCtx::close() {
+  if (sslCtx_) {
+    SSL_CTX_free(sslCtx_);
+    sslCtx_ = nullptr;
+  }
+}

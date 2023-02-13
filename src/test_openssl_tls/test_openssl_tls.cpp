@@ -10,7 +10,9 @@
 #endif // _WIN32
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <string.h>
+#include <thread>
 
 int main(int argc, char *argv[]) {
 #ifdef _WIN32
@@ -43,13 +45,37 @@ int main(int argc, char *argv[]) {
     int res = connect(sock, (sockaddr *)&addr, sizeof(addr));
     if (res != 0) {
       std::cerr << "connect " << ip << ":" << port << " failed!\n";
+      clientCtx.close();
       return -1;
     }
     std::cerr << "connect " << ip << ":" << port << " success!\n";
 
     auto cssl = clientCtx.newCSSL(sock);
-    cssl.connect();
+    if (!cssl.connect()) {
+      clientCtx.close();
+      getchar();
+      return -1;
+    }
 
+    // ssl 发送数据
+    std::string data = "client write";
+    for (int i = 0; ; ++i) {
+      std::stringstream ss;
+      ss << data << ' ';
+      ss << i;
+      int len = cssl.write(ss.str().c_str(), ss.str().size());
+      if (len <= 0) {
+        break;
+      }
+      char buf[1024] = { 0 };
+      len = cssl.read(buf, sizeof(buf) - 1);
+      if (len > 0) {
+        std::cout << buf << '\n';
+      }
+      std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    }
+
+    clientCtx.close();
     getchar();
     return 0;
   }
@@ -95,10 +121,32 @@ int main(int argc, char *argv[]) {
       continue;
     }
     if (!cssl.accept()) {
+      cssl.close();
       continue;
     }
     std::cout << "accept socket\n";
+
+        // ssl 发送数据
+    std::string data = "server write";
+    for (int i = 0; ; ++i) {
+      char buf[1024] = { 0 };
+      int len = cssl.read(buf, sizeof(buf) - 1);
+      if (len > 0) {
+        std::cout << buf << '\n';
+      }
+
+      std::stringstream ss;
+      ss << data << ' ';
+      ss << i;
+      len = cssl.write(ss.str().c_str(), ss.str().size());
+      if (len <= 0) {
+        break;
+      }
+      std::this_thread::sleep_for(std::chrono::milliseconds(300));
+    }
+    cssl.close();
   }
 
+  ctx.close();
   return 0;
 }
