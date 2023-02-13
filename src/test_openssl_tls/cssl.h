@@ -3,7 +3,6 @@
 
 class CSSL {
 public:
-
   bool isEmpty() { return ssl_ == nullptr; }
   void setSSL(struct ssl_st *ssl) { this->ssl_ = ssl; }
 
@@ -12,6 +11,15 @@ public:
 
   // 客户端处理 ssl 握手
   bool connect();
+
+  // 发送数据
+  int write(const void *data, int dataSize);
+
+  // 接收数据
+  int read(void *buf, int bufSize);
+
+  // 释放 ssl
+  void close();
 
   // 打印通信使用的算法
   void printCipher();
