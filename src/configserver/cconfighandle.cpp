@@ -39,8 +39,14 @@ void CConfigHandle::downloadConfig(cmsg::CMsgHead *head, CMsg *msg) {
     return;
   }
 
+  // 如果 ip 为空，使用客户端 ip
+  std::string ip = req.serviceip();
+  if (ip.empty()) {
+    ip = clientIp();
+  }
+
   // 根据 ip 和 port 获取配置项，然后发送给客户端
-  cmsg::CConfig conf = ConfigDAO::get()->downloadConfig(req.serviceip().c_str(), req.serviceport());
+  cmsg::CConfig conf = ConfigDAO::get()->downloadConfig(ip.c_str(), req.serviceport());
   sendMsg(cmsg::MSG_DOWNLOAD_CONFIG_RES, &conf);
 
 }

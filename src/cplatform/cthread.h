@@ -7,6 +7,9 @@
 class CTask;
 class CThread {
 public:
+  CThread() {}
+  ~CThread() {}
+
   // Æô¶¯Ïß³Ì
   void startThread();
 

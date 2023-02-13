@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{549B9093-43E7-4031-979F-DD7333234D6B}</ProjectGuid>
+    <ProjectGuid>{3E98A0A4-3DA3-4956-BEC5-5F2DF53EF5C5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>testpbservice</RootNamespace>
+    <RootNamespace>testcplatformssl</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.20348.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -90,8 +90,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\cplatform;..\..\include;..\registerclient;..\configclient</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>..\..\include;..\cplatform</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,27 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\configclient\cconfigclient.cpp" />
     <ClCompile Include="..\cplatform\cmsgcom.pb.cc" />
     <ClCompile Include="..\cplatform\cmsgtype.pb.cc" />
-    <ClCompile Include="..\registerclient\cregisterclient.cpp" />
-    <ClCompile Include="cdirservicehandle.cpp" />
-    <ClCompile Include="cmsgateway.cpp" />
-    <ClCompile Include="crouterhandle.cpp" />
-    <ClCompile Include="crouterserver.cpp" />
-    <ClCompile Include="cserviceproxy.cpp" />
-    <ClCompile Include="cserviceproxyclient.cpp" />
+    <ClCompile Include="test_cplatform_ssl.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\configclient\cconfigclient.h" />
     <ClInclude Include="..\cplatform\cmsgcom.pb.h" />
     <ClInclude Include="..\cplatform\cmsgtype.pb.h" />
-    <ClInclude Include="..\registerclient\cregisterclient.h" />
-    <ClInclude Include="cdirservicehandle.h" />
-    <ClInclude Include="crouterhandle.h" />
-    <ClInclude Include="crouterserver.h" />
-    <ClInclude Include="cserviceproxy.h" />
-    <ClInclude Include="cserviceproxyclient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

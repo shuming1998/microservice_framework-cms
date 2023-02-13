@@ -19,8 +19,8 @@ CService::CService() {
 
 CService::~CService() {
   delete threadPoolForListen_;
-  delete threadPoolForClient_;
   threadPoolForListen_ = nullptr;
+  delete threadPoolForClient_;
   threadPoolForClient_ = nullptr;
 } 
 
@@ -29,6 +29,9 @@ void CService::listenCb(int clientSock, struct sockaddr *clientAddr, int socklen
   // 创建客户端处理对象
   auto handle = createServiceHandle();
   handle->setSock(clientSock);
+  // 设置 ssl 上下文
+  handle->setSslCtx(this->sslCtx());
+
   std::stringstream ss;
   char ip[16] = { 0 };
   auto addr = (sockaddr_in *)clientAddr;

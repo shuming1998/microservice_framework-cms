@@ -1,7 +1,9 @@
 #include "ccometask.h"
 #include "ctools.h"
+#include "csslctx.h"
 #include <event2/event.h>
 #include <event2/bufferevent.h>
+#include <event2/bufferevent_ssl.h>
 #include <iostream>
 #include <string.h>
 
@@ -78,6 +80,16 @@ void CComeTask::eventCb(short what) {
     // 通知连接成功
     isConnected_ = true;
     isConnecting_ = false;
+    // 打印 ssl 信息
+    auto ssl = bufferevent_openssl_get_ssl(bev_);
+    if (ssl) {
+      CSSL cssl;
+      cssl.setSSL(ssl);
+      // 打印证书
+      cssl.printCert();
+      // 打印加密算法
+      cssl.printCipher();
+    }
     connetedCb();
   }
 
@@ -92,28 +104,6 @@ void CComeTask::eventCb(short what) {
     closeBev();
   }
 }
-
-//bool CComeTask::writeMsg(const CMsg *msg) {
-//  // 检查消息合法性
-//  if (!bev_ || !msg || !msg->data_ || msg->size_ <= 0) {
-//    std::cerr << "!bev_ || !msg || !msg->data_ || msg->size_ <= 0\n";
-//    return false;
-//  }
-//
-//  // 写入消息头
-//  int res = bufferevent_write(bev_, msg, sizeof(CMsgHd));
-//  if (res != 0) { 
-//    std::cerr << "bufferevent_write [CMsgHd] error!\n";
-//    return false;  
-//  }
-//  // 写入消息内容
-//  res = bufferevent_write(bev_, msg->data_, msg->size_);
-//  if (res != 0) {
-//    std::cerr << "bufferevent_write [msg->data_] error!\n";
-//    return false;
-//  }
-//  return true;
-//}
 
 bool CComeTask::writeMsg(const void *data, int size) {
   std::lock_guard<std::mutex> guard(*mtx_);
@@ -159,11 +149,38 @@ bool CComeTask::connect() {
 bool CComeTask::initBev(int sock) {
   // 用 bufferevent 建立连接，comeSock = -1 时自动创建 socket
   // 创建 bufferevent 上下文
-  bev_ = bufferevent_socket_new(getBase(), sock, BEV_OPT_CLOSE_ON_FREE);
-  if (!bev_) {
-    LOG_ERROR("bufferevent_socket_new() failed!");
-    return false;
+  // 区分是否加密通信，以及区分服务器和客户端
+  if (!sslCtx()) {    // 非加密通信
+    bev_ = bufferevent_socket_new(getBase(), sock, BEV_OPT_CLOSE_ON_FREE);
+    if (!bev_) {
+      LOG_ERROR("bufferevent_socket_new() failed!");
+      return false;
+    }
+  } else {            // 加密通信
+    auto cssl = sslCtx()->newCSSL(sock);
+    // 客户端，sock 传入的是 -1
+    if (sock < 0) {
+      // bufferevent_free 会同时关闭 socket 和 ssl
+      bev_ = bufferevent_openssl_socket_new(getBase(), 
+                                            sock, 
+                                            cssl.ssl(), 
+                                            BUFFEREVENT_SSL_CONNECTING,
+                                            BEV_OPT_CLOSE_ON_FREE);
+    } else {
+      // 服务端
+      bev_ = bufferevent_openssl_socket_new(getBase(),
+                                            sock,
+                                            cssl.ssl(),
+                                            BUFFEREVENT_SSL_ACCEPTING,
+                                            BEV_OPT_CLOSE_ON_FREE);
+    }
+
+    if (!bev_) {
+      LOG_ERROR("bufferevent_openssl_socket_new() failed!");
+      return false;
+    }
   }
+
 
   // 设置回调函数
   bufferevent_setcb(bev_, sReadCb, sWriteCb, sEventCb, this);
@@ -201,6 +218,7 @@ void CComeTask::closeBev() {
     isConnected_ = false;
     isConnecting_ = false;
     if (bev_) {
+      // 包含释放 socket 和 ssl
       bufferevent_free(bev_);
     }
     bev_ = nullptr;

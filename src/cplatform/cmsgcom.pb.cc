@@ -90,6 +90,10 @@ class CDownloadAllConfigReqDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CDownloadAllConfigReq> _instance;
 } _CDownloadAllConfigReq_default_instance_;
+class CGatewayConfigDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CGatewayConfig> _instance;
+} _CGatewayConfig_default_instance_;
 class CDirConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CDirConfig> _instance;
@@ -208,6 +212,20 @@ static void InitDefaultsscc_info_CDownloadconfigReq_cmsgcom_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CDownloadconfigReq_cmsgcom_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_CDownloadconfigReq_cmsgcom_2eproto}, {}};
+
+static void InitDefaultsscc_info_CGatewayConfig_cmsgcom_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::cmsg::_CGatewayConfig_default_instance_;
+    new (ptr) ::cmsg::CGatewayConfig();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::cmsg::CGatewayConfig::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CGatewayConfig_cmsgcom_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_CGatewayConfig_cmsgcom_2eproto}, {}};
 
 static void InitDefaultsscc_info_CGetServiceReq_cmsgcom_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -352,7 +370,7 @@ static void InitDefaultsscc_info_CServiceMap_ServiceMapEntry_DoNotUse_cmsgcom_2e
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsscc_info_CServiceMap_ServiceMapEntry_DoNotUse_cmsgcom_2eproto}, {
       &scc_info_CServiceMap_CServiceList_cmsgcom_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cmsgcom_2eproto[18];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cmsgcom_2eproto[19];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_cmsgcom_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_cmsgcom_2eproto = nullptr;
 
@@ -484,6 +502,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cmsgcom_2eproto::offsets[] PRO
   PROTOBUF_FIELD_OFFSET(::cmsg::CDownloadAllConfigReq, page_),
   PROTOBUF_FIELD_OFFSET(::cmsg::CDownloadAllConfigReq, pagecount_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::cmsg::CGatewayConfig, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::cmsg::CGatewayConfig, isssl_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CGatewayConfig, crtpath_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CGatewayConfig, keypath_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CGatewayConfig, capath_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::cmsg::CDirConfig, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -508,7 +535,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 106, -1, sizeof(::cmsg::CDownloadconfigReq)},
   { 113, -1, sizeof(::cmsg::CConfigList)},
   { 119, -1, sizeof(::cmsg::CDownloadAllConfigReq)},
-  { 126, -1, sizeof(::cmsg::CDirConfig)},
+  { 126, -1, sizeof(::cmsg::CGatewayConfig)},
+  { 135, -1, sizeof(::cmsg::CDirConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -529,6 +557,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CDownloadconfigReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CConfigList_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CDownloadAllConfigReq_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CGatewayConfig_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CDirConfig_default_instance_),
 };
 
@@ -566,13 +595,15 @@ const char descriptor_table_protodef_cmsgcom_2eproto[] =
   "eq\022\023\n\013servicePort\030\001 \001(\005\022\021\n\tserviceIp\030\002 \001"
   "(\t\",\n\013CConfigList\022\035\n\006config\030\001 \003(\0132\r.cmsg"
   ".CConfig\"8\n\025CDownloadAllConfigReq\022\014\n\004pag"
-  "e\030\001 \001(\005\022\021\n\tpageCount\030\002 \001(\005\"\032\n\nCDirConfig"
-  "\022\014\n\004root\030\001 \001(\tb\006proto3"
+  "e\030\001 \001(\005\022\021\n\tpageCount\030\002 \001(\005\"Q\n\016CGatewayCo"
+  "nfig\022\r\n\005isSSL\030\001 \001(\010\022\017\n\007crtPath\030\002 \001(\t\022\017\n\007"
+  "keyPath\030\003 \001(\t\022\016\n\006caPath\030\004 \001(\t\"\032\n\nCDirCon"
+  "fig\022\014\n\004root\030\001 \001(\tb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cmsgcom_2eproto_deps[1] = {
   &::descriptor_table_cmsgtype_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cmsgcom_2eproto_sccs[18] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cmsgcom_2eproto_sccs[19] = {
   &scc_info_CConfig_cmsgcom_2eproto.base,
   &scc_info_CConfigList_cmsgcom_2eproto.base,
   &scc_info_CDirConfig_cmsgcom_2eproto.base,
@@ -581,6 +612,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cms
   &scc_info_CDirRes_CDir_cmsgcom_2eproto.base,
   &scc_info_CDownloadAllConfigReq_cmsgcom_2eproto.base,
   &scc_info_CDownloadconfigReq_cmsgcom_2eproto.base,
+  &scc_info_CGatewayConfig_cmsgcom_2eproto.base,
   &scc_info_CGetServiceReq_cmsgcom_2eproto.base,
   &scc_info_CLoginReq_cmsgcom_2eproto.base,
   &scc_info_CLoginRes_cmsgcom_2eproto.base,
@@ -595,10 +627,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cms
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_cmsgcom_2eproto_once;
 static bool descriptor_table_cmsgcom_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cmsgcom_2eproto = {
-  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1382,
-  &descriptor_table_cmsgcom_2eproto_once, descriptor_table_cmsgcom_2eproto_sccs, descriptor_table_cmsgcom_2eproto_deps, 18, 1,
+  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1465,
+  &descriptor_table_cmsgcom_2eproto_once, descriptor_table_cmsgcom_2eproto_sccs, descriptor_table_cmsgcom_2eproto_deps, 19, 1,
   schemas, file_default_instances, TableStruct_cmsgcom_2eproto::offsets,
-  file_level_metadata_cmsgcom_2eproto, 18, file_level_enum_descriptors_cmsgcom_2eproto, file_level_service_descriptors_cmsgcom_2eproto,
+  file_level_metadata_cmsgcom_2eproto, 19, file_level_enum_descriptors_cmsgcom_2eproto, file_level_service_descriptors_cmsgcom_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -6248,6 +6280,454 @@ void CDownloadAllConfigReq::InternalSwap(CDownloadAllConfigReq* other) {
 
 // ===================================================================
 
+void CGatewayConfig::InitAsDefaultInstance() {
+}
+class CGatewayConfig::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CGatewayConfig::kIsSSLFieldNumber;
+const int CGatewayConfig::kCrtPathFieldNumber;
+const int CGatewayConfig::kKeyPathFieldNumber;
+const int CGatewayConfig::kCaPathFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CGatewayConfig::CGatewayConfig()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:cmsg.CGatewayConfig)
+}
+CGatewayConfig::CGatewayConfig(const CGatewayConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  crtpath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.crtpath().size() > 0) {
+    crtpath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.crtpath_);
+  }
+  keypath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.keypath().size() > 0) {
+    keypath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.keypath_);
+  }
+  capath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.capath().size() > 0) {
+    capath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.capath_);
+  }
+  isssl_ = from.isssl_;
+  // @@protoc_insertion_point(copy_constructor:cmsg.CGatewayConfig)
+}
+
+void CGatewayConfig::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CGatewayConfig_cmsgcom_2eproto.base);
+  crtpath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  keypath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  capath_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  isssl_ = false;
+}
+
+CGatewayConfig::~CGatewayConfig() {
+  // @@protoc_insertion_point(destructor:cmsg.CGatewayConfig)
+  SharedDtor();
+}
+
+void CGatewayConfig::SharedDtor() {
+  crtpath_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  keypath_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  capath_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void CGatewayConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const CGatewayConfig& CGatewayConfig::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CGatewayConfig_cmsgcom_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void CGatewayConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:cmsg.CGatewayConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  crtpath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  keypath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  capath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  isssl_ = false;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CGatewayConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // bool isSSL = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          isssl_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string crtPath = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_crtpath(), ptr, ctx, "cmsg.CGatewayConfig.crtPath");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string keyPath = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_keypath(), ptr, ctx, "cmsg.CGatewayConfig.keyPath");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string caPath = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_capath(), ptr, ctx, "cmsg.CGatewayConfig.caPath");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool CGatewayConfig::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:cmsg.CGatewayConfig)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // bool isSSL = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (8 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &isssl_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string crtPath = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_crtpath()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->crtpath().data(), static_cast<int>(this->crtpath().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CGatewayConfig.crtPath"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string keyPath = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_keypath()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->keypath().data(), static_cast<int>(this->keypath().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CGatewayConfig.keyPath"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string caPath = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_capath()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->capath().data(), static_cast<int>(this->capath().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CGatewayConfig.caPath"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:cmsg.CGatewayConfig)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:cmsg.CGatewayConfig)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void CGatewayConfig::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:cmsg.CGatewayConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool isSSL = 1;
+  if (this->isssl() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBool(1, this->isssl(), output);
+  }
+
+  // string crtPath = 2;
+  if (this->crtpath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->crtpath().data(), static_cast<int>(this->crtpath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.crtPath");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->crtpath(), output);
+  }
+
+  // string keyPath = 3;
+  if (this->keypath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->keypath().data(), static_cast<int>(this->keypath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.keyPath");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->keypath(), output);
+  }
+
+  // string caPath = 4;
+  if (this->capath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->capath().data(), static_cast<int>(this->capath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.caPath");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->capath(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:cmsg.CGatewayConfig)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* CGatewayConfig::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cmsg.CGatewayConfig)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool isSSL = 1;
+  if (this->isssl() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->isssl(), target);
+  }
+
+  // string crtPath = 2;
+  if (this->crtpath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->crtpath().data(), static_cast<int>(this->crtpath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.crtPath");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->crtpath(), target);
+  }
+
+  // string keyPath = 3;
+  if (this->keypath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->keypath().data(), static_cast<int>(this->keypath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.keyPath");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        3, this->keypath(), target);
+  }
+
+  // string caPath = 4;
+  if (this->capath().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->capath().data(), static_cast<int>(this->capath().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CGatewayConfig.caPath");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        4, this->capath(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cmsg.CGatewayConfig)
+  return target;
+}
+
+size_t CGatewayConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cmsg.CGatewayConfig)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string crtPath = 2;
+  if (this->crtpath().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->crtpath());
+  }
+
+  // string keyPath = 3;
+  if (this->keypath().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->keypath());
+  }
+
+  // string caPath = 4;
+  if (this->capath().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->capath());
+  }
+
+  // bool isSSL = 1;
+  if (this->isssl() != 0) {
+    total_size += 1 + 1;
+  }
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CGatewayConfig::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:cmsg.CGatewayConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CGatewayConfig* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CGatewayConfig>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cmsg.CGatewayConfig)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:cmsg.CGatewayConfig)
+    MergeFrom(*source);
+  }
+}
+
+void CGatewayConfig::MergeFrom(const CGatewayConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cmsg.CGatewayConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.crtpath().size() > 0) {
+
+    crtpath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.crtpath_);
+  }
+  if (from.keypath().size() > 0) {
+
+    keypath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.keypath_);
+  }
+  if (from.capath().size() > 0) {
+
+    capath_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.capath_);
+  }
+  if (from.isssl() != 0) {
+    set_isssl(from.isssl());
+  }
+}
+
+void CGatewayConfig::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:cmsg.CGatewayConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CGatewayConfig::CopyFrom(const CGatewayConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cmsg.CGatewayConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CGatewayConfig::IsInitialized() const {
+  return true;
+}
+
+void CGatewayConfig::Swap(CGatewayConfig* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CGatewayConfig::InternalSwap(CGatewayConfig* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  crtpath_.Swap(&other->crtpath_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  keypath_.Swap(&other->keypath_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  capath_.Swap(&other->capath_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(isssl_, other->isssl_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CGatewayConfig::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void CDirConfig::InitAsDefaultInstance() {
 }
 class CDirConfig::HasBitSetters {
@@ -6576,6 +7056,9 @@ template<> PROTOBUF_NOINLINE ::cmsg::CConfigList* Arena::CreateMaybeMessage< ::c
 }
 template<> PROTOBUF_NOINLINE ::cmsg::CDownloadAllConfigReq* Arena::CreateMaybeMessage< ::cmsg::CDownloadAllConfigReq >(Arena* arena) {
   return Arena::CreateInternal< ::cmsg::CDownloadAllConfigReq >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cmsg::CGatewayConfig* Arena::CreateMaybeMessage< ::cmsg::CGatewayConfig >(Arena* arena) {
+  return Arena::CreateInternal< ::cmsg::CGatewayConfig >(arena);
 }
 template<> PROTOBUF_NOINLINE ::cmsg::CDirConfig* Arena::CreateMaybeMessage< ::cmsg::CDirConfig >(Arena* arena) {
   return Arena::CreateInternal< ::cmsg::CDirConfig >(arena);

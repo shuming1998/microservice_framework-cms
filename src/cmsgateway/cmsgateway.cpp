@@ -3,6 +3,9 @@
 #include "crouterserver.h"
 #include "cserviceproxy.h"
 #include "cregisterclient.h"
+#include "cconfigclient.h"
+#include "ctools.h"
+#include "cmsgcom.pb.h"
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -37,6 +40,28 @@ int main(int argc, char *argv[]) {
   CServiceProxy::get()->init();
   // 开启自动重连
   CServiceProxy::get()->start();
+
+  // 连接配置中心，获取配置
+  // 只取第一个配置中心 IP
+  auto configs = CRegisterClient::get()->getServices(CONFIG_NAME, 10);
+  std::cout << "Get the config service\n";
+  std::cout << configs.DebugString() << '\n';
+  if (configs.service_size() <= 0) {
+    LOG_DEBUG("Can't find the config server");
+  } else {
+    auto config = configs.service()[0];
+    static cmsg::CGatewayConfig gatewayConf;
+    // 获取端口号
+    bool res = CConfigClient::get()->startGetConfig(config.ip().c_str(),
+                                                    config.port(),
+                                                    0,
+                                                    serverPort,
+                                                    &gatewayConf);
+    if (res) {
+      std::cout << "配置中心连接成功!\n";
+    }
+  }
+
 
   CRouterServer service;
   service.setServerPort(serverPort);

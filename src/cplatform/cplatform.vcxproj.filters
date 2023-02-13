@@ -4,9 +4,6 @@
     <ClCompile Include="cthreadpool.cpp">
       <Filter>threadpool</Filter>
     </ClCompile>
-    <ClCompile Include="cthread.cpp">
-      <Filter>protobuf</Filter>
-    </ClCompile>
     <ClCompile Include="cmsgtype.pb.cc">
       <Filter>protobuf</Filter>
     </ClCompile>
@@ -30,6 +27,15 @@
     </ClCompile>
     <ClCompile Include="cservice.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="csslctx.cpp">
+      <Filter>cssl</Filter>
+    </ClCompile>
+    <ClCompile Include="cssl.cpp">
+      <Filter>cssl</Filter>
+    </ClCompile>
+    <ClCompile Include="cthread.cpp">
+      <Filter>threadpool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +75,12 @@
     <ClInclude Include="cservicehandle.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="csslctx.h">
+      <Filter>cssl</Filter>
+    </ClInclude>
+    <ClInclude Include="cssl.h">
+      <Filter>cssl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="protobuf">
@@ -85,6 +97,9 @@
     </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{b2d81bdc-0ad0-43af-b37d-a9a236d39176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cssl">
+      <UniqueIdentifier>{0b78429e-8ed2-477b-af6c-c8a3899aee3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

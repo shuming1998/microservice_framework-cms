@@ -112,7 +112,8 @@ bool CMsgEvent::recvMsg() {
 
     // 鉴权
     // 获取消息内容大小分配空间
-    if (!msg_.alloc(pbHead_->msg_size())) {
+    bool is = msg_.alloc(pbHead_->msg_size());
+    if (!is) {
       std::cerr << "msg_.alloc failed!\n";
       return false;
     }
@@ -135,10 +136,10 @@ bool CMsgEvent::recvMsg() {
 }
 
 bool CMsgEvent::sendMsg(cmsg::CMsgHead *head, CMsg *msg) {
-  head->set_msg_size(msg->size_);
   if (!head || !msg) {
     return false;
   }
+  head->set_msg_size(msg->size_);
   // 消息头序列化
   std::string headStr = head->SerializeAsString();
   int headSize = headStr.size();

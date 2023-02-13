@@ -14,7 +14,7 @@ public:
 
 int main(int argc, char *argv[]) {
   std::cout << "Run test_pbservice like this: ./[executable file name] [server port] [register ip] [register port]\n";
-  int serverPort = 20011;
+  int serverPort = 30001;
   if (argc > 1) {
     serverPort = atoi(argv[1]);
   }

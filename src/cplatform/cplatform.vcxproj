@@ -95,7 +95,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;CCOME_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;CCOME_EXPORTS;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;EVENT__HAVE_OPENSSL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>..\..\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -105,7 +105,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
       <AdditionalLibraryDirectories>..\..\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libevent.lib;ws2_32.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libevent.lib;libevent_openssl.lib;ws2_32.lib;libprotobufd.lib;libssl.lib;libcrypto.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\..\lib\x86\$(TargetName).lib</ImportLibrary>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
@@ -178,6 +178,8 @@
     <ClInclude Include="cservice.h" />
     <ClInclude Include="cserviceclient.h" />
     <ClInclude Include="cservicehandle.h" />
+    <ClInclude Include="cssl.h" />
+    <ClInclude Include="csslctx.h" />
     <ClInclude Include="ctask.h" />
     <ClInclude Include="cthread.h" />
     <ClInclude Include="cthreadpool.h" />
@@ -191,6 +193,8 @@
     <ClCompile Include="cservice.cpp" />
     <ClCompile Include="cserviceclient.cpp" />
     <ClCompile Include="cservicehandle.cpp" />
+    <ClCompile Include="cssl.cpp" />
+    <ClCompile Include="csslctx.cpp" />
     <ClCompile Include="cthread.cpp" />
     <ClCompile Include="cthreadpool.cpp" />
     <ClCompile Include="ctools.cpp" />

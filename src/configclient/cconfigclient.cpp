@@ -224,6 +224,22 @@ std::string CConfigClient::getString(const char *key) {
   return curServiceConfig->GetReflection()->GetString(*curServiceConfig, field);
 }
 
+bool CConfigClient::getBool(const char *key) {
+  std::lock_guard<std::mutex> guard(curServiceConfigMtx);
+  if (!curServiceConfig) {
+    return false;
+  }
+
+  // 先获取字段类型
+  auto field = curServiceConfig->GetDescriptor()->FindFieldByName(key);
+  if (!field) {
+    return false;
+  }
+
+  // 再通过反射器获取参数值
+  return curServiceConfig->GetReflection()->GetBool(*curServiceConfig, field);
+}
+
 bool CConfigClient::getConfig(const char *ip, int port, cmsg::CConfig *outConf) {
   std::stringstream key;
   key << ip << ':' << port;
@@ -314,7 +330,7 @@ void CConfigClient::downloadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
   // 存储本地配置
   if (localPort_ > 0 && curServiceConfig) {
     std::stringstream localKey;
-    localKey << localIp_ << ':' << localPort_;
+    localKey << conf.serviceip() << ':' << localPort_;
     // 确定是本地的配置项
     if (key.str() == localKey.str()) {
       LOG_DEBUG("=====&&&&=====");

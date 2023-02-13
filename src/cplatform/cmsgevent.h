@@ -9,7 +9,7 @@
 class CCOME_API CMsgEvent : public CComeTask {
 public:
   // 接收消息，分发消息
-  void readCb() override;
+  virtual void readCb();
   // 消息回调函数，默认发送到用于注册的函数，由路由重载
   virtual void readCb(cmsg::CMsgHead *head, CMsg *msg);
 

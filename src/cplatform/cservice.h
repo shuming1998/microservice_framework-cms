@@ -24,12 +24,18 @@ public:
   // 设置服务器监听端口
   void setServerPort(int port) { serverPort_ = port; }
 
-private:
-  int threadCount_ = 10;                // 处理用户数据的线程池开辟的线程数
-  int serverPort_ = 0;                  // 服务器监听端口
+  // 设置 SSL 通信上下文，如果使用了，就使用 SSL 加密通信
+  void setSslCtx(CSSLCtx *ctx) { this->sslCtx_ = ctx; }
+  CSSLCtx *sslCtx() { return this->sslCtx_; }
 
-  CThreadPool *threadPoolForListen_;    // 用于接收用户连接的线程池，开辟一个线程即可
-  CThreadPool *threadPoolForClient_;    // 用于处理用户数据的线程池
+private:
+  CSSLCtx *sslCtx_ = nullptr;                     // ssl 通信的上下文
+
+  int threadCount_ = 10;                          // 处理用户数据的线程池开辟的线程数
+  int serverPort_ = 0;                            // 服务器监听端口
+
+  CThreadPool *threadPoolForListen_ = nullptr;    // 用于接收用户连接的线程池，开辟一个线程即可
+  CThreadPool *threadPoolForClient_ = nullptr;    // 用于处理用户数据的线程池
 
 };
 

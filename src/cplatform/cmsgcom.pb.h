@@ -52,7 +52,7 @@ struct TableStruct_cmsgcom_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[18]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[19]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -84,6 +84,9 @@ extern CDownloadAllConfigReqDefaultTypeInternal _CDownloadAllConfigReq_default_i
 class CDownloadconfigReq;
 class CDownloadconfigReqDefaultTypeInternal;
 extern CDownloadconfigReqDefaultTypeInternal _CDownloadconfigReq_default_instance_;
+class CGatewayConfig;
+class CGatewayConfigDefaultTypeInternal;
+extern CGatewayConfigDefaultTypeInternal _CGatewayConfig_default_instance_;
 class CGetServiceReq;
 class CGetServiceReqDefaultTypeInternal;
 extern CGetServiceReqDefaultTypeInternal _CGetServiceReq_default_instance_;
@@ -124,6 +127,7 @@ template<> ::cmsg::CDirRes* Arena::CreateMaybeMessage<::cmsg::CDirRes>(Arena*);
 template<> ::cmsg::CDirRes_CDir* Arena::CreateMaybeMessage<::cmsg::CDirRes_CDir>(Arena*);
 template<> ::cmsg::CDownloadAllConfigReq* Arena::CreateMaybeMessage<::cmsg::CDownloadAllConfigReq>(Arena*);
 template<> ::cmsg::CDownloadconfigReq* Arena::CreateMaybeMessage<::cmsg::CDownloadconfigReq>(Arena*);
+template<> ::cmsg::CGatewayConfig* Arena::CreateMaybeMessage<::cmsg::CGatewayConfig>(Arena*);
 template<> ::cmsg::CGetServiceReq* Arena::CreateMaybeMessage<::cmsg::CGetServiceReq>(Arena*);
 template<> ::cmsg::CLoginReq* Arena::CreateMaybeMessage<::cmsg::CLoginReq>(Arena*);
 template<> ::cmsg::CLoginRes* Arena::CreateMaybeMessage<::cmsg::CLoginRes>(Arena*);
@@ -2702,6 +2706,171 @@ class CDownloadAllConfigReq :
 };
 // -------------------------------------------------------------------
 
+class CGatewayConfig :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CGatewayConfig) */ {
+ public:
+  CGatewayConfig();
+  virtual ~CGatewayConfig();
+
+  CGatewayConfig(const CGatewayConfig& from);
+  CGatewayConfig(CGatewayConfig&& from) noexcept
+    : CGatewayConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline CGatewayConfig& operator=(const CGatewayConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CGatewayConfig& operator=(CGatewayConfig&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CGatewayConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CGatewayConfig* internal_default_instance() {
+    return reinterpret_cast<const CGatewayConfig*>(
+               &_CGatewayConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    17;
+
+  void Swap(CGatewayConfig* other);
+  friend void swap(CGatewayConfig& a, CGatewayConfig& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CGatewayConfig* New() const final {
+    return CreateMaybeMessage<CGatewayConfig>(nullptr);
+  }
+
+  CGatewayConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CGatewayConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CGatewayConfig& from);
+  void MergeFrom(const CGatewayConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CGatewayConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cmsg.CGatewayConfig";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string crtPath = 2;
+  void clear_crtpath();
+  static const int kCrtPathFieldNumber = 2;
+  const std::string& crtpath() const;
+  void set_crtpath(const std::string& value);
+  void set_crtpath(std::string&& value);
+  void set_crtpath(const char* value);
+  void set_crtpath(const char* value, size_t size);
+  std::string* mutable_crtpath();
+  std::string* release_crtpath();
+  void set_allocated_crtpath(std::string* crtpath);
+
+  // string keyPath = 3;
+  void clear_keypath();
+  static const int kKeyPathFieldNumber = 3;
+  const std::string& keypath() const;
+  void set_keypath(const std::string& value);
+  void set_keypath(std::string&& value);
+  void set_keypath(const char* value);
+  void set_keypath(const char* value, size_t size);
+  std::string* mutable_keypath();
+  std::string* release_keypath();
+  void set_allocated_keypath(std::string* keypath);
+
+  // string caPath = 4;
+  void clear_capath();
+  static const int kCaPathFieldNumber = 4;
+  const std::string& capath() const;
+  void set_capath(const std::string& value);
+  void set_capath(std::string&& value);
+  void set_capath(const char* value);
+  void set_capath(const char* value, size_t size);
+  std::string* mutable_capath();
+  std::string* release_capath();
+  void set_allocated_capath(std::string* capath);
+
+  // bool isSSL = 1;
+  void clear_isssl();
+  static const int kIsSSLFieldNumber = 1;
+  bool isssl() const;
+  void set_isssl(bool value);
+
+  // @@protoc_insertion_point(class_scope:cmsg.CGatewayConfig)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr crtpath_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr keypath_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr capath_;
+  bool isssl_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cmsgcom_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CDirConfig :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CDirConfig) */ {
  public:
@@ -2744,7 +2913,7 @@ class CDirConfig :
                &_CDirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   void Swap(CDirConfig* other);
   friend void swap(CDirConfig& a, CDirConfig& b) {
@@ -4180,6 +4349,177 @@ inline void CDownloadAllConfigReq::set_pagecount(::PROTOBUF_NAMESPACE_ID::int32 
 
 // -------------------------------------------------------------------
 
+// CGatewayConfig
+
+// bool isSSL = 1;
+inline void CGatewayConfig::clear_isssl() {
+  isssl_ = false;
+}
+inline bool CGatewayConfig::isssl() const {
+  // @@protoc_insertion_point(field_get:cmsg.CGatewayConfig.isSSL)
+  return isssl_;
+}
+inline void CGatewayConfig::set_isssl(bool value) {
+  
+  isssl_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CGatewayConfig.isSSL)
+}
+
+// string crtPath = 2;
+inline void CGatewayConfig::clear_crtpath() {
+  crtpath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CGatewayConfig::crtpath() const {
+  // @@protoc_insertion_point(field_get:cmsg.CGatewayConfig.crtPath)
+  return crtpath_.GetNoArena();
+}
+inline void CGatewayConfig::set_crtpath(const std::string& value) {
+  
+  crtpath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CGatewayConfig.crtPath)
+}
+inline void CGatewayConfig::set_crtpath(std::string&& value) {
+  
+  crtpath_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CGatewayConfig.crtPath)
+}
+inline void CGatewayConfig::set_crtpath(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  crtpath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CGatewayConfig.crtPath)
+}
+inline void CGatewayConfig::set_crtpath(const char* value, size_t size) {
+  
+  crtpath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CGatewayConfig.crtPath)
+}
+inline std::string* CGatewayConfig::mutable_crtpath() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CGatewayConfig.crtPath)
+  return crtpath_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CGatewayConfig::release_crtpath() {
+  // @@protoc_insertion_point(field_release:cmsg.CGatewayConfig.crtPath)
+  
+  return crtpath_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CGatewayConfig::set_allocated_crtpath(std::string* crtpath) {
+  if (crtpath != nullptr) {
+    
+  } else {
+    
+  }
+  crtpath_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), crtpath);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CGatewayConfig.crtPath)
+}
+
+// string keyPath = 3;
+inline void CGatewayConfig::clear_keypath() {
+  keypath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CGatewayConfig::keypath() const {
+  // @@protoc_insertion_point(field_get:cmsg.CGatewayConfig.keyPath)
+  return keypath_.GetNoArena();
+}
+inline void CGatewayConfig::set_keypath(const std::string& value) {
+  
+  keypath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CGatewayConfig.keyPath)
+}
+inline void CGatewayConfig::set_keypath(std::string&& value) {
+  
+  keypath_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CGatewayConfig.keyPath)
+}
+inline void CGatewayConfig::set_keypath(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  keypath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CGatewayConfig.keyPath)
+}
+inline void CGatewayConfig::set_keypath(const char* value, size_t size) {
+  
+  keypath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CGatewayConfig.keyPath)
+}
+inline std::string* CGatewayConfig::mutable_keypath() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CGatewayConfig.keyPath)
+  return keypath_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CGatewayConfig::release_keypath() {
+  // @@protoc_insertion_point(field_release:cmsg.CGatewayConfig.keyPath)
+  
+  return keypath_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CGatewayConfig::set_allocated_keypath(std::string* keypath) {
+  if (keypath != nullptr) {
+    
+  } else {
+    
+  }
+  keypath_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), keypath);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CGatewayConfig.keyPath)
+}
+
+// string caPath = 4;
+inline void CGatewayConfig::clear_capath() {
+  capath_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CGatewayConfig::capath() const {
+  // @@protoc_insertion_point(field_get:cmsg.CGatewayConfig.caPath)
+  return capath_.GetNoArena();
+}
+inline void CGatewayConfig::set_capath(const std::string& value) {
+  
+  capath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CGatewayConfig.caPath)
+}
+inline void CGatewayConfig::set_capath(std::string&& value) {
+  
+  capath_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CGatewayConfig.caPath)
+}
+inline void CGatewayConfig::set_capath(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  capath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CGatewayConfig.caPath)
+}
+inline void CGatewayConfig::set_capath(const char* value, size_t size) {
+  
+  capath_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CGatewayConfig.caPath)
+}
+inline std::string* CGatewayConfig::mutable_capath() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CGatewayConfig.caPath)
+  return capath_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CGatewayConfig::release_capath() {
+  // @@protoc_insertion_point(field_release:cmsg.CGatewayConfig.caPath)
+  
+  return capath_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CGatewayConfig::set_allocated_capath(std::string* capath) {
+  if (capath != nullptr) {
+    
+  } else {
+    
+  }
+  capath_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), capath);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CGatewayConfig.caPath)
+}
+
+// -------------------------------------------------------------------
+
 // CDirConfig
 
 // string root = 1;
@@ -4236,6 +4576,8 @@ inline void CDirConfig::set_allocated_root(std::string* root) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

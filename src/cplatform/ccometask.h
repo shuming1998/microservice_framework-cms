@@ -3,6 +3,7 @@
 #include "cmsg.h"
 #include "ctask.h"
 
+class CSSLCtx;
 class CCOME_API CComeTask : public CTask {
 public:
   CComeTask();
@@ -11,7 +12,7 @@ public:
   // 开始连接服务器，考虑到要自动重连，所以将连接逻辑单独放到一个函数中
   virtual bool connect();
 
-  bool init() override;
+  virtual bool init();
   virtual void closeBev();
 
   // 封装 bufferevent_read
@@ -32,11 +33,10 @@ public:
 
   // 发送消息
   //virtual bool writeMsg(const CMsg *msg);
-
-  // 写入文件
   virtual bool writeMsg(const void *data, int size);
 
   // 连接成功的消息回调
+  // 如果是 ssl 加密通信，服务端也会进到这个函数中
   virtual void connetedCb() {}
 
   // 关闭消息接收时，数据将发送到此函数，由业务模块重载
@@ -50,7 +50,6 @@ public:
   virtual void setTimer(int ms);
   // 定时器的回调函数
   virtual void timerCb() {}
-
 
   void setServerIp(const char *ip);
   void setServerPort(int port) { this->serverPort_ = port; }
@@ -71,10 +70,16 @@ public:
 
   void setAutoDelete(bool is) { this->autoDelete_ = is; }
 
+
+  // 设置 SSL 通信上下文，如果使用了，就使用 SSL 加密通信
+  void setSslCtx(CSSLCtx *ctx) { this->sslCtx_ = ctx; }
+  CSSLCtx *sslCtx() { return this->sslCtx_; }
+
 protected:
   char readBuf_[4096] = { 0 };        // 读缓冲区
 
 private:
+  CSSLCtx *sslCtx_ = nullptr;         // ssl 通信的上下文
   bool autoDelete_ = true;            // 连接断开时是否清理对象
   bool initBev(int sock); 
   char serverIp_[16] = { 0 };         // 服务器 ip 地址
