@@ -7,7 +7,8 @@
 static int verifyCb(int preverify_ok, X509_STORE_CTX *x509_ctx) {
   if (preverify_ok == 0) {
     std::cerr << "SSL cert validate failed!\n";
-  } else {
+  }
+  else {
     std::cout << "SSL cert validate success!\n";
   }
 
@@ -87,7 +88,7 @@ CSSL CSSLCtx::newCSSL(int socket) {
 }
 
 void CSSLCtx::verify(const char *caCrt) {
-  if (!caCrt || ! sslCtx_) {
+  if (!caCrt || !sslCtx_) {
     std::cerr << "skip verify caCrt: caCrt or sslCtx_ is nullptr!\n";
     return;
   }

@@ -21,9 +21,15 @@
     <ClCompile Include="csslctx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="cssl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="csslctx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="cssl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

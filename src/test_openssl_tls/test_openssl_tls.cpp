@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     // 服务端
     port = atoi(argv[1]);
   }
-  if (argc >  2) {
+  if (argc > 2) {
     // 客户端
     std::cout << "==========Client==========\n";
     std::string ip = argv[2];
@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
     }
     std::cout << "accept socket\n";
 
-        // ssl 发送数据
+    // ssl 发送数据
     std::string data = "server write";
     for (int i = 0; ; ++i) {
       char buf[1024] = { 0 };
