@@ -40,7 +40,7 @@ message CDirReq {
 // 服务端响应目录消息 MSG_DIR_RES
 message CDirRes {
   enum CDirType {
-    OK = 0;		// 目录获取成功 
+    OK = 0;		// 目录获取成功
 	ERROR = 1;  // 目录获取错误
 	NODIR = 2;  // 目录不存在
   }
@@ -70,14 +70,15 @@ message CMessageRes {
   bytes msg = 2;
 }
 
+enum CServiceType {
+  ONE = 0;	// 只取指定的一类微服务
+  ALL = 1;	// 取全部类型的微服务
+}
+
 // MSG_GET_SERVICE_REQ
 message CGetServiceReq {
   string name = 1;  // 服务名称，如果为空，则获取所有服务
-  enum CType {
-    ONE = 0;	// 只取指定的一类微服务
-	ALL = 1;	// 取全部类型的微服务
-  }
-  CType type = 2;
+  CServiceType type = 2;
 }
 
 // 存放微服务名称和微服务列表的 map
@@ -94,6 +95,7 @@ message CServiceMap {
   }
   map<string, CServiceList> serviceMap = 1;
   CMessageRes res  = 2;
+  CServiceType type = 3;
 }
 
 // 存储配置内容

@@ -1,6 +1,8 @@
 #include "cregisterclient.h"
 #include "cmsgcom.pb.h"
 #include "ctools.h"
+#include <fstream>
+#include <thread>
 
 // 缓存的服务列表
 static cmsg::CServiceMap *pbServiceMap = nullptr;
@@ -11,7 +13,7 @@ static std::mutex pbServiceMapMtx;
 // 连接成功的消息回调
 void CRegisterClient::connetedCb() {
   // 发送注册消息
-  LOG_DEBUG("注册中心客户连接成功， 开始发送注册请求!");
+  LOG_DEBUG("CRegisterClient::connetedCb()");
   cmsg::CRegisterReq req;
   req.set_name(serviceName_);
   req.set_ip(serviceIp_);
@@ -33,6 +35,9 @@ void CRegisterClient::registerServer(const char *serviceName, int port, const ch
   }
   servicePort_ = port;
 
+  // 设置自动重连
+  setAutoConnect(true);
+
   // 把任务加入到线程池中
   startConnect();
 }
@@ -41,16 +46,17 @@ void CRegisterClient::getServiceReq(const char *serviceName) {
   LOG_DEBUG("发出获取微服务列表的请求");
   cmsg::CGetServiceReq req;
   if (serviceName) {
-    req.set_type(cmsg::CGetServiceReq_CType_ONE);
+    req.set_type(cmsg::CServiceType::ONE);
     req.set_name(serviceName);
   } else {
-    req.set_type(cmsg::CGetServiceReq_CType_ALL);
+    req.set_type(cmsg::CServiceType::ALL);
   }
   sendMsg(cmsg::MSG_GET_SERVICE_REQ, &req);
 }
 
 cmsg::CServiceMap *CRegisterClient::getAllService() {
   std::lock_guard<std::mutex> guard(pbServiceMapMtx);
+  loadLocalFile();
   if (!pbServiceMap) {
     return nullptr;
   }
@@ -63,7 +69,7 @@ cmsg::CServiceMap *CRegisterClient::getAllService() {
 
 cmsg::CServiceMap::CServiceList CRegisterClient::getServices(const char *serviceName, int timeoutSec) {
   cmsg::CServiceMap::CServiceList serviceList;
-  
+
   // 时间粒度设置为 10 毫秒
   int totalTm = timeoutSec * 100;
   int curTm = 0;
@@ -77,14 +83,20 @@ cmsg::CServiceMap::CServiceList CRegisterClient::getServices(const char *service
   }
 
   if (!isConnected()) {
-    LOG_DEBUG("等待连接超时!");
+    LOG_DEBUG("wait for connect timeout!");
+    // 在连接等待超时的时候，读取本地缓存
+    // 只有第一次读取缓存
+    std::lock_guard<std::mutex> guard(pbServiceMapMtx);
+    if (!pbServiceMap) {
+      loadLocalFile();
+    }
     return serviceList;
   }
 
-  // 2 发送获取微服务的消息 
+  // 2 发送获取微服务的消息
   getServiceReq(serviceName);
 
-  // 3 等待微服务列表消息反馈(有可能拿到上一次的配置) 
+  // 3 等待微服务列表消息反馈(有可能拿到上一次的配置)
   while (curTm < totalTm) {
     std::lock_guard<std::mutex> guard(pbServiceMapMtx);
     if (!pbServiceMap) {
@@ -115,7 +127,7 @@ cmsg::CServiceMap::CServiceList CRegisterClient::getServices(const char *service
 }
 
 void CRegisterClient::registerRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("接收到注册服务的响应");
+  LOG_DEBUG("CRegisterClient::registerRes");
   cmsg::CMessageRes res;
   if (!res.ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("CRegisterClient::registerRes failed: CMessageRes ParseFromArray error!");
@@ -123,26 +135,95 @@ void CRegisterClient::registerRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
 
   if (res.return_() == cmsg::CMessageRes::OK) {
-    LOG_DEBUG("注册微服务成功");
+    LOG_DEBUG("registe service success!");
       return;
   }
 
   std::stringstream ss;
-  ss << "注册微服务失败: " << res.msg();
+  ss << "registe service failed: " << res.msg();
   LOG_DEBUG(ss.str().c_str());
 }
 
 void CRegisterClient::getServiceRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("接收获取服务列表的响应");
-
+  LOG_DEBUG("CRegisterClient::getServiceRes");
   std::lock_guard<std::mutex> guard(pbServiceMapMtx);
+  // 是否替换全部缓存
+  bool isAll = false;
+  cmsg::CServiceMap *cacheServiceMap;
+  cmsg::CServiceMap tmpMap;
+  cacheServiceMap = &tmpMap;
   // 将服务存储到本地
   if (!pbServiceMap) {
     pbServiceMap = new cmsg::CServiceMap();
+    cacheServiceMap = pbServiceMap;
+    isAll = true;
   }
-  if (!pbServiceMap->ParseFromArray(msg->data_, msg->size_)) {
+  if (!cacheServiceMap->ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("cmsg::CServiceMap ParseFromArray failed!");
     return;
   }
+
+  // 区分是获取一种还是全部，判断如何刷新缓存
+  if (cacheServiceMap->type() == cmsg::CServiceType::ALL) {
+    isAll = true;
+  }
+
+  // 内存缓存刷新
+  if (cacheServiceMap == pbServiceMap) {
+    // 内存缓存已经刷新
+  } else {
+    if (isAll) {
+      pbServiceMap->CopyFrom(*cacheServiceMap);
+    } else {
+      // 将刚读取的数据 cacheMap 存储 pbServiceMap 内存缓存中
+      auto cacheMap = cacheServiceMap->mutable_servicemap();
+      if (!cacheMap || cacheMap->empty()) {
+        return;
+      }
+      // 只取第一个
+      auto one = cacheMap->begin();
+      auto sMap = pbServiceMap->mutable_servicemap();
+      // 修改缓存
+      (*sMap)[one->first] = one->second;
+    }
+  }
+
+  // 磁盘缓存刷新，后期应考虑刷新频率，判断刷新策略(是否与上一次有区别)
+  // 生成名称
+  std::stringstream ss;
+  ss << "register_" << serviceName_ << serviceIp_ << servicePort_ << ".cache";
+  LOG_DEBUG("Save local file!");
+  if (!pbServiceMap) {
+    return;
+  }
+  std::ofstream ofs;
+  ofs.open(ss.str(), std::ios::binary);
+  if (!ofs.is_open()) {
+    LOG_DEBUG("save file failed!");
+    return;
+  }
+  pbServiceMap->SerializePartialToOstream(&ofs);
+  ofs.close();
   LOG_DEBUG(pbServiceMap->DebugString());
+}
+
+bool CRegisterClient::loadLocalFile() {
+  LOG_DEBUG("Load local register data");
+  if (!pbServiceMap) {
+    pbServiceMap = new cmsg::CServiceMap();
+  }
+  std::stringstream ss;
+  ss << "register_" << serviceName_ << serviceIp_ << servicePort_ << ".cache";
+  std::ifstream ifs;
+  ifs.open(ss.str(), std::ios::binary);
+  if (!ifs.is_open()) {
+    std::stringstream sss;
+    sss << "ParseFromIstream failed: [" << ss.str() << ']';
+    LOG_DEBUG(sss.str().c_str());
+    return false;
+  }
+
+  pbServiceMap->ParseFromIstream(&ifs);
+  ifs.close();
+  return true;
 }

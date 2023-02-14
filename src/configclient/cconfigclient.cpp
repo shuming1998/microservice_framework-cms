@@ -4,6 +4,7 @@
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
 #include <map>
+#include <thread>
 
 #define PB_ROOT "root/"
 

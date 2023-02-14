@@ -218,30 +218,30 @@ inline bool CMessageRes_CReturn_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CMessageRes_CReturn>(
     CMessageRes_CReturn_descriptor(), name, value);
 }
-enum CGetServiceReq_CType : int {
-  CGetServiceReq_CType_ONE = 0,
-  CGetServiceReq_CType_ALL = 1,
-  CGetServiceReq_CType_CGetServiceReq_CType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  CGetServiceReq_CType_CGetServiceReq_CType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+enum CServiceType : int {
+  ONE = 0,
+  ALL = 1,
+  CServiceType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  CServiceType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool CGetServiceReq_CType_IsValid(int value);
-constexpr CGetServiceReq_CType CGetServiceReq_CType_CType_MIN = CGetServiceReq_CType_ONE;
-constexpr CGetServiceReq_CType CGetServiceReq_CType_CType_MAX = CGetServiceReq_CType_ALL;
-constexpr int CGetServiceReq_CType_CType_ARRAYSIZE = CGetServiceReq_CType_CType_MAX + 1;
+bool CServiceType_IsValid(int value);
+constexpr CServiceType CServiceType_MIN = ONE;
+constexpr CServiceType CServiceType_MAX = ALL;
+constexpr int CServiceType_ARRAYSIZE = CServiceType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CGetServiceReq_CType_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CServiceType_descriptor();
 template<typename T>
-inline const std::string& CGetServiceReq_CType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, CGetServiceReq_CType>::value ||
+inline const std::string& CServiceType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CServiceType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function CGetServiceReq_CType_Name.");
+    "Incorrect type passed to function CServiceType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    CGetServiceReq_CType_descriptor(), enum_t_value);
+    CServiceType_descriptor(), enum_t_value);
 }
-inline bool CGetServiceReq_CType_Parse(
-    const std::string& name, CGetServiceReq_CType* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CGetServiceReq_CType>(
-    CGetServiceReq_CType_descriptor(), name, value);
+inline bool CServiceType_Parse(
+    const std::string& name, CServiceType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CServiceType>(
+    CServiceType_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -1599,36 +1599,6 @@ class CGetServiceReq :
 
   // nested types ----------------------------------------------------
 
-  typedef CGetServiceReq_CType CType;
-  static constexpr CType ONE =
-    CGetServiceReq_CType_ONE;
-  static constexpr CType ALL =
-    CGetServiceReq_CType_ALL;
-  static inline bool CType_IsValid(int value) {
-    return CGetServiceReq_CType_IsValid(value);
-  }
-  static constexpr CType CType_MIN =
-    CGetServiceReq_CType_CType_MIN;
-  static constexpr CType CType_MAX =
-    CGetServiceReq_CType_CType_MAX;
-  static constexpr int CType_ARRAYSIZE =
-    CGetServiceReq_CType_CType_ARRAYSIZE;
-  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
-  CType_descriptor() {
-    return CGetServiceReq_CType_descriptor();
-  }
-  template<typename T>
-  static inline const std::string& CType_Name(T enum_t_value) {
-    static_assert(::std::is_same<T, CType>::value ||
-      ::std::is_integral<T>::value,
-      "Incorrect type passed to function CType_Name.");
-    return CGetServiceReq_CType_Name(enum_t_value);
-  }
-  static inline bool CType_Parse(const std::string& name,
-      CType* value) {
-    return CGetServiceReq_CType_Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
   // string name = 1;
@@ -1643,11 +1613,11 @@ class CGetServiceReq :
   std::string* release_name();
   void set_allocated_name(std::string* name);
 
-  // .cmsg.CGetServiceReq.CType type = 2;
+  // .cmsg.CServiceType type = 2;
   void clear_type();
   static const int kTypeFieldNumber = 2;
-  ::cmsg::CGetServiceReq_CType type() const;
-  void set_type(::cmsg::CGetServiceReq_CType value);
+  ::cmsg::CServiceType type() const;
+  void set_type(::cmsg::CServiceType value);
 
   // @@protoc_insertion_point(class_scope:cmsg.CGetServiceReq)
  private:
@@ -2107,6 +2077,12 @@ class CServiceMap :
   ::cmsg::CMessageRes* mutable_res();
   void set_allocated_res(::cmsg::CMessageRes* res);
 
+  // .cmsg.CServiceType type = 3;
+  void clear_type();
+  static const int kTypeFieldNumber = 3;
+  ::cmsg::CServiceType type() const;
+  void set_type(::cmsg::CServiceType value);
+
   // @@protoc_insertion_point(class_scope:cmsg.CServiceMap)
  private:
   class HasBitSetters;
@@ -2119,6 +2095,7 @@ class CServiceMap :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
       0 > servicemap_;
   ::cmsg::CMessageRes* res_;
+  int type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cmsgcom_2eproto;
 };
@@ -3747,15 +3724,15 @@ inline void CGetServiceReq::set_allocated_name(std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:cmsg.CGetServiceReq.name)
 }
 
-// .cmsg.CGetServiceReq.CType type = 2;
+// .cmsg.CServiceType type = 2;
 inline void CGetServiceReq::clear_type() {
   type_ = 0;
 }
-inline ::cmsg::CGetServiceReq_CType CGetServiceReq::type() const {
+inline ::cmsg::CServiceType CGetServiceReq::type() const {
   // @@protoc_insertion_point(field_get:cmsg.CGetServiceReq.type)
-  return static_cast< ::cmsg::CGetServiceReq_CType >(type_);
+  return static_cast< ::cmsg::CServiceType >(type_);
 }
-inline void CGetServiceReq::set_type(::cmsg::CGetServiceReq_CType value) {
+inline void CGetServiceReq::set_type(::cmsg::CServiceType value) {
   
   type_ = value;
   // @@protoc_insertion_point(field_set:cmsg.CGetServiceReq.type)
@@ -3988,6 +3965,20 @@ inline void CServiceMap::set_allocated_res(::cmsg::CMessageRes* res) {
   }
   res_ = res;
   // @@protoc_insertion_point(field_set_allocated:cmsg.CServiceMap.res)
+}
+
+// .cmsg.CServiceType type = 3;
+inline void CServiceMap::clear_type() {
+  type_ = 0;
+}
+inline ::cmsg::CServiceType CServiceMap::type() const {
+  // @@protoc_insertion_point(field_get:cmsg.CServiceMap.type)
+  return static_cast< ::cmsg::CServiceType >(type_);
+}
+inline void CServiceMap::set_type(::cmsg::CServiceType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CServiceMap.type)
 }
 
 // -------------------------------------------------------------------
@@ -4634,10 +4625,10 @@ template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::cmsg::CMessageRes_CReturn>() {
   return ::cmsg::CMessageRes_CReturn_descriptor();
 }
-template <> struct is_proto_enum< ::cmsg::CGetServiceReq_CType> : ::std::true_type {};
+template <> struct is_proto_enum< ::cmsg::CServiceType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::cmsg::CGetServiceReq_CType>() {
-  return ::cmsg::CGetServiceReq_CType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::cmsg::CServiceType>() {
+  return ::cmsg::CServiceType_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

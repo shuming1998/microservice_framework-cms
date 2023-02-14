@@ -82,14 +82,14 @@ CThreadPool *CThreadPoolFactory::create() {
   static bool isInit = false;
   mtx.lock();
   if (!isInit) {
-#ifdef _WIN32 
+#ifdef _WIN32
     //初始化socket库
     WSADATA wsa;
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #else
     //使用断开连接socket，会发出此信号，造成程序退出
     if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) {
-      return 1;
+      return nullptr;
     }
 #endif
     isInit = true;

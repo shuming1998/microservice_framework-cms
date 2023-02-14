@@ -6,6 +6,7 @@
 #include <event2/bufferevent_ssl.h>
 #include <iostream>
 #include <string.h>
+#include <thread>
 
 CComeTask::CComeTask() {
   mtx_ = new std::mutex();
@@ -15,24 +16,26 @@ CComeTask::~CComeTask() {
   delete mtx_;
 }
 
+// 回调的全局函数，在其中再调用成员函数
 static void sReadCb(struct bufferevent *bev, void *ctx) {
   auto task = (CComeTask *)ctx;
   task->readCb();
 }
-
 static void sWriteCb(struct bufferevent *bev, void *ctx) {
   auto task = (CComeTask *)ctx;
   task->writeCb();
 }
-
 static void sEventCb(struct bufferevent *bev, short what, void *ctx) {
   auto task = (CComeTask *)ctx;
   task->eventCb(what);
 }
-
 static void sTimerCb(evutil_socket_t sock, short what, void *ctx) {
   auto task = (CComeTask *)ctx;
   task->timerCb();
+}
+static void sAutoConnectTimerCb(evutil_socket_t sock, short what, void *ctx) {
+  auto task = (CComeTask *)ctx;
+  task->autoConnectTimerCb();
 }
 
 void CComeTask::setTimer(int ms) {
@@ -51,6 +54,43 @@ void CComeTask::setTimer(int ms) {
   int us = (ms % 1000) * 1000;  // 微秒
   timeval tv = { sec, us };
   event_add(timerEvent_, &tv);
+}
+
+// 设置自动重连的定时器
+void CComeTask::setAutoConnectTimer(int ms) {
+  if (!getBase()) {
+    LOG_ERROR("setAutoConnectTimer failed: base_ not set!");
+    return;
+  }
+
+  // 如果之前设置过自动重连，就先清理上一次的
+  if (autoConnectTimerEvent_) {
+    event_free(autoConnectTimerEvent_);
+    autoConnectTimerEvent_ = nullptr;
+  }
+
+  autoConnectTimerEvent_ = event_new(getBase(), -1, EV_PERSIST, sAutoConnectTimerCb, this);
+  if (!autoConnectTimerEvent_) {
+    LOG_ERROR("setAutoConnectTimer failed: event_new failed!");
+    return;
+  }
+
+  int sec = ms / 1000;          // 秒
+  int us = (ms % 1000) * 1000;  // 微秒
+  timeval tv = { sec, us };
+  event_add(autoConnectTimerEvent_, &tv);
+}
+
+// 自动重连定时器的回调函数
+void CComeTask::autoConnectTimerCb() {
+  std::cout << "autoConnectTimerCb\n";
+  // 如果正在连接，则等待，否则开始连接
+  if (isConnected()) {
+    return;
+  }
+  if (!isConnecting()) {
+    connect();
+  }
 }
 
 int CComeTask::readMsg(void *data, int size) {
@@ -161,9 +201,9 @@ bool CComeTask::initBev(int sock) {
     // 客户端，sock 传入的是 -1
     if (sock < 0) {
       // bufferevent_free 会同时关闭 socket 和 ssl
-      bev_ = bufferevent_openssl_socket_new(getBase(), 
-                                            sock, 
-                                            cssl.ssl(), 
+      bev_ = bufferevent_openssl_socket_new(getBase(),
+                                            sock,
+                                            cssl.ssl(),
                                             BUFFEREVENT_SSL_CONNECTING,
                                             BEV_OPT_CLOSE_ON_FREE);
     } else {
@@ -209,7 +249,22 @@ bool CComeTask::init() {
     return true;
   }
 
+  // 断开三秒自动重连
+  setAutoConnectTimer(3000);
+
+  // 客户端
   return connect();
+}
+
+void CComeTask::clearTimers() {
+  if (autoConnectTimerEvent_) {
+    event_free(autoConnectTimerEvent_);
+    autoConnectTimerEvent_ = nullptr;
+  }
+  if (timerEvent_) {
+    event_free(timerEvent_);
+    timerEvent_ = nullptr;
+  }
 }
 
 void CComeTask::closeBev() {
@@ -228,8 +283,9 @@ void CComeTask::closeBev() {
     memset(&msg_, 0, sizeof(msg_));
   }
 
-  // 清理连接对象空间，如果断开重连，需要单独处理
+  // 清理连接对象空间、清理定时器，如果断开重连，需要单独处理
   if (autoDelete_) {
+    clearTimers();
     delete this;
   }
 }

@@ -52,6 +52,8 @@ public:
 
 private:
   CRegisterClient() {}
+  // 读取本地缓存，线程不安全，在调用之前需要在外部对 pbServiceMap 加锁
+  bool loadLocalFile();
 
   char serviceName_[32] = { 0 };
   char serviceIp_[16] = { 0 };

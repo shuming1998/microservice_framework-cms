@@ -4,6 +4,7 @@
 #include "cmsgtype.pb.h"
 #include "cmsgcom.pb.h"
 #include <iostream>
+#include <thread>
 
 class MySSLClient : public CServiceClient {
 public:

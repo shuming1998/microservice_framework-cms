@@ -471,6 +471,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cmsgcom_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::cmsg::CServiceMap, servicemap_),
   PROTOBUF_FIELD_OFFSET(::cmsg::CServiceMap, res_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CServiceMap, type_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::cmsg::CConfig, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -531,12 +532,12 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 74, -1, sizeof(::cmsg::CServiceMap_CServiceList)},
   { 80, 87, sizeof(::cmsg::CServiceMap_ServiceMapEntry_DoNotUse)},
   { 89, -1, sizeof(::cmsg::CServiceMap)},
-  { 96, -1, sizeof(::cmsg::CConfig)},
-  { 106, -1, sizeof(::cmsg::CDownloadconfigReq)},
-  { 113, -1, sizeof(::cmsg::CConfigList)},
-  { 119, -1, sizeof(::cmsg::CDownloadAllConfigReq)},
-  { 126, -1, sizeof(::cmsg::CGatewayConfig)},
-  { 135, -1, sizeof(::cmsg::CDirConfig)},
+  { 97, -1, sizeof(::cmsg::CConfig)},
+  { 107, -1, sizeof(::cmsg::CDownloadconfigReq)},
+  { 114, -1, sizeof(::cmsg::CConfigList)},
+  { 120, -1, sizeof(::cmsg::CDownloadAllConfigReq)},
+  { 127, -1, sizeof(::cmsg::CGatewayConfig)},
+  { 136, -1, sizeof(::cmsg::CDirConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -578,27 +579,28 @@ const char descriptor_table_protodef_cmsgcom_2eproto[] =
   "\014CRegisterReq\022\014\n\004name\030\001 \001(\t\022\014\n\004port\030\002 \001("
   "\005\022\n\n\002ip\030\003 \001(\t\"c\n\013CMessageRes\022)\n\006return\030\001"
   " \001(\0162\031.cmsg.CMessageRes.CReturn\022\013\n\003msg\030\002"
-  " \001(\014\"\034\n\007CReturn\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\"c\n\016CG"
-  "etServiceReq\022\014\n\004name\030\001 \001(\t\022(\n\004type\030\002 \001(\016"
-  "2\032.cmsg.CGetServiceReq.CType\"\031\n\005CType\022\007\n"
-  "\003ONE\020\000\022\007\n\003ALL\020\001\"\250\002\n\013CServiceMap\0225\n\nservi"
-  "ceMap\030\001 \003(\0132!.cmsg.CServiceMap.ServiceMa"
-  "pEntry\022\036\n\003res\030\002 \001(\0132\021.cmsg.CMessageRes\0322"
-  "\n\010CService\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004"
-  "port\030\003 \001(\005\032;\n\014CServiceList\022+\n\007service\030\001 "
-  "\003(\0132\032.cmsg.CServiceMap.CService\032Q\n\017Servi"
-  "ceMapEntry\022\013\n\003key\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036"
-  ".cmsg.CServiceMap.CServiceList:\0028\001\"h\n\007CC"
-  "onfig\022\023\n\013serviceName\030\001 \001(\t\022\023\n\013servicePor"
-  "t\030\002 \001(\005\022\021\n\tserviceIp\030\003 \001(\t\022\021\n\tprivatePb\030"
-  "\004 \001(\014\022\r\n\005proto\030\005 \001(\014\"<\n\022CDownloadconfigR"
-  "eq\022\023\n\013servicePort\030\001 \001(\005\022\021\n\tserviceIp\030\002 \001"
-  "(\t\",\n\013CConfigList\022\035\n\006config\030\001 \003(\0132\r.cmsg"
-  ".CConfig\"8\n\025CDownloadAllConfigReq\022\014\n\004pag"
-  "e\030\001 \001(\005\022\021\n\tpageCount\030\002 \001(\005\"Q\n\016CGatewayCo"
-  "nfig\022\r\n\005isSSL\030\001 \001(\010\022\017\n\007crtPath\030\002 \001(\t\022\017\n\007"
-  "keyPath\030\003 \001(\t\022\016\n\006caPath\030\004 \001(\t\"\032\n\nCDirCon"
-  "fig\022\014\n\004root\030\001 \001(\tb\006proto3"
+  " \001(\014\"\034\n\007CReturn\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\"@\n\016CG"
+  "etServiceReq\022\014\n\004name\030\001 \001(\t\022 \n\004type\030\002 \001(\016"
+  "2\022.cmsg.CServiceType\"\312\002\n\013CServiceMap\0225\n\n"
+  "serviceMap\030\001 \003(\0132!.cmsg.CServiceMap.Serv"
+  "iceMapEntry\022\036\n\003res\030\002 \001(\0132\021.cmsg.CMessage"
+  "Res\022 \n\004type\030\003 \001(\0162\022.cmsg.CServiceType\0322\n"
+  "\010CService\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004p"
+  "ort\030\003 \001(\005\032;\n\014CServiceList\022+\n\007service\030\001 \003"
+  "(\0132\032.cmsg.CServiceMap.CService\032Q\n\017Servic"
+  "eMapEntry\022\013\n\003key\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036."
+  "cmsg.CServiceMap.CServiceList:\0028\001\"h\n\007CCo"
+  "nfig\022\023\n\013serviceName\030\001 \001(\t\022\023\n\013servicePort"
+  "\030\002 \001(\005\022\021\n\tserviceIp\030\003 \001(\t\022\021\n\tprivatePb\030\004"
+  " \001(\014\022\r\n\005proto\030\005 \001(\014\"<\n\022CDownloadconfigRe"
+  "q\022\023\n\013servicePort\030\001 \001(\005\022\021\n\tserviceIp\030\002 \001("
+  "\t\",\n\013CConfigList\022\035\n\006config\030\001 \003(\0132\r.cmsg."
+  "CConfig\"8\n\025CDownloadAllConfigReq\022\014\n\004page"
+  "\030\001 \001(\005\022\021\n\tpageCount\030\002 \001(\005\"Q\n\016CGatewayCon"
+  "fig\022\r\n\005isSSL\030\001 \001(\010\022\017\n\007crtPath\030\002 \001(\t\022\017\n\007k"
+  "eyPath\030\003 \001(\t\022\016\n\006caPath\030\004 \001(\t\"\032\n\nCDirConf"
+  "ig\022\014\n\004root\030\001 \001(\t* \n\014CServiceType\022\007\n\003ONE\020"
+  "\000\022\007\n\003ALL\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cmsgcom_2eproto_deps[1] = {
   &::descriptor_table_cmsgtype_2eproto,
@@ -627,7 +629,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cms
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_cmsgcom_2eproto_once;
 static bool descriptor_table_cmsgcom_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cmsgcom_2eproto = {
-  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1465,
+  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1498,
   &descriptor_table_cmsgcom_2eproto_once, descriptor_table_cmsgcom_2eproto_sccs, descriptor_table_cmsgcom_2eproto_deps, 19, 1,
   schemas, file_default_instances, TableStruct_cmsgcom_2eproto::offsets,
   file_level_metadata_cmsgcom_2eproto, 19, file_level_enum_descriptors_cmsgcom_2eproto, file_level_service_descriptors_cmsgcom_2eproto,
@@ -703,11 +705,11 @@ constexpr CMessageRes_CReturn CMessageRes::CReturn_MIN;
 constexpr CMessageRes_CReturn CMessageRes::CReturn_MAX;
 constexpr int CMessageRes::CReturn_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CGetServiceReq_CType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CServiceType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_cmsgcom_2eproto);
   return file_level_enum_descriptors_cmsgcom_2eproto[3];
 }
-bool CGetServiceReq_CType_IsValid(int value) {
+bool CServiceType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -717,13 +719,6 @@ bool CGetServiceReq_CType_IsValid(int value) {
   }
 }
 
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-constexpr CGetServiceReq_CType CGetServiceReq::ONE;
-constexpr CGetServiceReq_CType CGetServiceReq::ALL;
-constexpr CGetServiceReq_CType CGetServiceReq::CType_MIN;
-constexpr CGetServiceReq_CType CGetServiceReq::CType_MAX;
-constexpr int CGetServiceReq::CType_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 
 // ===================================================================
 
@@ -3565,12 +3560,12 @@ const char* CGetServiceReq::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .cmsg.CGetServiceReq.CType type = 2;
+      // .cmsg.CServiceType type = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
           CHK_(ptr);
-          set_type(static_cast<::cmsg::CGetServiceReq_CType>(val));
+          set_type(static_cast<::cmsg::CServiceType>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -3618,14 +3613,14 @@ bool CGetServiceReq::MergePartialFromCodedStream(
         break;
       }
 
-      // .cmsg.CGetServiceReq.CType type = 2;
+      // .cmsg.CServiceType type = 2;
       case 2: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
           int value = 0;
           DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
                    int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::cmsg::CGetServiceReq_CType >(value));
+          set_type(static_cast< ::cmsg::CServiceType >(value));
         } else {
           goto handle_unusual;
         }
@@ -3669,7 +3664,7 @@ void CGetServiceReq::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // .cmsg.CGetServiceReq.CType type = 2;
+  // .cmsg.CServiceType type = 2;
   if (this->type() != 0) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnum(
       2, this->type(), output);
@@ -3699,7 +3694,7 @@ void CGetServiceReq::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // .cmsg.CGetServiceReq.CType type = 2;
+  // .cmsg.CServiceType type = 2;
   if (this->type() != 0) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->type(), target);
@@ -3733,7 +3728,7 @@ size_t CGetServiceReq::ByteSizeLong() const {
         this->name());
   }
 
-  // .cmsg.CGetServiceReq.CType type = 2;
+  // .cmsg.CServiceType type = 2;
   if (this->type() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->type());
@@ -4500,6 +4495,7 @@ CServiceMap::HasBitSetters::res(const CServiceMap* msg) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CServiceMap::kServiceMapFieldNumber;
 const int CServiceMap::kResFieldNumber;
+const int CServiceMap::kTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 CServiceMap::CServiceMap()
@@ -4517,12 +4513,15 @@ CServiceMap::CServiceMap(const CServiceMap& from)
   } else {
     res_ = nullptr;
   }
+  type_ = from.type_;
   // @@protoc_insertion_point(copy_constructor:cmsg.CServiceMap)
 }
 
 void CServiceMap::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CServiceMap_cmsgcom_2eproto.base);
-  res_ = nullptr;
+  ::memset(&res_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&type_) -
+      reinterpret_cast<char*>(&res_)) + sizeof(type_));
 }
 
 CServiceMap::~CServiceMap() {
@@ -4554,6 +4553,7 @@ void CServiceMap::Clear() {
     delete res_;
   }
   res_ = nullptr;
+  type_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -4582,6 +4582,14 @@ const char* CServiceMap::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ctx->ParseMessage(mutable_res(), ptr);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .cmsg.CServiceType type = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+          set_type(static_cast<::cmsg::CServiceType>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -4641,6 +4649,20 @@ bool CServiceMap::MergePartialFromCodedStream(
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
           DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadMessage(
                input, mutable_res()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .cmsg.CServiceType type = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
+          int value = 0;
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_type(static_cast< ::cmsg::CServiceType >(value));
         } else {
           goto handle_unusual;
         }
@@ -4723,6 +4745,12 @@ void CServiceMap::SerializeWithCachedSizes(
       2, HasBitSetters::res(this), output);
   }
 
+  // .cmsg.CServiceType type = 3;
+  if (this->type() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnum(
+      3, this->type(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -4786,6 +4814,12 @@ void CServiceMap::SerializeWithCachedSizes(
         2, HasBitSetters::res(this), target);
   }
 
+  // .cmsg.CServiceType type = 3;
+  if (this->type() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      3, this->type(), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -4825,6 +4859,12 @@ size_t CServiceMap::ByteSizeLong() const {
         *res_);
   }
 
+  // .cmsg.CServiceType type = 3;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->type());
+  }
+
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
@@ -4856,6 +4896,9 @@ void CServiceMap::MergeFrom(const CServiceMap& from) {
   if (from.has_res()) {
     mutable_res()->::cmsg::CMessageRes::MergeFrom(from.res());
   }
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
 }
 
 void CServiceMap::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -4885,6 +4928,7 @@ void CServiceMap::InternalSwap(CServiceMap* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   servicemap_.Swap(&other->servicemap_);
   swap(res_, other->res_);
+  swap(type_, other->type_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CServiceMap::GetMetadata() const {

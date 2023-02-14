@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
   client->setServerIp("127.0.0.1");
   client->setServerPort(API_GATEWAY_PORT);
   client->startConnect();
-  
+
   for (int i = 0; i < 10000; ++i) {
     std::stringstream ss;
     ss << "/root/" << i;

@@ -1,9 +1,10 @@
-#include <iostream>
 #include "cservice.h"
 #include "cregisterclient.h"
 #include "cdirservicehandle.h"
 #include "cconfigclient.h"
 #include "ctools.h"
+#include <thread>
+#include <iostream>
 
 class CTestService : public CService {
 public:

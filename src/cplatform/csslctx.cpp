@@ -2,6 +2,7 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <iostream>
+#include <string.h>
 
 // 验证对方证书的回调函数
 static int verifyCb(int preverify_ok, X509_STORE_CTX *x509_ctx) {

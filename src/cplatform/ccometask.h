@@ -45,11 +45,19 @@ public:
   // 激活写入回调
   virtual void beginWrite();
 
-  // 设定定时器，定时调用 timer(任务加入到线程池之后，只能设置一个定时器，在 init 函数中调用) 
+  // 清理所有定时器
+  virtual void clearTimers();
+  // 设定定时器，定时调用 timer(任务加入到线程池之后，只能设置一个定时器，在 init 函数中调用)
   // @param ms 定时调用的毫秒
   virtual void setTimer(int ms);
   // 定时器的回调函数
   virtual void timerCb() {}
+
+  // 设置自动重连的定时器
+  virtual void setAutoConnectTimer(int ms);
+  // 自动重连定时器的回调函数
+  virtual void autoConnectTimerCb();
+
 
   void setServerIp(const char *ip);
   void setServerPort(int port) { this->serverPort_ = port; }
@@ -68,8 +76,16 @@ public:
   bool isConnecting() const { return isConnecting_; }
   bool isConnected() const { return isConnected_; }
 
+  // 设置连接断开时是否自动清理对象，包含清理定时器事件
   void setAutoDelete(bool is) { this->autoDelete_ = is; }
-
+  // 设置自动重连，默认不自动重连，要在添加线程池之前设置
+  // 一旦设置自动重连，对象就不能自动清理
+  void setAutoConnect(bool is) {
+    this->autoConnect_ = is;
+    if (is) {
+      this->autoDelete_ = false;
+    }
+  }
 
   // 设置 SSL 通信上下文，如果使用了，就使用 SSL 加密通信
   void setSslCtx(CSSLCtx *ctx) { this->sslCtx_ = ctx; }
@@ -81,7 +97,10 @@ protected:
 private:
   CSSLCtx *sslCtx_ = nullptr;         // ssl 通信的上下文
   bool autoDelete_ = true;            // 连接断开时是否清理对象
-  bool initBev(int sock); 
+  bool autoConnect_ = false;          // 是否自动重连
+  // 自动重连定时器事件，close 时不清理
+  struct event *autoConnectTimerEvent_ = nullptr;
+  bool initBev(int sock);
   char serverIp_[16] = { 0 };         // 服务器 ip 地址
   int serverPort_ = 0;                // 服务器端口号
   struct bufferevent *bev_ = nullptr;
@@ -93,6 +112,7 @@ private:
   bool isConnecting_ = true;
   bool isConnected_  = false;
   std::mutex *mtx_ = nullptr;
+  // 定时器事件，close 时不清理
   struct event *timerEvent_ = nullptr;
 };
 

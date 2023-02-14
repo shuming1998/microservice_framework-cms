@@ -8,7 +8,7 @@ static cmsg::CServiceMap *serviceMap = nullptr;
 static std::mutex serviceMapMtx;
 
 void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("服务端接收到用户的注册请求");
+  LOG_DEBUG("CRegisterHandle::registerReq");
 
   // 回应的消息
   cmsg::CMessageRes res;
@@ -55,7 +55,7 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
 
   // 已正确接收用户注册信息
   std::stringstream ss;
-  ss << "接收到用户注册信息：" << serviceName << "->" << serviceIp << ":" << servicePort;
+  ss << "registerReq: " << serviceName << "->" << serviceIp << ":" << servicePort;
   LOG_INFO(ss.str().c_str());
 
   // 存储用户注册信息，如果已经注册就更新信息(或者跳过)
@@ -83,7 +83,7 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
     for (auto service : (*pbServiceRted)) {
       if (service.ip() == serviceIp && service.port() == servicePort) {
         std::stringstream ss;
-        ss << "微服务 [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] 已注册！";
+        ss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] already registed!";
         LOG_DEBUG(ss.str().c_str());
         res.set_return_(cmsg::CMessageRes::ERROR);
         res.set_msg(ss.str());
@@ -97,7 +97,7 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
     pService->set_port(servicePort);
     pService->set_name(serviceName);
     std::stringstream ss;
-    ss << "微服务 [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] 注册成功！";
+    ss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] registe success!";
     LOG_DEBUG(ss.str().c_str());
   } // lock_guard
 
@@ -108,11 +108,11 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
 
 void CRegisterHandle::getServiceReq(cmsg::CMsgHead *head, CMsg *msg) {
   // 暂时只发送全部服务
-  LOG_DEBUG("接收到服务的发现请求");
+  LOG_DEBUG("CRegisterHandle::getServiceReq");
 
   cmsg::CGetServiceReq req;
 
-  // 用于错误处理 
+  // 用于错误处理
   cmsg::CServiceMap res;
   res.mutable_res()->set_return_(cmsg::CMessageRes_CReturn_ERROR);
 
@@ -124,6 +124,9 @@ void CRegisterHandle::getServiceReq(cmsg::CMsgHead *head, CMsg *msg) {
     sendMsg(cmsg::MSG_GET_SERVICE_RES, &res);
     return;
   }
+
+  // 返回单种还是全部
+  serviceMap->set_type(req.type());
 
   std::string serviceName = req.name();
   std::stringstream ss;
