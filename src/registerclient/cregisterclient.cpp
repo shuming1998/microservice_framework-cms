@@ -38,8 +38,20 @@ void CRegisterClient::registerServer(const char *serviceName, int port, const ch
   // 设置自动重连
   setAutoConnect(true);
 
+  // 设置心跳定时器时间
+  setTimerMs(3000);
+
+  // 添加默认的 IP 和端口
+  if (getServerIp()[0] == '\0') {
+    setServerIp("127.0.0.1");
+  }
+  if (getServerPort() <= 0) {
+    setServerPort(REGISTER_PORT);
+  }
+
   // 把任务加入到线程池中
   startConnect();
+  loadLocalFile();
 }
 
 void CRegisterClient::getServiceReq(const char *serviceName) {

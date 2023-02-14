@@ -13,7 +13,9 @@
 
 class CCOME_API CTask {
 public:
-  // 初始化任务
+  // 初始化任务，在线程池的任务初始化时调用
+  // 子类必须重写
+  // @return 初始化是否成功
   virtual bool init() = 0;
 
   void setId(int threadId) { threadId_ = threadId; }

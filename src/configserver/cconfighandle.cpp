@@ -18,6 +18,11 @@ void CConfigHandle::uploadConfig(cmsg::CMsgHead *head, CMsg *msg) {
     return;
   }
 
+  if (conf.serviceip().empty()) {
+    std::string ip = clientIp();
+    conf.set_serviceip(ip);
+  }
+
   if (ConfigDAO::get()->uploadConfig(&conf)) {
     res.set_return_(cmsg::CMessageRes_CReturn_OK);
     res.set_msg("OK");

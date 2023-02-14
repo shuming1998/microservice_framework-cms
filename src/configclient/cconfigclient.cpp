@@ -5,6 +5,7 @@
 #include <google/protobuf/dynamic_message.h>
 #include <map>
 #include <thread>
+#include <fstream>
 
 #define PB_ROOT "root/"
 
@@ -160,6 +161,42 @@ google::protobuf::Message *CConfigClient::loadProto(std::string fileName, std::s
   return message_;
 }
 
+bool CConfigClient::startGetConfig(const char *localIp, int localPort,
+                    google::protobuf::Message *configMsg,
+                    configTimerCbFunc func) {
+  regMsgCallback();
+
+  if (localIp) {
+    strncpy(localIp_, localIp, 16);
+  }
+  localPort_ = localPort;
+
+  // 设置当前配置类型
+  setCurServiceMessage(configMsg);
+  // 设置回调函数
+  this->configTimerCb_ = func;
+  // 设置定时器时间间隔
+  this->setTimerMs(3000);
+
+  // 读取本地缓存
+  std::stringstream ss;
+  ss << localPort_ << "_conf.cache";
+  std::ifstream ifs;
+  ifs.open(ss.str(), std::ios::binary);
+  if (!ifs.is_open()) {
+    LOG_DEBUG("open local config failed!");
+  } else {
+    if (configMsg) {
+      curServiceConfig->ParseFromIstream(&ifs);
+      ifs.close();
+    }
+  }
+
+  // 连接配置中心，任务加入线程池
+  startConnect();
+  return true;
+}
+
 bool CConfigClient::startGetConfig(const char *serverIp, int serverPort, 
                                    const char *localIp, int localPort,
                                    google::protobuf::Message *configMsg, 
@@ -172,6 +209,7 @@ bool CConfigClient::startGetConfig(const char *serverIp, int serverPort,
     strncpy(localIp_, localIp, 16);
   }
   localPort_ = localPort;
+  // 设置当前配置类型
   setCurServiceMessage(configMsg);
 
   startConnect();
@@ -187,7 +225,17 @@ bool CConfigClient::startGetConfig(const char *serverIp, int serverPort,
   return true;
 }
 
+bool CConfigClient::init() {
+  CServiceClient::init();
+  // 启动成功之后，先调用一次定时器，确保消息及时获取
+  timerCb();
+  return true;
+}
+
 void CConfigClient::timerCb() {
+  if (configTimerCb_) {
+    configTimerCb_();
+  }
   // 发出获取配置的请求
   if (localPort_ > 0) {
     downloadConfig(localIp_, localPort_);
@@ -241,20 +289,27 @@ bool CConfigClient::getBool(const char *key) {
   return curServiceConfig->GetReflection()->GetBool(*curServiceConfig, field);
 }
 
-bool CConfigClient::getConfig(const char *ip, int port, cmsg::CConfig *outConf) {
+bool CConfigClient::getConfig(const char *ip, int port, cmsg::CConfig *outConf, int timeoutMs) {
+  // 10 毫秒判断一次
+  int count = timeoutMs / 10;
   std::stringstream key;
   key << ip << ':' << port;
-  std::lock_guard<std::mutex> guard(configMapMtx);
-  // 查找配置
-  auto confIt = configMap.find(key.str());
-  if (confIt == configMap.end()) {
-    LOG_DEBUG("config not find!");
-    return false;
+  for (int i = 0; i < count; ++i) {
+    std::lock_guard<std::mutex> guard(configMapMtx);
+    // 查找配置
+    auto confIt = configMap.find(key.str());
+    if (confIt == configMap.end()) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+      continue;
+    }
+
+    // 复制配置
+    outConf->CopyFrom(confIt->second);
+    return true;
   }
-  
-  // 复制配置
-  outConf->CopyFrom(confIt->second);
-  return true;
+
+  LOG_DEBUG("config not find!");
+  return false;
 }
 
 void CConfigClient::wait() {
@@ -323,24 +378,66 @@ void CConfigClient::downloadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
 
   std::stringstream key;
   key << conf.serviceip() << ':' << conf.serviceport();
+
   {
+    // 更新配置
     std::lock_guard<std::mutex> guard(configMapMtx);
     configMap[key.str()] = conf;
   }
 
-  // 存储本地配置
-  if (localPort_ > 0 && curServiceConfig) {
-    std::stringstream localKey;
-    localKey << conf.serviceip() << ':' << localPort_;
-    // 确定是本地的配置项
-    if (key.str() == localKey.str()) {
-      LOG_DEBUG("=====&&&&=====");
-      std::lock_guard<std::mutex> guard(curServiceConfigMtx);
-      if (curServiceConfig) {
-        curServiceConfig->ParseFromString(conf.privatepb());
-      }
-    }
+  // 没有本地配置直接返回
+  if (localPort_ <= 0 || !curServiceConfig) {
+    return;
   }
+
+  std::stringstream localKey;
+  std::string ip = localIp_;
+  if (ip.empty()) {
+    ip = conf.serviceip();
+  }
+  localKey << ip << ':' << localPort_;
+  // 不是本地的配置项直接返回
+  if (key.str() != localKey.str()) {
+    return;
+  }
+
+  std::lock_guard<std::mutex> guard(curServiceConfigMtx);
+  if (!curServiceConfig && !curServiceConfig->ParseFromString(conf.privatepb())) {
+    return;
+  }
+
+  std::cout << "=========================================\n";
+  std::cout << ((cmsg::CConfig *)curServiceConfig)->privatepb() << '\n';
+  std::cout << ((cmsg::CConfig *)curServiceConfig)->serviceip() << '\n';;
+  std::string dstr = curServiceConfig->DebugString();
+  std::cout << dstr << '\n';
+  //LOG_DEBUG(curServiceConfig->DebugString().c_str());
+  std::cout << "=========================================\n";
+  // 存储配置到本地文件：[port]_conf.cache
+  std::stringstream ss;
+  ss << localPort_ << "_conf.cache";
+  std::ofstream ofs;
+  ofs.open(ss.str(), std::ios::binary);
+  if (!ofs.is_open()) {
+    LOG_DEBUG("save local config failed!");
+    return;
+  }
+  curServiceConfig->SerializePartialToOstream(&ofs);
+  ofs.close();
+
+  //// 存储配置到内存
+  //if (localPort_ > 0 && curServiceConfig) {
+  //  std::stringstream localKey;
+  //  localKey << conf.serviceip() << ':' << localPort_;
+  //  // 确定是本地的配置项
+  //  if (key.str() == localKey.str()) {
+  //    LOG_DEBUG("=====&&&&=====");
+  //    std::lock_guard<std::mutex> guard(curServiceConfigMtx);
+  //    if (curServiceConfig) {
+  //      curServiceConfig->ParseFromString(conf.privatepb());
+  //    }
+  //  }
+  //}
 }
 
 cmsg::CConfigList CConfigClient::downloadAllConfig(int page, int pageCount, int timeoutSec) {

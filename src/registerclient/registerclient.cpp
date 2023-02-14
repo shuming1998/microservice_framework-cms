@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     if (services) {
       LOG_DEBUG(services->DebugString());
     }
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::seconds(3));
   }
 
   CThreadPool::wait();

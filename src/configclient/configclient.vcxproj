@@ -78,7 +78,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\cplatform;..\..\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\cplatform;..\..\include;..\registerclient</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -132,12 +132,14 @@
   <ItemGroup>
     <ClCompile Include="..\cplatform\cmsgcom.pb.cc" />
     <ClCompile Include="..\cplatform\cmsgtype.pb.cc" />
+    <ClCompile Include="..\registerclient\cregisterclient.cpp" />
     <ClCompile Include="cconfigclient.cpp" />
     <ClCompile Include="configclient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\cplatform\cmsgcom.pb.h" />
     <ClInclude Include="..\cplatform\cmsgtype.pb.h" />
+    <ClInclude Include="..\registerclient\cregisterclient.h" />
     <ClInclude Include="cconfigclient.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,6 +13,7 @@ namespace google {
 }
 
 typedef void(*uploadConfigResCbFunc)(bool isOk, const char *msg);
+typedef void(*configTimerCbFunc)();
 
 class CConfigClient : public CServiceClient {
 public:
@@ -21,6 +22,12 @@ public:
     return &cc;
   }
 
+  configTimerCbFunc configTimerCb_ = nullptr;
+  // 连接配置中心，开始定时器获取配置
+  bool startGetConfig(const char *localIp, int localPort,
+                      google::protobuf::Message *configMsg,
+                      configTimerCbFunc func);
+
   // 连接配置中心，开启定时器获取配置
   // 封装：regMsgCallback、setServerIp、setServerPort、startConnect、超时等待连接
   bool startGetConfig(const char *serverIp, int serverPort, 
@@ -28,10 +35,12 @@ public:
                       google::protobuf::Message *configMsg, int timeoutSec = 10);
 
   // 定时器调用的回调函数
-  void timerCb();
+  virtual void timerCb();
+
+  virtual bool init();
 
   // 供业务调用，通过此接口获取配置
-  bool getConfig(const char *ip, int port, cmsg::CConfig *outConf);
+  bool getConfig(const char *ip, int port, cmsg::CConfig *outConf, int timeoutMs = 100);
 
   // 获取下载的本地参数
   int getInt(const char *key);
@@ -86,7 +95,7 @@ public:
 private:
   CConfigClient();
 
-  char localIp_[16] = { 0 };  // 本地微服务的 IP
+  char localIp_[16] = { 0 };   // 本地微服务的 IP
   int localPort_ = 0;          // 本地微服务的端口号
 
   // 动态解析 proto 文件

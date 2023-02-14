@@ -54,6 +54,7 @@ void CComeTask::setTimer(int ms) {
   int us = (ms % 1000) * 1000;  // 微秒
   timeval tv = { sec, us };
   event_add(timerEvent_, &tv);
+  LOG_DEBUG("setTimer success!");
 }
 
 // 设置自动重连的定时器
@@ -83,7 +84,7 @@ void CComeTask::setAutoConnectTimer(int ms) {
 
 // 自动重连定时器的回调函数
 void CComeTask::autoConnectTimerCb() {
-  std::cout << "autoConnectTimerCb\n";
+  std::cout << "CComeTask:autoConnectTimerCb\n";
   // 如果正在连接，则等待，否则开始连接
   if (isConnected()) {
     return;
@@ -112,9 +113,9 @@ void CComeTask::beginWrite() {
 
 void CComeTask::eventCb(short what) {
   std::cout << "eventCb " << what << '\n';
+  std::stringstream ss;
   if (what & BEV_EVENT_CONNECTED) {
     std::cout << "BEV_EVENT_CONNECTED\n";
-    std::stringstream ss;
     ss << "connect server " << serverIp_ << ':' << serverPort_ << " success!";
     LOG_INFO(ss.str().c_str());
     // 通知连接成功
@@ -134,8 +135,26 @@ void CComeTask::eventCb(short what) {
   }
 
   // 退出时要处理缓冲
-  if (what & BEV_EVENT_ERROR || what & BEV_EVENT_TIMEOUT) {
-    std::cout << "BEV_EVENT_ERROR || BEV_EVENT_TIMEOUT\n";
+  if (what & BEV_EVENT_ERROR) {
+    std::cout << "BEV_EVENT_ERROR";
+    auto ssl = bufferevent_openssl_get_ssl(bev_);
+    if (ssl) {
+      CSSL cssl;
+      cssl.setSSL(ssl);
+      // 打印证书
+      cssl.printCert();
+      // 打印加密算法
+      cssl.printCipher();
+    }
+    ss << "BEV_EVENT_ERROR ";
+    int sock = bufferevent_getfd(bev_);
+    int err = evutil_socket_geterror(sock);
+    closeBev();
+  }
+
+  if (what & BEV_EVENT_TIMEOUT) {
+    ss << "BEV_EVENT_TIMEOUT";
+    LOG_INFO(ss.str().c_str());
     closeBev();
   }
 
@@ -221,6 +240,19 @@ bool CComeTask::initBev(int sock) {
     }
   }
 
+
+  // 设定读超时时间
+  if (readTimeoutMs_ > 0) {
+    // 秒，微秒
+    timeval readTv = { readTimeoutMs_ / 1000, (readTimeoutMs_ % 1000) * 1000 };
+    bufferevent_set_timeouts(bev_, &readTv, 0);
+  }
+
+  //定时器设定
+  if (timerMs_ > 0)
+  {
+    setTimer(timerMs_);
+  }
 
   // 设置回调函数
   bufferevent_setcb(bev_, sReadCb, sWriteCb, sEventCb, this);
@@ -315,4 +347,15 @@ bool CComeTask::autoConnect(int timeoutSec) {
 
 void CComeTask::setServerIp(const char *ip) { 
   strncpy(this->serverIp_, ip, sizeof(serverIp_));
+}
+
+void CComeTask::setClientIp(const char *ip) {
+  if (!ip) {
+    return;
+  }
+  strncpy(clientIp_, ip, sizeof(clientIp_));
+}
+
+void CComeTask::setLocalIp(const char *ip) {
+  strncpy(this->localIp_, ip, sizeof(localIp_));
 }

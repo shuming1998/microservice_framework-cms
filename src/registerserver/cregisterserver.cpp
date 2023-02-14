@@ -2,7 +2,10 @@
 #include "cregisterhandle.h"
 
 CServiceHandle *CRegisterServer::createServiceHandle() {
-  return new CRegisterHandle();
+  auto handle = new CRegisterHandle();
+  // 设定超时，用于接收心跳包
+  handle->setReadTimeoutMs(5000);
+  return handle;
 }
 
 void CRegisterServer::mainFunc(int argc, char *argv[]) {

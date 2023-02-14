@@ -125,18 +125,33 @@ void CRegisterHandle::getServiceReq(cmsg::CMsgHead *head, CMsg *msg) {
     return;
   }
 
-  // 返回单种还是全部
-  serviceMap->set_type(req.type());
-
   std::string serviceName = req.name();
   std::stringstream ss;
   ss << "CRegisterHandle::getServiceReq service name: " << serviceName;
   LOG_DEBUG(ss.str().c_str());
 
-  // 发送全部微服务数据
-  {
+  cmsg::CServiceMap *sendMap = &res;
+
+
+  
+  { // lock
     std::lock_guard<std::mutex> guard(serviceMapMtx);
-    serviceMap->mutable_res()->set_return_(cmsg::CMessageRes_CReturn_OK);
-    sendMsg(cmsg::MSG_GET_SERVICE_RES, serviceMap);
-  }
+    if (!serviceMap) {
+      serviceMap = new cmsg::CServiceMap();
+    }
+    if (req.type() == cmsg::CServiceType::ALL) {  // 返回全部
+      sendMap = serviceMap;
+    }
+    else {                                      // 返回一种
+      auto sMap = serviceMap->mutable_servicemap();
+      if (sMap && sMap->find(serviceName) != sMap->end()) {
+        (*sendMap->mutable_servicemap())[serviceName] = (*sMap)[serviceName];
+      }
+    }
+  } // unlock
+
+  // 发送微服务数据
+  sendMap->set_type(req.type());
+  sendMap->mutable_res()->set_return_(cmsg::CMessageRes_CReturn_OK);
+  sendMsg(cmsg::MSG_GET_SERVICE_RES, sendMap);
 }

@@ -27,6 +27,9 @@
     <ClCompile Include="..\cplatform\cmsgtype.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\registerclient\cregisterclient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cconfigclient.h">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\cplatform\cmsgtype.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\registerclient\cregisterclient.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

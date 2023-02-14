@@ -9,10 +9,16 @@ public:
   CComeTask();
   virtual ~CComeTask();
 
-  // 开始连接服务器，考虑到要自动重连，所以将连接逻辑单独放到一个函数中
+  // 开始连接服务器
+  // autoConnect 设定是自动重连
+  // @return false: bev 环境未处理，true: 连接任务加入成功，但不代表连接成功
   virtual bool connect();
 
+  // 初始化 bufferevent，客户端建立连接
+  // 添加到线程池任务列表调用，包括客户端和服务端
+  // @return 服务端返回 true，客户端调用 Connect 并返回
   virtual bool init();
+
   virtual void closeBev();
 
   // 封装 bufferevent_read
@@ -66,6 +72,11 @@ public:
   const char *getServerIp() const { return this->serverIp_; };
   const int getServerPort() const { return this->serverPort_; }
 
+  //本地IP用于获取配置项
+  // 客户端在连接成功后设置 不是服务端的接收连接的客户端IP（client_ip()）
+  void setLocalIp(const char *ip);
+  const char *localIp() { return localIp_; };
+
   // 等待连接成功
   // @param timeoutSec 最大等待时间
   bool waitforConnected(int timeoutSec);
@@ -91,16 +102,33 @@ public:
   void setSslCtx(CSSLCtx *ctx) { this->sslCtx_ = ctx; }
   CSSLCtx *sslCtx() { return this->sslCtx_; }
 
+  // 设定读超时，要在加入线程池之前
+  void setReadTimeoutMs(int ms) { readTimeoutMs_ = ms; }
+
+  //设定要在加入线程池之前 virtual void timerCb() {}
+  void setTimerMs(int ms) { timerMs_ = ms; }
+
+  void setClientIp(const char *ip);
+  void setClientPort(int port) { clientPort_ = port; }
+  const char *clientIp() const { return clientIp_; }
+
 protected:
   char readBuf_[4096] = { 0 };        // 读缓冲区
+  char clientIp_[16] = { 0 };         // 服务端收到连接，存放客户端的 IP
+  int clientPort_ = 0;                // 服务端收到连接，存放客户端的 Port
+  char localIp_[16] = { 0 };          // 本地 IP 用于获取配置项
 
 private:
+  bool initBev(int sock);
+
+
+  int readTimeoutMs_ = 0;             // 读超时时间，超时设定要在 bufferevent 创建好之后，即 init 之后
   CSSLCtx *sslCtx_ = nullptr;         // ssl 通信的上下文
   bool autoDelete_ = true;            // 连接断开时是否清理对象
   bool autoConnect_ = false;          // 是否自动重连
   // 自动重连定时器事件，close 时不清理
   struct event *autoConnectTimerEvent_ = nullptr;
-  bool initBev(int sock);
+
   char serverIp_[16] = { 0 };         // 服务器 ip 地址
   int serverPort_ = 0;                // 服务器端口号
   struct bufferevent *bev_ = nullptr;
@@ -114,6 +142,7 @@ private:
   std::mutex *mtx_ = nullptr;
   // 定时器事件，close 时不清理
   struct event *timerEvent_ = nullptr;
+  int timerMs_ = 0;                   // timerCb 定时调用时间
 };
 
 
