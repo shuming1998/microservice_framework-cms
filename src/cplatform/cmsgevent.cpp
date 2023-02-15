@@ -50,8 +50,8 @@ void CMsgEvent::readCb(cmsg::CMsgHead *head, CMsg *msg) {
   (this->*func)(head, msg);
 }
 
+// 循环接收多条消息
 void CMsgEvent::readCb() {
-  // 循环接收多条消息
   // TODO：如果线程退出是否会出错?
   while (1) {
     if (!recvMsg()) {
@@ -63,7 +63,6 @@ void CMsgEvent::readCb() {
     if (!msg) {
       return;
     }
-
     // 在这里会调用注册的回调函数，所以 router 那边只需要注册，不需要调用
     std::string ss;
     ss = "CMsgEvent::readCb(): ";
@@ -87,7 +86,7 @@ bool CMsgEvent::recvMsg() {
       return false;
     }
   }
-  
+
   // 2 开始接收消息头(鉴权，消息大小)
   if (!head_.recved()) {
     // 第二次进来后从上次的位置开始读
@@ -110,17 +109,25 @@ bool CMsgEvent::recvMsg() {
       return false;
     }
 
-    // 鉴权
-    // 获取消息内容大小分配空间
-    bool is = msg_.alloc(pbHead_->msg_size());
-    if (!is) {
-      std::cerr << "msg_.alloc failed!\n";
-      return false;
+    // 处理空包数据
+    if (pbHead_->msg_size() == 0) {
+      LOG_DEBUG("recv msg which size = 0!");
+      msg_.type_ = pbHead_->msg_type();
+      msg_.size_ = 0;
+      return true;
+    } else {  // 正常处理消息
+      // 鉴权
+      // 获取消息内容大小分配空间
+      bool is = msg_.alloc(pbHead_->msg_size());
+      if (!is) {
+        std::cerr << "msg_.alloc failed!\n";
+        return false;
+      }
     }
     // 设置消息类型
     msg_.type_ = pbHead_->msg_type();
   }
-  
+
   // 3 开始接收消息内容
   if (!msg_.recved()) {
     int len = readMsg(msg_.data_ + msg_.recvSize_, msg_.size_ - msg_.recvSize_);

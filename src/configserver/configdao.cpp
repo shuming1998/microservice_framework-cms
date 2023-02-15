@@ -142,6 +142,8 @@ cmsg::CConfig ConfigDAO::downloadConfig(const char *ip, int port) {
   ss << "select private_pb from " << tb;
   ss << " where service_ip='" << ip << "' and service_port=" << port;
   auto rows = mysql_->getResult(ss.str().c_str());
+  conf.set_serviceip(ip);
+  conf.set_serviceport(port);
   if (rows.size() == 0) {
     LOG_DEBUG("download config failed!");
     return conf;

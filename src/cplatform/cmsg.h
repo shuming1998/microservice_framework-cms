@@ -39,7 +39,8 @@ public:
 
   //判断数据是否接收完成
   bool recved() {
-    if (size_ <= 0) {
+    // 可以收到空包
+    if (size_ < 0) {
       return false;
     }
     return recvSize_ == size_;
