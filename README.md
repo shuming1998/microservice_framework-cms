@@ -35,7 +35,6 @@ Configure Multiple Chunkservers:
 Install mfs in other server  		    
 Repeat the  2. step		          
 ###############################################
-
 # 2. configure and run mfschunkserver
 $ echo "[outer ip]  mfsmaster" | grep /etc/hosts
 $ mkdir /mnt/hd1
