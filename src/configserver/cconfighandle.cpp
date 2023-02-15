@@ -3,13 +3,13 @@
 #include "ctools.h"
 
 void CConfigHandle::uploadConfig(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("接收到保存配置的消息");
+  LOG_DEBUG("CConfigHandle::uploadConfig");
 
   // 响应消息
   cmsg::CMessageRes res;
-
   // 从接收到的消息中反序列化出消息内容
   cmsg::CConfig conf;
+
   if (!conf.ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("CConfigHandle::uploadConfig ParseFromArray failed!");
     res.set_return_(cmsg::CMessageRes_CReturn_ERROR);
@@ -36,7 +36,7 @@ void CConfigHandle::uploadConfig(cmsg::CMsgHead *head, CMsg *msg) {
 }
 
 void CConfigHandle::downloadConfig(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("接收到下载配置的消息");
+  LOG_DEBUG("CConfigHandle::downloadConfig");
   cmsg::CDownloadconfigReq req;
 
   if (!req.ParseFromArray(msg->data_, msg->size_)) {
@@ -70,7 +70,7 @@ void CConfigHandle::downloadAllConfig(cmsg::CMsgHead *head, CMsg *msg) {
 }
 
 void CConfigHandle::deleteConfig(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("接收到删除指定微服务配置的消息");
+  LOG_DEBUG("CConfigHandle::deleteConfig");
   // 响应消息
   cmsg::CMessageRes res;
   cmsg::CDownloadconfigReq req;

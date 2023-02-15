@@ -44,8 +44,8 @@ public:
 
   // 获取下载的本地参数
   int getInt(const char *key);
-  std::string getString(const char *key);
   bool getBool(const char *key);   // isSSL
+  std::string getString(const char *key);
 
   // 上传配置请求
   void uploadConfig(cmsg::CConfig *conf);

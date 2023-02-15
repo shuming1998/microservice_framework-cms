@@ -27,8 +27,8 @@ int main(int argc, char *argv[]) {
   // CRegisterClient::get()->getServiceReq(NULL);
   // CRegisterClient::get()->getServiceReq("test");
   for (;;) {
-    CRegisterClient::get()->getServiceReq(NULL);
-    //CRegisterClient::get()->getServiceReq("test");
+    //CRegisterClient::get()->getServiceReq(NULL);
+    CRegisterClient::get()->getServiceReq("test");
     auto services = CRegisterClient::get()->getAllService();
     if (services) {
       LOG_DEBUG(services->DebugString());

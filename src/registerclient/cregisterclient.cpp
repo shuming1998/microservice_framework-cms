@@ -10,6 +10,14 @@ static cmsg::CServiceMap *pbServiceMap = nullptr;
 static cmsg::CServiceMap *pbClientMap = nullptr;
 static std::mutex pbServiceMapMtx;
 
+void CRegisterClient::timerCb() {
+  static long long count = 0;
+  count++;
+  cmsg::CMsgHeart req;
+  req.set_count(count);
+  sendMsg(cmsg::MSG_HEART_REQ, &req);
+}
+
 // 连接成功的消息回调
 void CRegisterClient::connetedCb() {
   // 发送注册消息
@@ -55,7 +63,7 @@ void CRegisterClient::registerServer(const char *serviceName, int port, const ch
 }
 
 void CRegisterClient::getServiceReq(const char *serviceName) {
-  LOG_DEBUG("发出获取微服务列表的请求");
+  LOG_DEBUG("CRegisterClient::getServiceReq");
   cmsg::CGetServiceReq req;
   if (serviceName) {
     req.set_type(cmsg::CServiceType::ONE);
@@ -216,7 +224,6 @@ void CRegisterClient::getServiceRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
   pbServiceMap->SerializePartialToOstream(&ofs);
   ofs.close();
-  LOG_DEBUG(pbServiceMap->DebugString());
 }
 
 bool CRegisterClient::loadLocalFile() {
@@ -229,9 +236,11 @@ bool CRegisterClient::loadLocalFile() {
   std::ifstream ifs;
   ifs.open(ss.str(), std::ios::binary);
   if (!ifs.is_open()) {
-    std::stringstream sss;
-    sss << "ParseFromIstream failed: [" << ss.str() << ']';
-    LOG_DEBUG(sss.str().c_str());
+    std::stringstream log;
+    log << "ParseFromIstream failed: [";
+    log << ss.str();
+    log << ']';
+    LOG_DEBUG(log.str().c_str());
     return false;
   }
 

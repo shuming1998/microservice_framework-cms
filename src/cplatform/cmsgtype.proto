@@ -21,6 +21,6 @@ enum CMsgType {
   MSG_DELETE_CONFIG_RES = 16;		// 删除指定微服务配置响应			CMessageRes
 
 
-
+  MSG_HEART_REQ = 65534;			// 心跳
   MSG_MAX_TYPE = 65535;				// 边界用于排除错误数据
 }

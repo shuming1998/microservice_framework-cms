@@ -52,7 +52,7 @@ struct TableStruct_cmsgcom_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[19]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[20]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -102,6 +102,9 @@ extern CMessageResDefaultTypeInternal _CMessageRes_default_instance_;
 class CMsgHead;
 class CMsgHeadDefaultTypeInternal;
 extern CMsgHeadDefaultTypeInternal _CMsgHead_default_instance_;
+class CMsgHeart;
+class CMsgHeartDefaultTypeInternal;
+extern CMsgHeartDefaultTypeInternal _CMsgHeart_default_instance_;
 class CRegisterReq;
 class CRegisterReqDefaultTypeInternal;
 extern CRegisterReqDefaultTypeInternal _CRegisterReq_default_instance_;
@@ -133,6 +136,7 @@ template<> ::cmsg::CLoginReq* Arena::CreateMaybeMessage<::cmsg::CLoginReq>(Arena
 template<> ::cmsg::CLoginRes* Arena::CreateMaybeMessage<::cmsg::CLoginRes>(Arena*);
 template<> ::cmsg::CMessageRes* Arena::CreateMaybeMessage<::cmsg::CMessageRes>(Arena*);
 template<> ::cmsg::CMsgHead* Arena::CreateMaybeMessage<::cmsg::CMsgHead>(Arena*);
+template<> ::cmsg::CMsgHeart* Arena::CreateMaybeMessage<::cmsg::CMsgHeart>(Arena*);
 template<> ::cmsg::CRegisterReq* Arena::CreateMaybeMessage<::cmsg::CRegisterReq>(Arena*);
 template<> ::cmsg::CServiceMap* Arena::CreateMaybeMessage<::cmsg::CServiceMap>(Arena*);
 template<> ::cmsg::CServiceMap_CService* Arena::CreateMaybeMessage<::cmsg::CServiceMap_CService>(Arena*);
@@ -2848,6 +2852,132 @@ class CGatewayConfig :
 };
 // -------------------------------------------------------------------
 
+class CMsgHeart :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CMsgHeart) */ {
+ public:
+  CMsgHeart();
+  virtual ~CMsgHeart();
+
+  CMsgHeart(const CMsgHeart& from);
+  CMsgHeart(CMsgHeart&& from) noexcept
+    : CMsgHeart() {
+    *this = ::std::move(from);
+  }
+
+  inline CMsgHeart& operator=(const CMsgHeart& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CMsgHeart& operator=(CMsgHeart&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CMsgHeart& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CMsgHeart* internal_default_instance() {
+    return reinterpret_cast<const CMsgHeart*>(
+               &_CMsgHeart_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    18;
+
+  void Swap(CMsgHeart* other);
+  friend void swap(CMsgHeart& a, CMsgHeart& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CMsgHeart* New() const final {
+    return CreateMaybeMessage<CMsgHeart>(nullptr);
+  }
+
+  CMsgHeart* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CMsgHeart>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CMsgHeart& from);
+  void MergeFrom(const CMsgHeart& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CMsgHeart* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cmsg.CMsgHeart";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int64 count = 1;
+  void clear_count();
+  static const int kCountFieldNumber = 1;
+  ::PROTOBUF_NAMESPACE_ID::int64 count() const;
+  void set_count(::PROTOBUF_NAMESPACE_ID::int64 value);
+
+  // @@protoc_insertion_point(class_scope:cmsg.CMsgHeart)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::int64 count_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cmsgcom_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CDirConfig :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CDirConfig) */ {
  public:
@@ -2890,7 +3020,7 @@ class CDirConfig :
                &_CDirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   void Swap(CDirConfig* other);
   friend void swap(CDirConfig& a, CDirConfig& b) {
@@ -4511,6 +4641,24 @@ inline void CGatewayConfig::set_allocated_capath(std::string* capath) {
 
 // -------------------------------------------------------------------
 
+// CMsgHeart
+
+// int64 count = 1;
+inline void CMsgHeart::clear_count() {
+  count_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 CMsgHeart::count() const {
+  // @@protoc_insertion_point(field_get:cmsg.CMsgHeart.count)
+  return count_;
+}
+inline void CMsgHeart::set_count(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CMsgHeart.count)
+}
+
+// -------------------------------------------------------------------
+
 // CDirConfig
 
 // string root = 1;
@@ -4567,6 +4715,8 @@ inline void CDirConfig::set_allocated_root(std::string* root) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

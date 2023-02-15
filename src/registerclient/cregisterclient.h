@@ -5,7 +5,15 @@
 // 注册中心客户端在 windows 中直接引用文件
 class CRegisterClient : public CServiceClient {
 public:
-  // 连接成功的消息回调
+  static CRegisterClient *get() {
+    static CRegisterClient *client = nullptr;
+    if (!client) {
+      client = new CRegisterClient();
+    }
+    return client;
+  }
+
+  // 连接成功的消息回调，由业务类重载
   virtual void connetedCb() override;
 
   // 向注册中心注册服务，此函数需要第一个调用，建立连接
@@ -30,19 +38,15 @@ public:
   // @brief ①等待连接成功 ②发送获取微服务的消息 ③等待微服务列表消息反馈(有可能拿到上一次的配置)
   cmsg::CServiceMap::CServiceList getServices(const char *serviceName, int timeoutSec);
 
-  static CRegisterClient *get() {
-    static CRegisterClient *client = nullptr;
-    if (!client) {
-      client = new CRegisterClient();
-    }
-    return client;
-  }
 
   // 接收注册服务的响应消息
   void registerRes(cmsg::CMsgHead *head, CMsg *msg);
 
   // 接收获取服务列表的响应消息
   void getServiceRes(cmsg::CMsgHead *head, CMsg *msg);
+
+  //定时器，用于发送心跳
+  virtual void timerCb();
 
   // 注册上面的回调函数
   static void regMsgCallback() {

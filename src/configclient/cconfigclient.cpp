@@ -77,7 +77,6 @@ google::protobuf::Message *CConfigClient::loadProto(std::string fileName, std::s
       LOG_DEBUG("proto 文件中没有 message!");
       return nullptr;
     }
-
     // 取第一个类型
     messageDesc = fileDesc->message_type(0);
   } else {
@@ -109,14 +108,13 @@ google::protobuf::Message *CConfigClient::loadProto(std::string fileName, std::s
 
   LOG_DEBUG(messageDesc->DebugString().c_str());
 
-  // 反射生成 message 对象
-  if (message_) {
-    delete message_;
-  }
+
   // 动态创建消息类型的工厂，不能销毁，否则由它创建的 message 对象也会销毁
   static google::protobuf::DynamicMessageFactory factory;
   // 先创建一个类型原型
   auto messageProto = factory.GetPrototype(messageDesc);
+  // 反射生成 message 对象
+  delete message_;
   message_ = messageProto->New();
   // 要传入数据库的 proto 文件内容格式：
 
@@ -144,16 +142,16 @@ google::protobuf::Message *CConfigClient::loadProto(std::string fileName, std::s
   std::map<std::string, const google::protobuf::EnumDescriptor *> enumDesc;
   for (int i = 0; i < messageDesc->field_count(); ++i) {
     auto field = messageDesc->field(i);
-    if (field->type() != google::protobuf::FieldDescriptor::TYPE_ENUM) {
-      continue;
+    if (field->type() == google::protobuf::FieldDescriptor::TYPE_ENUM) {
+      // 已经添加过该枚举类型
+      if (enumDesc.find(field->enum_type()->name()) != enumDesc.end()) {
+        continue;
+      }
+      // 找到枚举的类型
+      enumDesc[field->enum_type()->name()] = field->enum_type();
+      outProtoCode += field->enum_type()->DebugString();
+      outProtoCode += "\n";
     }
-    // 已经添加过该枚举类型
-    if (enumDesc.find(field->enum_type()->name()) != enumDesc.end()) {
-      continue;
-    }
-    // 找到枚举的类型
-    outProtoCode += field->enum_type()->DebugString() + "\n";
-    enumDesc[field->enum_type()->name()] = field->enum_type();
   }
 
   // message 类名
@@ -188,8 +186,8 @@ bool CConfigClient::startGetConfig(const char *localIp, int localPort,
   } else {
     if (configMsg) {
       curServiceConfig->ParseFromIstream(&ifs);
-      ifs.close();
     }
+    ifs.close();
   }
 
   // 连接配置中心，任务加入线程池
@@ -212,7 +210,9 @@ bool CConfigClient::startGetConfig(const char *serverIp, int serverPort,
   // 设置当前配置类型
   setCurServiceMessage(configMsg);
 
+  // 连接配置中心任务加入到线程池
   startConnect();
+
   if (!waitforConnected(timeoutSec)) {
     LOG_DEBUG("连接配置中心失败!");
     return false;
@@ -294,6 +294,7 @@ bool CConfigClient::getConfig(const char *ip, int port, cmsg::CConfig *outConf, 
   int count = timeoutMs / 10;
   std::stringstream key;
   key << ip << ':' << port;
+
   for (int i = 0; i < count; ++i) {
     std::lock_guard<std::mutex> guard(configMapMtx);
     // 查找配置
@@ -317,12 +318,12 @@ void CConfigClient::wait() {
 }
 
 void CConfigClient::uploadConfig(cmsg::CConfig *conf) {
-  LOG_DEBUG("上传配置信息");
+  LOG_DEBUG("CConfigClient::uploadConfig");
   sendMsg(cmsg::MSG_UPLOAD_CONFIG_REQ, conf);
 }
 
 void CConfigClient::uploadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("上传配置信息响应");
+  LOG_DEBUG("CConfigClient::uploadConfigRes");
   cmsg::CMessageRes res;
   if (!res.ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("ParseFromArray failed!");
@@ -333,16 +334,16 @@ void CConfigClient::uploadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
 
   if (res.return_() == cmsg::CMessageRes_CReturn_OK) {
-    LOG_DEBUG("上传配置成功");
+    LOG_DEBUG("uploadConfig failed!");
     if (uploadConfigResCb_) {
-      uploadConfigResCb_(true, "上传配置成功");
+      uploadConfigResCb_(true, "uploadConfig success!");
     }
     return;
   }
 
   // 上传失败
   std::stringstream ss;
-  ss << "上传配置失败：" << res.msg();
+  ss << "uploadConfig failed：" << res.msg();
   if (uploadConfigResCb_) {
     uploadConfigResCb_(false, ss.str().c_str());
   }
@@ -368,7 +369,7 @@ void CConfigClient::downloadConfig(const char *ip, int port) {
 }
 
 void CConfigClient::downloadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("下载配置信息响应");
+  LOG_DEBUG("CConfigClient::downloadConfigRes");
   cmsg::CConfig conf;
   if (!conf.ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("downloadConfigRes ParseFromArray failed!");
@@ -402,17 +403,14 @@ void CConfigClient::downloadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
 
   std::lock_guard<std::mutex> guard(curServiceConfigMtx);
-  if (!curServiceConfig && !curServiceConfig->ParseFromString(conf.privatepb())) {
+  if (!curServiceConfig->ParseFromString(conf.privatepb())) {
     return;
   }
 
-  std::cout << "=========================================\n";
-  std::cout << ((cmsg::CConfig *)curServiceConfig)->privatepb() << '\n';
-  std::cout << ((cmsg::CConfig *)curServiceConfig)->serviceip() << '\n';;
-  std::string dstr = curServiceConfig->DebugString();
-  std::cout << dstr << '\n';
-  //LOG_DEBUG(curServiceConfig->DebugString().c_str());
-  std::cout << "=========================================\n";
+  // 测试 ParseFromString bug
+  cmsg::CDirConfig cconfig;
+  cconfig.ParseFromString(conf.privatepb());
+
   // 存储配置到本地文件：[port]_conf.cache
   std::stringstream ss;
   ss << localPort_ << "_conf.cache";
@@ -423,21 +421,8 @@ void CConfigClient::downloadConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
     return;
   }
   curServiceConfig->SerializePartialToOstream(&ofs);
+  //cconfig.SerializePartialToOstream(&ofs);
   ofs.close();
-
-  //// 存储配置到内存
-  //if (localPort_ > 0 && curServiceConfig) {
-  //  std::stringstream localKey;
-  //  localKey << conf.serviceip() << ':' << localPort_;
-  //  // 确定是本地的配置项
-  //  if (key.str() == localKey.str()) {
-  //    LOG_DEBUG("=====&&&&=====");
-  //    std::lock_guard<std::mutex> guard(curServiceConfigMtx);
-  //    if (curServiceConfig) {
-  //      curServiceConfig->ParseFromString(conf.privatepb());
-  //    }
-  //  }
-  //}
 }
 
 cmsg::CConfigList CConfigClient::downloadAllConfig(int page, int pageCount, int timeoutSec) {
@@ -472,18 +457,17 @@ cmsg::CConfigList CConfigClient::downloadAllConfig(int page, int pageCount, int 
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
+
   return configs;
 }
 
 void CConfigClient::downloadAllConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("获取全部配置列表响应");
+  LOG_DEBUG("CConfigClient::downloadAllConfigRes");
   std::lock_guard<std::mutex> guard(allConfigsMtx);
   if (!allConfigs) {
     allConfigs = new cmsg::CConfigList();
   }
   allConfigs->ParseFromArray(msg->data_, msg->size_);
-
-
 }
 
 void CConfigClient::deleteConfig(const char *ip, int port) {
@@ -503,7 +487,7 @@ void CConfigClient::deleteConfig(const char *ip, int port) {
 }
 
 void CConfigClient::deleteConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
-  LOG_DEBUG("删除配置响应");
+  LOG_DEBUG("CConfigClient::deleteConfigRes");
   cmsg::CMessageRes res;
   if (!res.ParseFromArray(msg->data_, msg->size_)) {
     LOG_DEBUG("deleteConfigRes ParseFromArray failed!");
@@ -511,9 +495,9 @@ void CConfigClient::deleteConfigRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
 
   if (res.return_() == cmsg::CMessageRes_CReturn_OK) {
-    LOG_DEBUG("删除配置成功");
+    LOG_DEBUG("deleteConfig success!");
     return;
   }
 
-  LOG_DEBUG("删除配置失败");
+  LOG_DEBUG("deleteConfig failed!");
 }

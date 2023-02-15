@@ -113,9 +113,9 @@ void CComeTask::beginWrite() {
 
 void CComeTask::eventCb(short what) {
   std::cout << "eventCb " << what << '\n';
-  std::stringstream ss;
   if (what & BEV_EVENT_CONNECTED) {
     std::cout << "BEV_EVENT_CONNECTED\n";
+    std::stringstream ss;
     ss << "connect server " << serverIp_ << ':' << serverPort_ << " success!";
     LOG_INFO(ss.str().c_str());
     // 通知连接成功
@@ -146,15 +146,15 @@ void CComeTask::eventCb(short what) {
       // 打印加密算法
       cssl.printCipher();
     }
-    ss << "BEV_EVENT_ERROR ";
+    std::cout << "BEV_EVENT_ERROR\n";
     int sock = bufferevent_getfd(bev_);
     int err = evutil_socket_geterror(sock);
+    LOG_DEBUG(evutil_socket_error_to_string(err));
     closeBev();
   }
 
   if (what & BEV_EVENT_TIMEOUT) {
-    ss << "BEV_EVENT_TIMEOUT";
-    LOG_INFO(ss.str().c_str());
+    std::cout << "BEV_EVENT_TIMEOUT\n";
     closeBev();
   }
 

@@ -131,8 +131,11 @@ message CGatewayConfig {
   string crtPath = 2;		// 证书路径
   string keyPath = 3;		// 私钥路径
   string caPath = 4;		// 证书签名路径
-  //int32 serverPort = 5;		// 服务器端口号,非 ssl 默认为 API_GATEWAY_PORT 
-							//			      ssl 默认为 API_GATEWAY_SSL_PORT
+}
+
+// 心跳
+message CMsgHeart {
+  int64 count = 1;
 }
 
 // 测试的配置项

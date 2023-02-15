@@ -82,11 +82,11 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
     // 遍历 pb service 列表中的 service
     for (auto service : (*pbServiceRted)) {
       if (service.ip() == serviceIp && service.port() == servicePort) {
-        std::stringstream ss;
-        ss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] already registed!";
-        LOG_DEBUG(ss.str().c_str());
+        std::stringstream sss;
+        sss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] already registed!";
+        LOG_DEBUG(sss.str().c_str());
         res.set_return_(cmsg::CMessageRes::ERROR);
-        res.set_msg(ss.str());
+        res.set_msg(sss.str());
         sendMsg(cmsg::MSG_REGISTER_RES, &res);
         return;
       }
@@ -96,8 +96,8 @@ void CRegisterHandle::registerReq(cmsg::CMsgHead *head, CMsg *msg) {
     pService->set_ip(serviceIp);
     pService->set_port(servicePort);
     pService->set_name(serviceName);
-    std::stringstream ss;
-    ss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] registe success!";
+    std::stringstream ssss;
+    ssss << "service [" << serviceName.c_str() << "->" << serviceIp << ':' << servicePort << "] registe success!";
     LOG_DEBUG(ss.str().c_str());
   } // lock_guard
 
