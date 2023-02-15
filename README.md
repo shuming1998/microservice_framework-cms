@@ -33,8 +33,8 @@ $ mfsmaster
 ###############################################
 #       Configure Multiple Chunkservers:      #
 ###############################################
-#  		  Install mfs in other server  		  #
-#		    Repeat the second step		      #
+#  		    Install mfs in other server  		    #
+#		         Repeat the  2. step		          #
 ###############################################
 
 # 2. configure and run mfschunkserver
