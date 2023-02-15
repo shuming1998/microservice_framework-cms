@@ -54,6 +54,11 @@ $ mfschunkserver
 # 3. begin to use mfs
 $ mkdir /mnt/mfs
 $ mfsmount -H mfsmaster /mnt/mfs
+# Set/cat the number of backups
+$ mfssetgoal -r 3 /mnt/mfs
+$ mfssetgoal /mnt/mfs
+# view file info
+$ mfsfileinfo /mnt/mfs/[filename]
 ```
 
 
