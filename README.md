@@ -31,10 +31,9 @@ $ chown mfs:mfs /var/lib/mfs
 $ mfsmaster
 
 ###############################################
-#       Configure Multiple Chunkservers:      #
-###############################################
-#  		    Install mfs in other server  		    #
-#		         Repeat the  2. step		          #
+Configure Multiple Chunkservers:      
+Install mfs in other server  		    
+Repeat the  2. step		          
 ###############################################
 
 # 2. configure and run mfschunkserver
