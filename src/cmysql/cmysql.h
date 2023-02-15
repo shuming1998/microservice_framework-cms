@@ -1,4 +1,4 @@
-ï»¿#ifndef CMYSQL_H
+#ifndef CMYSQL_H
 #define CMYSQL_H
 
 #include "cdata.h"
@@ -10,64 +10,63 @@ namespace cmysql {
 
 class CMYSQL_API CMysql {
 public:
-  // åˆå§‹åŒ– MYSQL API
+  // ³õÊ¼»¯ MYSQL API
   bool init();
 
-  // æ¸…ç†å ç”¨çš„æ‰€æœ‰èµ„æº
+  // ÇåÀíÕ¼ÓÃµÄËùÓĞ×ÊÔ´
   void close();
 
-  // å»ºç«‹æ•°æ®åº“è¿æ¥(ä¸è€ƒè™‘çº¿ç¨‹å®‰å…¨)
-  // @param flag è®¾ç½®æ”¯æŒå¤šæ¡è¯­å¥
+  // ½¨Á¢Êı¾İ¿âÁ¬½Ó(²»¿¼ÂÇÏß³Ì°²È«)
+  // @param flag ÉèÖÃÖ§³Ö¶àÌõÓï¾ä
   bool connect(const char *host, const char *user, const char *password, const char *db, unsigned short port = 3306, /*const char *unixSock = 0,*/ unsigned long flag = 0);
 
-  // æ‰§è¡Œ sql è¯­å¥. å¦‚æœ sqlLen = 0ï¼Œåˆ™ç”¨ strlen è·å–å­—ç¬¦ä¸²é•¿åº¦
+  // Ö´ĞĞ sql Óï¾ä. Èç¹û sqlLen = 0£¬ÔòÓÃ strlen »ñÈ¡×Ö·û´®³¤¶È
   bool query(const char *sql, unsigned long sqlLen = 0);
 
-  // Mysql å‚æ•°è®¾å®š(è¶…æ—¶æ—¶é—´ã€è‡ªåŠ¨é‡è¿ï¼Œåœ¨è¿æ¥ä¹‹å‰è°ƒç”¨)
+  // Mysql ²ÎÊıÉè¶¨(³¬Ê±Ê±¼ä¡¢×Ô¶¯ÖØÁ¬£¬ÔÚÁ¬½ÓÖ®Ç°µ÷ÓÃ)
   bool option(COption opt, const void *arg);
 
-  // è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´
+  // ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä
   bool setConnectTimeout(int sec);
 
-  // è®¾ç½®è¶…æ—¶é‡è¿
+  // ÉèÖÃ³¬Ê±ÖØÁ¬
   bool setReconnect(bool is = true);
 
-  // è·å–ç»“æœé›†
-  bool storeResult();   // è¿”å›å…¨éƒ¨ç»“æœ
-  bool useResult();     // å¼€å§‹æ¥æ”¶ç»“æœï¼Œé€šè¿‡ fetch è·å–ç»“æœ
+  // »ñÈ¡½á¹û¼¯
+  bool storeResult();   // ·µ»ØÈ«²¿½á¹û
+  bool useResult();     // ¿ªÊ¼½ÓÊÕ½á¹û£¬Í¨¹ı fetch »ñÈ¡½á¹û
 
-  // é‡Šæ”¾ç»“æœé›†å ç”¨çš„ç©ºé—´
+  // ÊÍ·Å½á¹û¼¯Õ¼ÓÃµÄ¿Õ¼ä
   void freeResult();
 
-  // è·å–ä¸€è¡Œæ•°æ®
+  // »ñÈ¡Ò»ĞĞÊı¾İ
   std::vector<CData> fetchRow();
 
-  // ç”Ÿæˆ insert sql è¯­å¥
+  // Éú³É insert sql Óï¾ä
   std::string getInsertSql(MData kv, std::string table);
 
-  // æ’å…¥éäºŒè¿›åˆ¶æ•°æ®
+  // ²åÈë·Ç¶ş½øÖÆÊı¾İ
   bool insert(MData kv, std::string table);
 
-  // æ’å…¥äºŒè¿›åˆ¶æ•°æ®
+  // ²åÈë¶ş½øÖÆÊı¾İ
   bool insertBin(MData kv, std::string table);
 
-  // è·å– update æ•°æ®çš„ sql è¯­å¥ï¼Œç”¨æˆ·è¦åŒ…å« where
+  // »ñÈ¡ update Êı¾İµÄ sql Óï¾ä£¬ÓÃ»§Òª°üº¬ where
   std::string getUpdateSql(MData kv, std::string table, std::string where);
 
-  // æ‰§è¡Œ updateï¼Œè¿”å›æ›´æ–°æ•°é‡ï¼Œå¤±è´¥è¿”å› -1
+  // Ö´ĞĞ update£¬·µ»Ø¸üĞÂÊıÁ¿£¬Ê§°Ü·µ»Ø -1
   int update(MData kv, std::string table, std::string where);
 
-  // update äºŒè¿›åˆ¶æ•°æ®
+  // update ¶ş½øÖÆÊı¾İ
   int updateBin(MData kv, std::string table, std::string where);
 
-  // äº‹åŠ¡æ¥å£
+  // ÊÂÎñ½Ó¿Ú
   bool startTransaction();
   bool stopTransaction();
   bool commit();
   bool rollback();
 
-  // ç®€æ˜“æ¥å£ï¼Œè¿”å› select çš„æ•°æ®ç»“æœï¼Œæ¯æ¬¡è°ƒç”¨æ—¶æ¸…ç†ä¸Šæ¬¡çš„ç»“æœé›†
-  // 
+  // ¼òÒ×½Ó¿Ú£¬·µ»Ø select µÄÊı¾İ½á¹û£¬Ã¿´Îµ÷ÓÃÊ±ÇåÀíÉÏ´ÎµÄ½á¹û¼¯
   CRows getResult(const char *sql);
 
 protected:

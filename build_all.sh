@@ -1,0 +1,41 @@
+stop_register_server
+killall register_client
+stop_config_server
+killall config_client
+stop_cms_gateway
+cd src
+cd cmysql
+make clean
+make -j32
+make install
+cd ../
+cd cplatform
+make clean
+make -j32
+make install
+cd ../
+cd registerserver
+make clean
+make -j32
+make install
+cd ../
+cd registerclient
+make clean
+make -j32
+make install
+cd ../
+cd configserver
+make clean
+make -j32
+make install
+cd ../
+cd configclient
+make clean
+make -j32
+make install
+cd ../
+cd cmsgateway
+make clean
+make -j32
+make install
+cd ../

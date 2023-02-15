@@ -1,10 +1,9 @@
-TARGET=register_server
+TARGET=config_server
 SRC=$(wildcard *.cpp)
 OBJS=$(patsubst %.cpp,%.o,$(SRC) )
-CPPFLAGS = -I/usr/include/cms
-LIBS=-levent -lpthread -lccome -lprotobuf -lssl
+CPPFLAGS= -I/usr/include/cms
+LIBS=-levent -lpthread -lccome -lprotobuf -lcmysql -lmysqlclient -lssl -lregister_client
 INSTALL_PATH=/usr/bin/
-
 WATCH=watch_$(TARGET)
 START_SHELL=start_$(TARGET)
 STOP_SHELL=stop_$(TARGET)
@@ -35,5 +34,4 @@ uninstall:
 	rm -rf $(INSTALL_PATH)$(STOP_SHELL)
 clean:
 	rm -rf *.o  $(TARGET) $(WATCH) $(STOP_SHELL)  $(START_SHELL)
-
 

@@ -1,0 +1,5 @@
+stop_register_server
+killall register_client
+stop_config_server
+killall config_client
+stop_cms_gateway
