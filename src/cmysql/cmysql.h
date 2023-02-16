@@ -8,6 +8,14 @@ struct MYSQL;
 struct MYSQL_RES;
 namespace cmysql {
 
+struct MysqlInfo {
+  char host[128] = { 0 };
+  char user[128] = { 0 };
+  char pass[128] = { 0 };
+  char dbName[128] = { 0 };
+  int port = 3306;
+};
+
 class CMYSQL_API CMysql {
 public:
   // 初始化 MYSQL API
@@ -15,6 +23,12 @@ public:
 
   // 清理占用的所有资源
   void close();
+
+  // 接收用户输入数据库配置
+  bool inputDBConfig();
+
+  // 获取上一次插入的ID号
+  int getInsertId();
 
   // 建立数据库连接(不考虑线程安全)
   // @param flag 设置支持多条语句
@@ -42,7 +56,7 @@ public:
   // 获取一行数据
   std::vector<CData> fetchRow();
 
-  // 生成 insert sql 语句
+  // 生成 insert sql 语句 字段名称前有 @ 时：(比如 @time)其内容不加引号，一般用于调用功能函数
   std::string getInsertSql(MData kv, std::string table);
 
   // 插入非二进制数据

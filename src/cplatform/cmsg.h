@@ -3,13 +3,15 @@
 #include "cmsgtype.pb.h"
 #include <string.h>
 
-#define MAX_MSG_SIZE 8192                       //头部消息的最大字节数
-#define API_GATEWAY_PORT 20010
-#define API_GATEWAY_SSL_PORT 20011
-#define API_GATEWAY_NAME "GW"
-#define REGISTER_PORT 20018
-#define CONFIG_NAME "CONFIG"
-#define CONFIG_PORT  20019
+#define MAX_MSG_SIZE          8192                       //头部消息的最大字节数
+#define API_GATEWAY_PORT      20010
+#define API_GATEWAY_SSL_PORT  20011
+#define API_GATEWAY_NAME      "GW"
+#define REGISTER_PORT         20018
+#define CONFIG_NAME           "CONFIG"
+#define CONFIG_PORT           20019
+#define AUTH_PORT             20020
+#define AUTH_NAME             "AUTH"
 
 
 class CMsg {

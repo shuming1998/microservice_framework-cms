@@ -2,6 +2,47 @@
 #include <mysql.h>
 #include <iostream>
 #include <string.h>
+#include <fstream>
+
+#ifdef _WIN32
+#include <conio.h>
+#define MYSQL_CONFIG_PATH "cms_mysql_init.conf"
+static int getPassword(char *out, int outSize) {
+  for (int i = 0; i < outSize; i++) {
+    char p = _getch();
+    if (p == '\r' || p == '\n') {
+      return i;
+    }
+
+    std::cout << "*" << std::flush;
+    out[i] = p;
+  }
+  return 0;
+}
+#else
+#define MYSQL_CONFIG_PATH "/etc/cms_mysql_init.conf"
+static int getPassword(char *out, int outSize) {
+  bool is_begin = false;
+  for (int i = 0; i < outSize; ) {
+    system("stty -echo");
+    char p = std::cin.get();
+    if (p != '\r' && p != '\n') {
+      is_begin = true;
+    }
+    if (!is_begin) {
+      continue;
+    }
+    system("stty echo");
+    if (p == '\r' || p == '\n') {
+      return i;
+    }
+    std::cout << "*" << std::flush;
+    out[i] = p;
+    i++;
+  }
+  return 0;
+}
+#endif // _WIN32
 
 namespace cmysql {
 
@@ -19,7 +60,6 @@ bool CMysql::init() {
   return true;
 }
 
-
 void CMysql::close() {
   std::cout << "CMysql::close()\n";
   freeResult();
@@ -28,6 +68,57 @@ void CMysql::close() {
     mysql_close((MYSQL *)mysql_);
     mysql_ = nullptr;
   }
+}
+
+bool CMysql::inputDBConfig() {
+  if (!mysql_ && !init()) {
+    std::cerr << "inputDBConfig failed! msyql is not init!" << std::endl;
+    return false;
+  }
+  //string config_path = MYSQL_CONFIG_PATH;
+  //如果输入过就不用输入
+  std::ifstream ifs;
+  MysqlInfo db;
+  ifs.open(MYSQL_CONFIG_PATH, std::ios::binary);
+  if (ifs.is_open()) {
+    ifs.read((char *)&db, sizeof(db));
+    if (ifs.gcount() == sizeof(db)) {
+      ifs.close();
+      return connect(db.host, db.user, db.pass, db.dbName, db.port);
+    }
+    ifs.close();
+  }
+  std::cout << "input the db set" << std::endl;
+  std::cout << "input db host:";
+  std::cin >> db.host;
+  std::cout << "input db user:";
+  std::cin >> db.user;
+  std::cout << "input db pass:";
+  //string pass = "";
+  getPassword(db.pass, sizeof(db.pass) - 1);
+  //memcpy(db.pass, pass.c_str(), pass.size());
+  std::cout << std::endl;
+  //cin >> db.pass;
+  std::cout << "input db dbname(cms):";
+  std::cin >> db.dbName;
+  std::cout << "input db port(3306):";
+  std::cin >> db.port;
+  std::ofstream ofs;
+  ofs.open(MYSQL_CONFIG_PATH, std::ios::binary);
+  if (ofs.is_open()) {
+    ofs.write((char *)&db, sizeof(db));
+    ofs.close();
+  }
+
+  return connect(db.host, db.user, db.pass, db.dbName, db.port);
+}
+
+int CMysql::getInsertId() {
+  if (!mysql_) {
+    std::cerr << "getInsertId failed:mysql_ is NULL" << std::endl;
+    return 0;
+  }
+  return mysql_insert_id((MYSQL*)mysql_);
 }
 
 bool CMysql::connect(const char *host,
@@ -181,18 +272,28 @@ std::string CMysql::getInsertSql(MData kv, std::string table) {
   insertSql += table;
   insertSql += "`";
 
-  // 迭代遍历 map
   std::string keys = "";
   std::string values = "";
+
+  // 迭代遍历 map
   for (auto it = kv.begin(); it != kv.end(); ++it) {
+    //字段名
     keys += "`";
-    keys += it->first;
+    //去掉 @
+    if (it->first[0] == '@') {
+      keys += it->first.substr(1, it->first.size() - 1);
+    } else {
+      keys += it->first;
+    }
     keys += "`,";
-
-
-    values += "'";
-    values += it->second.data;
-    values += "',";
+    if (it->first[0] == '@') {
+      values += it->second.data;
+    } else {
+      values += "'";
+      values += it->second.data;
+      values += "'";
+    }
+    values += ",";
   }
   // 去除结尾多余的逗号
   //keys.pop_back();

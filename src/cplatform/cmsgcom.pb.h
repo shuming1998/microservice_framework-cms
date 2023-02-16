@@ -52,7 +52,7 @@ struct TableStruct_cmsgcom_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[20]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,6 +60,9 @@ struct TableStruct_cmsgcom_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cmsgcom_2eproto;
 namespace cmsg {
+class CAddUserReq;
+class CAddUserReqDefaultTypeInternal;
+extern CAddUserReqDefaultTypeInternal _CAddUserReq_default_instance_;
 class CConfig;
 class CConfigDefaultTypeInternal;
 extern CConfigDefaultTypeInternal _CConfig_default_instance_;
@@ -122,6 +125,7 @@ class CServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal;
 extern CServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal _CServiceMap_ServiceMapEntry_DoNotUse_default_instance_;
 }  // namespace cmsg
 PROTOBUF_NAMESPACE_OPEN
+template<> ::cmsg::CAddUserReq* Arena::CreateMaybeMessage<::cmsg::CAddUserReq>(Arena*);
 template<> ::cmsg::CConfig* Arena::CreateMaybeMessage<::cmsg::CConfig>(Arena*);
 template<> ::cmsg::CConfigList* Arena::CreateMaybeMessage<::cmsg::CConfigList>(Arena*);
 template<> ::cmsg::CDirConfig* Arena::CreateMaybeMessage<::cmsg::CDirConfig>(Arena*);
@@ -713,11 +717,41 @@ class CLoginRes :
   std::string* release_token();
   void set_allocated_token(std::string* token);
 
+  // string rolename = 4;
+  void clear_rolename();
+  static const int kRolenameFieldNumber = 4;
+  const std::string& rolename() const;
+  void set_rolename(const std::string& value);
+  void set_rolename(std::string&& value);
+  void set_rolename(const char* value);
+  void set_rolename(const char* value, size_t size);
+  std::string* mutable_rolename();
+  std::string* release_rolename();
+  void set_allocated_rolename(std::string* rolename);
+
+  // string username = 5;
+  void clear_username();
+  static const int kUsernameFieldNumber = 5;
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+
   // .cmsg.CLoginRes.CLoginResType res = 1;
   void clear_res();
   static const int kResFieldNumber = 1;
   ::cmsg::CLoginRes_CLoginResType res() const;
   void set_res(::cmsg::CLoginRes_CLoginResType value);
+
+  // int32 expired_time = 3;
+  void clear_expired_time();
+  static const int kExpiredTimeFieldNumber = 3;
+  ::PROTOBUF_NAMESPACE_ID::int32 expired_time() const;
+  void set_expired_time(::PROTOBUF_NAMESPACE_ID::int32 value);
 
   // @@protoc_insertion_point(class_scope:cmsg.CLoginRes)
  private:
@@ -725,7 +759,10 @@ class CLoginRes :
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rolename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   int res_;
+  ::PROTOBUF_NAMESPACE_ID::int32 expired_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cmsgcom_2eproto;
 };
@@ -2978,6 +3015,164 @@ class CMsgHeart :
 };
 // -------------------------------------------------------------------
 
+class CAddUserReq :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CAddUserReq) */ {
+ public:
+  CAddUserReq();
+  virtual ~CAddUserReq();
+
+  CAddUserReq(const CAddUserReq& from);
+  CAddUserReq(CAddUserReq&& from) noexcept
+    : CAddUserReq() {
+    *this = ::std::move(from);
+  }
+
+  inline CAddUserReq& operator=(const CAddUserReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CAddUserReq& operator=(CAddUserReq&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CAddUserReq& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CAddUserReq* internal_default_instance() {
+    return reinterpret_cast<const CAddUserReq*>(
+               &_CAddUserReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    19;
+
+  void Swap(CAddUserReq* other);
+  friend void swap(CAddUserReq& a, CAddUserReq& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CAddUserReq* New() const final {
+    return CreateMaybeMessage<CAddUserReq>(nullptr);
+  }
+
+  CAddUserReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CAddUserReq>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CAddUserReq& from);
+  void MergeFrom(const CAddUserReq& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CAddUserReq* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cmsg.CAddUserReq";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string username = 1;
+  void clear_username();
+  static const int kUsernameFieldNumber = 1;
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+
+  // string password = 2;
+  void clear_password();
+  static const int kPasswordFieldNumber = 2;
+  const std::string& password() const;
+  void set_password(const std::string& value);
+  void set_password(std::string&& value);
+  void set_password(const char* value);
+  void set_password(const char* value, size_t size);
+  std::string* mutable_password();
+  std::string* release_password();
+  void set_allocated_password(std::string* password);
+
+  // string rolename = 3;
+  void clear_rolename();
+  static const int kRolenameFieldNumber = 3;
+  const std::string& rolename() const;
+  void set_rolename(const std::string& value);
+  void set_rolename(std::string&& value);
+  void set_rolename(const char* value);
+  void set_rolename(const char* value, size_t size);
+  std::string* mutable_rolename();
+  std::string* release_rolename();
+  void set_allocated_rolename(std::string* rolename);
+
+  // @@protoc_insertion_point(class_scope:cmsg.CAddUserReq)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rolename_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cmsgcom_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CDirConfig :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CDirConfig) */ {
  public:
@@ -3020,7 +3215,7 @@ class CDirConfig :
                &_CDirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   void Swap(CDirConfig* other);
   friend void swap(CDirConfig& a, CDirConfig& b) {
@@ -3436,6 +3631,122 @@ inline void CLoginRes::set_allocated_token(std::string* token) {
   }
   token_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token);
   // @@protoc_insertion_point(field_set_allocated:cmsg.CLoginRes.token)
+}
+
+// int32 expired_time = 3;
+inline void CLoginRes::clear_expired_time() {
+  expired_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CLoginRes::expired_time() const {
+  // @@protoc_insertion_point(field_get:cmsg.CLoginRes.expired_time)
+  return expired_time_;
+}
+inline void CLoginRes::set_expired_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  expired_time_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CLoginRes.expired_time)
+}
+
+// string rolename = 4;
+inline void CLoginRes::clear_rolename() {
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CLoginRes::rolename() const {
+  // @@protoc_insertion_point(field_get:cmsg.CLoginRes.rolename)
+  return rolename_.GetNoArena();
+}
+inline void CLoginRes::set_rolename(const std::string& value) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CLoginRes.rolename)
+}
+inline void CLoginRes::set_rolename(std::string&& value) {
+  
+  rolename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CLoginRes.rolename)
+}
+inline void CLoginRes::set_rolename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CLoginRes.rolename)
+}
+inline void CLoginRes::set_rolename(const char* value, size_t size) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CLoginRes.rolename)
+}
+inline std::string* CLoginRes::mutable_rolename() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CLoginRes.rolename)
+  return rolename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CLoginRes::release_rolename() {
+  // @@protoc_insertion_point(field_release:cmsg.CLoginRes.rolename)
+  
+  return rolename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CLoginRes::set_allocated_rolename(std::string* rolename) {
+  if (rolename != nullptr) {
+    
+  } else {
+    
+  }
+  rolename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rolename);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CLoginRes.rolename)
+}
+
+// string username = 5;
+inline void CLoginRes::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CLoginRes::username() const {
+  // @@protoc_insertion_point(field_get:cmsg.CLoginRes.username)
+  return username_.GetNoArena();
+}
+inline void CLoginRes::set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CLoginRes.username)
+}
+inline void CLoginRes::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CLoginRes.username)
+}
+inline void CLoginRes::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CLoginRes.username)
+}
+inline void CLoginRes::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CLoginRes.username)
+}
+inline std::string* CLoginRes::mutable_username() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CLoginRes.username)
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CLoginRes::release_username() {
+  // @@protoc_insertion_point(field_release:cmsg.CLoginRes.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CLoginRes::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CLoginRes.username)
 }
 
 // -------------------------------------------------------------------
@@ -4659,6 +4970,163 @@ inline void CMsgHeart::set_count(::PROTOBUF_NAMESPACE_ID::int64 value) {
 
 // -------------------------------------------------------------------
 
+// CAddUserReq
+
+// string username = 1;
+inline void CAddUserReq::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddUserReq::username() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddUserReq.username)
+  return username_.GetNoArena();
+}
+inline void CAddUserReq::set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddUserReq.username)
+}
+inline void CAddUserReq::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddUserReq.username)
+}
+inline void CAddUserReq::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddUserReq.username)
+}
+inline void CAddUserReq::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddUserReq.username)
+}
+inline std::string* CAddUserReq::mutable_username() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddUserReq.username)
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddUserReq::release_username() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddUserReq.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddUserReq::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddUserReq.username)
+}
+
+// string password = 2;
+inline void CAddUserReq::clear_password() {
+  password_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddUserReq::password() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddUserReq.password)
+  return password_.GetNoArena();
+}
+inline void CAddUserReq::set_password(const std::string& value) {
+  
+  password_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddUserReq.password)
+}
+inline void CAddUserReq::set_password(std::string&& value) {
+  
+  password_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddUserReq.password)
+}
+inline void CAddUserReq::set_password(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  password_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddUserReq.password)
+}
+inline void CAddUserReq::set_password(const char* value, size_t size) {
+  
+  password_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddUserReq.password)
+}
+inline std::string* CAddUserReq::mutable_password() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddUserReq.password)
+  return password_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddUserReq::release_password() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddUserReq.password)
+  
+  return password_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddUserReq::set_allocated_password(std::string* password) {
+  if (password != nullptr) {
+    
+  } else {
+    
+  }
+  password_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), password);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddUserReq.password)
+}
+
+// string rolename = 3;
+inline void CAddUserReq::clear_rolename() {
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddUserReq::rolename() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddUserReq.rolename)
+  return rolename_.GetNoArena();
+}
+inline void CAddUserReq::set_rolename(const std::string& value) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddUserReq.rolename)
+}
+inline void CAddUserReq::set_rolename(std::string&& value) {
+  
+  rolename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddUserReq.rolename)
+}
+inline void CAddUserReq::set_rolename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddUserReq.rolename)
+}
+inline void CAddUserReq::set_rolename(const char* value, size_t size) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddUserReq.rolename)
+}
+inline std::string* CAddUserReq::mutable_rolename() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddUserReq.rolename)
+  return rolename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddUserReq::release_rolename() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddUserReq.rolename)
+  
+  return rolename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddUserReq::set_allocated_rolename(std::string* rolename) {
+  if (rolename != nullptr) {
+    
+  } else {
+    
+  }
+  rolename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rolename);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddUserReq.rolename)
+}
+
+// -------------------------------------------------------------------
+
 // CDirConfig
 
 // string root = 1;
@@ -4715,6 +5183,8 @@ inline void CDirConfig::set_allocated_root(std::string* root) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

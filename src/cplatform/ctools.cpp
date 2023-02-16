@@ -139,3 +139,16 @@ CCOME_API int base64Decode(const char *in, int len, unsigned char *outData) {
   BIO_free_all(b64Bio);
   return size;
 }
+
+CCOME_API unsigned char *CMD5(const unsigned char *inData, unsigned long inDataSize, unsigned char *outMd) {
+  return MD5(inData, inDataSize, outMd);
+}
+
+CCOME_API std::string CMD5Base64(const unsigned char *inData, unsigned long inDataSize) {
+  unsigned char buf[16] = { 0 };
+  char base64[25] = { 0 };
+  CMD5(inData, inDataSize, buf);
+  base64Encode(buf, 16, base64);
+  base64[24] = '\0';
+  return std::string(base64);
+}

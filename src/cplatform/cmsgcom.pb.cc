@@ -98,11 +98,29 @@ class CMsgHeartDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CMsgHeart> _instance;
 } _CMsgHeart_default_instance_;
+class CAddUserReqDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CAddUserReq> _instance;
+} _CAddUserReq_default_instance_;
 class CDirConfigDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<CDirConfig> _instance;
 } _CDirConfig_default_instance_;
 }  // namespace cmsg
+static void InitDefaultsscc_info_CAddUserReq_cmsgcom_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::cmsg::_CAddUserReq_default_instance_;
+    new (ptr) ::cmsg::CAddUserReq();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::cmsg::CAddUserReq::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_CAddUserReq_cmsgcom_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsscc_info_CAddUserReq_cmsgcom_2eproto}, {}};
+
 static void InitDefaultsscc_info_CConfig_cmsgcom_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -388,7 +406,7 @@ static void InitDefaultsscc_info_CServiceMap_ServiceMapEntry_DoNotUse_cmsgcom_2e
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsscc_info_CServiceMap_ServiceMapEntry_DoNotUse_cmsgcom_2eproto}, {
       &scc_info_CServiceMap_CServiceList_cmsgcom_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cmsgcom_2eproto[20];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_cmsgcom_2eproto[21];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_cmsgcom_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_cmsgcom_2eproto = nullptr;
 
@@ -417,6 +435,9 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cmsgcom_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::cmsg::CLoginRes, res_),
   PROTOBUF_FIELD_OFFSET(::cmsg::CLoginRes, token_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CLoginRes, expired_time_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CLoginRes, rolename_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CLoginRes, username_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::cmsg::CDirReq, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -536,6 +557,14 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_cmsgcom_2eproto::offsets[] PRO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::cmsg::CMsgHeart, count_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::cmsg::CAddUserReq, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::cmsg::CAddUserReq, username_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CAddUserReq, password_),
+  PROTOBUF_FIELD_OFFSET(::cmsg::CAddUserReq, rolename_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::cmsg::CDirConfig, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -546,23 +575,24 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::cmsg::CMsgHead)},
   { 10, -1, sizeof(::cmsg::CLoginReq)},
   { 17, -1, sizeof(::cmsg::CLoginRes)},
-  { 24, -1, sizeof(::cmsg::CDirReq)},
-  { 30, -1, sizeof(::cmsg::CDirRes_CDir)},
-  { 37, -1, sizeof(::cmsg::CDirRes)},
-  { 44, -1, sizeof(::cmsg::CRegisterReq)},
-  { 52, -1, sizeof(::cmsg::CMessageRes)},
-  { 59, -1, sizeof(::cmsg::CGetServiceReq)},
-  { 66, -1, sizeof(::cmsg::CServiceMap_CService)},
-  { 74, -1, sizeof(::cmsg::CServiceMap_CServiceList)},
-  { 80, 87, sizeof(::cmsg::CServiceMap_ServiceMapEntry_DoNotUse)},
-  { 89, -1, sizeof(::cmsg::CServiceMap)},
-  { 97, -1, sizeof(::cmsg::CConfig)},
-  { 107, -1, sizeof(::cmsg::CDownloadconfigReq)},
-  { 114, -1, sizeof(::cmsg::CConfigList)},
-  { 120, -1, sizeof(::cmsg::CDownloadAllConfigReq)},
-  { 127, -1, sizeof(::cmsg::CGatewayConfig)},
-  { 136, -1, sizeof(::cmsg::CMsgHeart)},
-  { 142, -1, sizeof(::cmsg::CDirConfig)},
+  { 27, -1, sizeof(::cmsg::CDirReq)},
+  { 33, -1, sizeof(::cmsg::CDirRes_CDir)},
+  { 40, -1, sizeof(::cmsg::CDirRes)},
+  { 47, -1, sizeof(::cmsg::CRegisterReq)},
+  { 55, -1, sizeof(::cmsg::CMessageRes)},
+  { 62, -1, sizeof(::cmsg::CGetServiceReq)},
+  { 69, -1, sizeof(::cmsg::CServiceMap_CService)},
+  { 77, -1, sizeof(::cmsg::CServiceMap_CServiceList)},
+  { 83, 90, sizeof(::cmsg::CServiceMap_ServiceMapEntry_DoNotUse)},
+  { 92, -1, sizeof(::cmsg::CServiceMap)},
+  { 100, -1, sizeof(::cmsg::CConfig)},
+  { 110, -1, sizeof(::cmsg::CDownloadconfigReq)},
+  { 117, -1, sizeof(::cmsg::CConfigList)},
+  { 123, -1, sizeof(::cmsg::CDownloadAllConfigReq)},
+  { 130, -1, sizeof(::cmsg::CGatewayConfig)},
+  { 139, -1, sizeof(::cmsg::CMsgHeart)},
+  { 145, -1, sizeof(::cmsg::CAddUserReq)},
+  { 153, -1, sizeof(::cmsg::CDirConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -585,6 +615,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CDownloadAllConfigReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CGatewayConfig_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CMsgHeart_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CAddUserReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::cmsg::_CDirConfig_default_instance_),
 };
 
@@ -594,45 +625,49 @@ const char descriptor_table_protodef_cmsgcom_2eproto[] =
   "\002 \001(\0162\016.cmsg.CMsgType\022\r\n\005token\030\003 \001(\t\022\024\n\014"
   "service_name\030\004 \001(\t\022\016\n\006msg_id\030\005 \001(\003\"/\n\tCL"
   "oginReq\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 "
-  "\001(\t\"v\n\tCLoginRes\022*\n\003res\030\001 \001(\0162\035.cmsg.CLo"
-  "ginRes.CLoginResType\022\r\n\005token\030\002 \001(\t\".\n\rC"
-  "LoginResType\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\n\n\006NOUSE"
-  "R\020\002\"\027\n\007CDirReq\022\014\n\004path\030\001 \001(\t\"\246\001\n\007CDirRes"
-  "\022#\n\003res\030\001 \001(\0162\026.cmsg.CDirRes.CDirType\022 \n"
-  "\004dirs\030\002 \003(\0132\022.cmsg.CDirRes.CDir\032*\n\004CDir\022"
-  "\020\n\010filename\030\001 \001(\t\022\020\n\010filesize\030\002 \001(\005\"(\n\010C"
-  "DirType\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\t\n\005NODIR\020\002\"6\n"
-  "\014CRegisterReq\022\014\n\004name\030\001 \001(\t\022\014\n\004port\030\002 \001("
-  "\005\022\n\n\002ip\030\003 \001(\t\"c\n\013CMessageRes\022)\n\006return\030\001"
-  " \001(\0162\031.cmsg.CMessageRes.CReturn\022\013\n\003msg\030\002"
-  " \001(\014\"\034\n\007CReturn\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\"@\n\016CG"
-  "etServiceReq\022\014\n\004name\030\001 \001(\t\022 \n\004type\030\002 \001(\016"
-  "2\022.cmsg.CServiceType\"\312\002\n\013CServiceMap\0225\n\n"
-  "serviceMap\030\001 \003(\0132!.cmsg.CServiceMap.Serv"
-  "iceMapEntry\022\036\n\003res\030\002 \001(\0132\021.cmsg.CMessage"
-  "Res\022 \n\004type\030\003 \001(\0162\022.cmsg.CServiceType\0322\n"
-  "\010CService\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004p"
-  "ort\030\003 \001(\005\032;\n\014CServiceList\022+\n\007service\030\001 \003"
-  "(\0132\032.cmsg.CServiceMap.CService\032Q\n\017Servic"
-  "eMapEntry\022\013\n\003key\030\001 \001(\t\022-\n\005value\030\002 \001(\0132\036."
-  "cmsg.CServiceMap.CServiceList:\0028\001\"h\n\007CCo"
-  "nfig\022\023\n\013serviceName\030\001 \001(\t\022\023\n\013servicePort"
-  "\030\002 \001(\005\022\021\n\tserviceIp\030\003 \001(\t\022\021\n\tprivatePb\030\004"
-  " \001(\014\022\r\n\005proto\030\005 \001(\014\"<\n\022CDownloadconfigRe"
-  "q\022\023\n\013servicePort\030\001 \001(\005\022\021\n\tserviceIp\030\002 \001("
-  "\t\",\n\013CConfigList\022\035\n\006config\030\001 \003(\0132\r.cmsg."
-  "CConfig\"8\n\025CDownloadAllConfigReq\022\014\n\004page"
-  "\030\001 \001(\005\022\021\n\tpageCount\030\002 \001(\005\"Q\n\016CGatewayCon"
-  "fig\022\r\n\005isSSL\030\001 \001(\010\022\017\n\007crtPath\030\002 \001(\t\022\017\n\007k"
-  "eyPath\030\003 \001(\t\022\016\n\006caPath\030\004 \001(\t\"\032\n\tCMsgHear"
-  "t\022\r\n\005count\030\001 \001(\003\"\032\n\nCDirConfig\022\014\n\004root\030\001"
-  " \001(\t* \n\014CServiceType\022\007\n\003ONE\020\000\022\007\n\003ALL\020\001b\006"
-  "proto3"
+  "\001(\t\"\260\001\n\tCLoginRes\022*\n\003res\030\001 \001(\0162\035.cmsg.CL"
+  "oginRes.CLoginResType\022\r\n\005token\030\002 \001(\t\022\024\n\014"
+  "expired_time\030\003 \001(\005\022\020\n\010rolename\030\004 \001(\t\022\020\n\010"
+  "username\030\005 \001(\t\".\n\rCLoginResType\022\006\n\002OK\020\000\022"
+  "\t\n\005ERROR\020\001\022\n\n\006NOUSER\020\002\"\027\n\007CDirReq\022\014\n\004pat"
+  "h\030\001 \001(\t\"\246\001\n\007CDirRes\022#\n\003res\030\001 \001(\0162\026.cmsg."
+  "CDirRes.CDirType\022 \n\004dirs\030\002 \003(\0132\022.cmsg.CD"
+  "irRes.CDir\032*\n\004CDir\022\020\n\010filename\030\001 \001(\t\022\020\n\010"
+  "filesize\030\002 \001(\005\"(\n\010CDirType\022\006\n\002OK\020\000\022\t\n\005ER"
+  "ROR\020\001\022\t\n\005NODIR\020\002\"6\n\014CRegisterReq\022\014\n\004name"
+  "\030\001 \001(\t\022\014\n\004port\030\002 \001(\005\022\n\n\002ip\030\003 \001(\t\"c\n\013CMes"
+  "sageRes\022)\n\006return\030\001 \001(\0162\031.cmsg.CMessageR"
+  "es.CReturn\022\013\n\003msg\030\002 \001(\014\"\034\n\007CReturn\022\006\n\002OK"
+  "\020\000\022\t\n\005ERROR\020\001\"@\n\016CGetServiceReq\022\014\n\004name\030"
+  "\001 \001(\t\022 \n\004type\030\002 \001(\0162\022.cmsg.CServiceType\""
+  "\312\002\n\013CServiceMap\0225\n\nserviceMap\030\001 \003(\0132!.cm"
+  "sg.CServiceMap.ServiceMapEntry\022\036\n\003res\030\002 "
+  "\001(\0132\021.cmsg.CMessageRes\022 \n\004type\030\003 \001(\0162\022.c"
+  "msg.CServiceType\0322\n\010CService\022\014\n\004name\030\001 \001"
+  "(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\032;\n\014CService"
+  "List\022+\n\007service\030\001 \003(\0132\032.cmsg.CServiceMap"
+  ".CService\032Q\n\017ServiceMapEntry\022\013\n\003key\030\001 \001("
+  "\t\022-\n\005value\030\002 \001(\0132\036.cmsg.CServiceMap.CSer"
+  "viceList:\0028\001\"h\n\007CConfig\022\023\n\013serviceName\030\001"
+  " \001(\t\022\023\n\013servicePort\030\002 \001(\005\022\021\n\tserviceIp\030\003"
+  " \001(\t\022\021\n\tprivatePb\030\004 \001(\014\022\r\n\005proto\030\005 \001(\014\"<"
+  "\n\022CDownloadconfigReq\022\023\n\013servicePort\030\001 \001("
+  "\005\022\021\n\tserviceIp\030\002 \001(\t\",\n\013CConfigList\022\035\n\006c"
+  "onfig\030\001 \003(\0132\r.cmsg.CConfig\"8\n\025CDownloadA"
+  "llConfigReq\022\014\n\004page\030\001 \001(\005\022\021\n\tpageCount\030\002"
+  " \001(\005\"Q\n\016CGatewayConfig\022\r\n\005isSSL\030\001 \001(\010\022\017\n"
+  "\007crtPath\030\002 \001(\t\022\017\n\007keyPath\030\003 \001(\t\022\016\n\006caPat"
+  "h\030\004 \001(\t\"\032\n\tCMsgHeart\022\r\n\005count\030\001 \001(\003\"C\n\013C"
+  "AddUserReq\022\020\n\010username\030\001 \001(\t\022\020\n\010password"
+  "\030\002 \001(\t\022\020\n\010rolename\030\003 \001(\t\"\032\n\nCDirConfig\022\014"
+  "\n\004root\030\001 \001(\t* \n\014CServiceType\022\007\n\003ONE\020\000\022\007\n"
+  "\003ALL\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_cmsgcom_2eproto_deps[1] = {
   &::descriptor_table_cmsgtype_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cmsgcom_2eproto_sccs[20] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cmsgcom_2eproto_sccs[21] = {
+  &scc_info_CAddUserReq_cmsgcom_2eproto.base,
   &scc_info_CConfig_cmsgcom_2eproto.base,
   &scc_info_CConfigList_cmsgcom_2eproto.base,
   &scc_info_CDirConfig_cmsgcom_2eproto.base,
@@ -657,10 +692,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_cms
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_cmsgcom_2eproto_once;
 static bool descriptor_table_cmsgcom_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cmsgcom_2eproto = {
-  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1526,
-  &descriptor_table_cmsgcom_2eproto_once, descriptor_table_cmsgcom_2eproto_sccs, descriptor_table_cmsgcom_2eproto_deps, 20, 1,
+  &descriptor_table_cmsgcom_2eproto_initialized, descriptor_table_protodef_cmsgcom_2eproto, "cmsgcom.proto", 1654,
+  &descriptor_table_cmsgcom_2eproto_once, descriptor_table_cmsgcom_2eproto_sccs, descriptor_table_cmsgcom_2eproto_deps, 21, 1,
   schemas, file_default_instances, TableStruct_cmsgcom_2eproto::offsets,
-  file_level_metadata_cmsgcom_2eproto, 20, file_level_enum_descriptors_cmsgcom_2eproto, file_level_service_descriptors_cmsgcom_2eproto,
+  file_level_metadata_cmsgcom_2eproto, 21, file_level_enum_descriptors_cmsgcom_2eproto, file_level_service_descriptors_cmsgcom_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -1579,6 +1614,9 @@ class CLoginRes::HasBitSetters {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int CLoginRes::kResFieldNumber;
 const int CLoginRes::kTokenFieldNumber;
+const int CLoginRes::kExpiredTimeFieldNumber;
+const int CLoginRes::kRolenameFieldNumber;
+const int CLoginRes::kUsernameFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 CLoginRes::CLoginRes()
@@ -1594,14 +1632,28 @@ CLoginRes::CLoginRes(const CLoginRes& from)
   if (from.token().size() > 0) {
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
-  res_ = from.res_;
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.rolename().size() > 0) {
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.username().size() > 0) {
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  ::memcpy(&res_, &from.res_,
+    static_cast<size_t>(reinterpret_cast<char*>(&expired_time_) -
+    reinterpret_cast<char*>(&res_)) + sizeof(expired_time_));
   // @@protoc_insertion_point(copy_constructor:cmsg.CLoginRes)
 }
 
 void CLoginRes::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CLoginRes_cmsgcom_2eproto.base);
   token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  res_ = 0;
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&res_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&expired_time_) -
+      reinterpret_cast<char*>(&res_)) + sizeof(expired_time_));
 }
 
 CLoginRes::~CLoginRes() {
@@ -1611,6 +1663,8 @@ CLoginRes::~CLoginRes() {
 
 void CLoginRes::SharedDtor() {
   token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CLoginRes::SetCachedSize(int size) const {
@@ -1629,7 +1683,11 @@ void CLoginRes::Clear() {
   (void) cached_has_bits;
 
   token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  res_ = 0;
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&res_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&expired_time_) -
+      reinterpret_cast<char*>(&res_)) + sizeof(expired_time_));
   _internal_metadata_.Clear();
 }
 
@@ -1653,6 +1711,27 @@ const char* CLoginRes::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_token(), ptr, ctx, "cmsg.CLoginRes.token");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 expired_time = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          expired_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string rolename = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_rolename(), ptr, ctx, "cmsg.CLoginRes.rolename");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string username = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_username(), ptr, ctx, "cmsg.CLoginRes.username");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1715,6 +1794,49 @@ bool CLoginRes::MergePartialFromCodedStream(
         break;
       }
 
+      // int32 expired_time = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &expired_time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string rolename = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_rolename()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->rolename().data(), static_cast<int>(this->rolename().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CLoginRes.rolename"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string username = 5;
+      case 5: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_username()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->username().data(), static_cast<int>(this->username().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CLoginRes.username"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1758,6 +1880,31 @@ void CLoginRes::SerializeWithCachedSizes(
       2, this->token(), output);
   }
 
+  // int32 expired_time = 3;
+  if (this->expired_time() != 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32(3, this->expired_time(), output);
+  }
+
+  // string rolename = 4;
+  if (this->rolename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->rolename().data(), static_cast<int>(this->rolename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CLoginRes.rolename");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->rolename(), output);
+  }
+
+  // string username = 5;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), static_cast<int>(this->username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CLoginRes.username");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->username(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
         _internal_metadata_.unknown_fields(), output);
@@ -1788,6 +1935,33 @@ void CLoginRes::SerializeWithCachedSizes(
         2, this->token(), target);
   }
 
+  // int32 expired_time = 3;
+  if (this->expired_time() != 0) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->expired_time(), target);
+  }
+
+  // string rolename = 4;
+  if (this->rolename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->rolename().data(), static_cast<int>(this->rolename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CLoginRes.rolename");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        4, this->rolename(), target);
+  }
+
+  // string username = 5;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), static_cast<int>(this->username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CLoginRes.username");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        5, this->username(), target);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target);
@@ -1816,10 +1990,31 @@ size_t CLoginRes::ByteSizeLong() const {
         this->token());
   }
 
+  // string rolename = 4;
+  if (this->rolename().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->rolename());
+  }
+
+  // string username = 5;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->username());
+  }
+
   // .cmsg.CLoginRes.CLoginResType res = 1;
   if (this->res() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->res());
+  }
+
+  // int32 expired_time = 3;
+  if (this->expired_time() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->expired_time());
   }
 
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
@@ -1853,8 +2048,19 @@ void CLoginRes::MergeFrom(const CLoginRes& from) {
 
     token_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.token_);
   }
+  if (from.rolename().size() > 0) {
+
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
   if (from.res() != 0) {
     set_res(from.res());
+  }
+  if (from.expired_time() != 0) {
+    set_expired_time(from.expired_time());
   }
 }
 
@@ -1885,7 +2091,12 @@ void CLoginRes::InternalSwap(CLoginRes* other) {
   _internal_metadata_.Swap(&other->_internal_metadata_);
   token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
+  rolename_.Swap(&other->rolename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  username_.Swap(&other->username_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
   swap(res_, other->res_);
+  swap(expired_time_, other->expired_time_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CLoginRes::GetMetadata() const {
@@ -7057,6 +7268,411 @@ void CMsgHeart::InternalSwap(CMsgHeart* other) {
 
 // ===================================================================
 
+void CAddUserReq::InitAsDefaultInstance() {
+}
+class CAddUserReq::HasBitSetters {
+ public:
+};
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CAddUserReq::kUsernameFieldNumber;
+const int CAddUserReq::kPasswordFieldNumber;
+const int CAddUserReq::kRolenameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CAddUserReq::CAddUserReq()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:cmsg.CAddUserReq)
+}
+CAddUserReq::CAddUserReq(const CAddUserReq& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.username().size() > 0) {
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.password().size() > 0) {
+    password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
+  }
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from.rolename().size() > 0) {
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
+  // @@protoc_insertion_point(copy_constructor:cmsg.CAddUserReq)
+}
+
+void CAddUserReq::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CAddUserReq_cmsgcom_2eproto.base);
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+CAddUserReq::~CAddUserReq() {
+  // @@protoc_insertion_point(destructor:cmsg.CAddUserReq)
+  SharedDtor();
+}
+
+void CAddUserReq::SharedDtor() {
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void CAddUserReq::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const CAddUserReq& CAddUserReq::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_CAddUserReq_cmsgcom_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void CAddUserReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:cmsg.CAddUserReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  password_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* CAddUserReq::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string username = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_username(), ptr, ctx, "cmsg.CAddUserReq.username");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string password = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_password(), ptr, ctx, "cmsg.CAddUserReq.password");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string rolename = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(mutable_rolename(), ptr, ctx, "cmsg.CAddUserReq.rolename");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool CAddUserReq::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:cmsg.CAddUserReq)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string username = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_username()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->username().data(), static_cast<int>(this->username().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CAddUserReq.username"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string password = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_password()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->password().data(), static_cast<int>(this->password().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CAddUserReq.password"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string rolename = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->mutable_rolename()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->rolename().data(), static_cast<int>(this->rolename().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "cmsg.CAddUserReq.rolename"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:cmsg.CAddUserReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:cmsg.CAddUserReq)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+void CAddUserReq::SerializeWithCachedSizes(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:cmsg.CAddUserReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string username = 1;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), static_cast<int>(this->username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.username");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->username(), output);
+  }
+
+  // string password = 2;
+  if (this->password().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->password().data(), static_cast<int>(this->password().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.password");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->password(), output);
+  }
+
+  // string rolename = 3;
+  if (this->rolename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->rolename().data(), static_cast<int>(this->rolename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.rolename");
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->rolename(), output);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFields(
+        _internal_metadata_.unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:cmsg.CAddUserReq)
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* CAddUserReq::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cmsg.CAddUserReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string username = 1;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), static_cast<int>(this->username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.username");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        1, this->username(), target);
+  }
+
+  // string password = 2;
+  if (this->password().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->password().data(), static_cast<int>(this->password().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.password");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        2, this->password(), target);
+  }
+
+  // string rolename = 3;
+  if (this->rolename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->rolename().data(), static_cast<int>(this->rolename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "cmsg.CAddUserReq.rolename");
+    target =
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteStringToArray(
+        3, this->rolename(), target);
+  }
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cmsg.CAddUserReq)
+  return target;
+}
+
+size_t CAddUserReq::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cmsg.CAddUserReq)
+  size_t total_size = 0;
+
+  if (_internal_metadata_.have_unknown_fields()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::ComputeUnknownFieldsSize(
+        _internal_metadata_.unknown_fields());
+  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string username = 1;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->username());
+  }
+
+  // string password = 2;
+  if (this->password().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->password());
+  }
+
+  // string rolename = 3;
+  if (this->rolename().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->rolename());
+  }
+
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CAddUserReq::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:cmsg.CAddUserReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  const CAddUserReq* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<CAddUserReq>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:cmsg.CAddUserReq)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:cmsg.CAddUserReq)
+    MergeFrom(*source);
+  }
+}
+
+void CAddUserReq::MergeFrom(const CAddUserReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cmsg.CAddUserReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  if (from.password().size() > 0) {
+
+    password_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.password_);
+  }
+  if (from.rolename().size() > 0) {
+
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
+}
+
+void CAddUserReq::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:cmsg.CAddUserReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CAddUserReq::CopyFrom(const CAddUserReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cmsg.CAddUserReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CAddUserReq::IsInitialized() const {
+  return true;
+}
+
+void CAddUserReq::Swap(CAddUserReq* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CAddUserReq::InternalSwap(CAddUserReq* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  username_.Swap(&other->username_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  rolename_.Swap(&other->rolename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata CAddUserReq::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void CDirConfig::InitAsDefaultInstance() {
 }
 class CDirConfig::HasBitSetters {
@@ -7391,6 +8007,9 @@ template<> PROTOBUF_NOINLINE ::cmsg::CGatewayConfig* Arena::CreateMaybeMessage< 
 }
 template<> PROTOBUF_NOINLINE ::cmsg::CMsgHeart* Arena::CreateMaybeMessage< ::cmsg::CMsgHeart >(Arena* arena) {
   return Arena::CreateInternal< ::cmsg::CMsgHeart >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cmsg::CAddUserReq* Arena::CreateMaybeMessage< ::cmsg::CAddUserReq >(Arena* arena) {
+  return Arena::CreateInternal< ::cmsg::CAddUserReq >(arena);
 }
 template<> PROTOBUF_NOINLINE ::cmsg::CDirConfig* Arena::CreateMaybeMessage< ::cmsg::CDirConfig >(Arena* arena) {
   return Arena::CreateInternal< ::cmsg::CDirConfig >(arena);

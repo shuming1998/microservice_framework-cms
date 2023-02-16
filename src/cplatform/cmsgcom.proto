@@ -15,8 +15,8 @@ message CMsgHead {
 
 // 用户登录请求 MSG_LOGIN_REQ
 message CLoginReq {
-  string username = 1;
-  string password = 2;
+  string username = 1;			// 用户名
+  string password = 2;			// md5 后的密码
 }
 
 // 服务端响应消息 MSG_LOGIN_RES
@@ -28,7 +28,9 @@ message CLoginRes {
   }
   CLoginResType res = 1;
   string token = 2;			// 登录成功返回令牌，失败为空
-
+  int32 expired_time = 3;   // token 超时时间戳
+  string rolename = 4;
+  string username = 5;
 }
 
 // 客户端请求目录消息 MSG_DIR_REQ
@@ -136,6 +138,15 @@ message CGatewayConfig {
 // 心跳
 message CMsgHeart {
   int64 count = 1;
+}
+
+// 用户注册 微服务架构的用户系统，只为了做单点登录，不涉及权限，权限有具体的业务处理
+// 系统只有一个root用户
+// MSG_ADD_USER
+message CAddUserReq {
+	string username = 1;	// 用户名
+	string password = 2;	// md5 后的密码
+	string rolename = 3;	// 角色名称，为了后期拓展角色权限
 }
 
 // 测试的配置项
