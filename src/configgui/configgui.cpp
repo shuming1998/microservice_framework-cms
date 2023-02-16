@@ -2,6 +2,7 @@
 #include "ctools.h"
 #include "cconfigclient.h"
 #include "configedit.h"
+#include "clogingui.h"
 #include <QMouseEvent>
 #include <QMessageBox>
 #include <QTime>
@@ -64,6 +65,14 @@ void ConfigGui::refresh() {
   std::stringstream ss;
   ss << serverIp << ':' << serverPort;
   LOG_DEBUG(ss.str().c_str());
+
+  // 打开鉴权窗口，登陆验证
+  CLoginGui gui;
+  if (gui.exec() != QDialog::Accepted) {
+    return;
+  }
+
+
   // 断开之前的连接，重新建立连接
   CConfigClient::get()->setServerIp(serverIp.c_str());
   CConfigClient::get()->setServerPort(serverPort);

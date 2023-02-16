@@ -134,7 +134,7 @@ bool CAuthDAO::login(const cmsg::CLoginReq *userReq, cmsg::CLoginRes *userRes, i
     return false;
   }
   std::string token = rows[0][0].data;
-
+  userRes->set_res(cmsg::CLoginRes::OK);
   userRes->set_token(token);
   userRes->set_expired_time(expiredTime);
 

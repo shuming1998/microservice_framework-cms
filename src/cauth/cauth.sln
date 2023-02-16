@@ -18,6 +18,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cauthclient", "..\cauthclie
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cmysql", "..\cmysql\cmysql.vcxproj", "{30EAD79A-9C06-4E8B-95BB-A0A26D9868BE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "configgui", "..\configgui\configgui.vcxproj", "{D706E81F-3D7C-447A-B764-3159824AA49F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4F6FCB37-913D-44AA-A0BB-649B5460A4CA} = {4F6FCB37-913D-44AA-A0BB-649B5460A4CA}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -58,6 +63,12 @@ Global
 		{30EAD79A-9C06-4E8B-95BB-A0A26D9868BE}.Release|x64.Build.0 = Release|x64
 		{30EAD79A-9C06-4E8B-95BB-A0A26D9868BE}.Release|x86.ActiveCfg = Release|Win32
 		{30EAD79A-9C06-4E8B-95BB-A0A26D9868BE}.Release|x86.Build.0 = Release|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Debug|x64.ActiveCfg = Debug|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Debug|x86.ActiveCfg = Debug|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Debug|x86.Build.0 = Debug|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Release|x64.ActiveCfg = Release|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Release|x86.ActiveCfg = Release|Win32
+		{D706E81F-3D7C-447A-B764-3159824AA49F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

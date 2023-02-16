@@ -8,6 +8,11 @@ void CAuthClient::LoginReq(std::string username, std::string password) {
   req.set_username(username);
   auto md5Password = CMD5Base64((unsigned char *)password.data(), password.size());
   req.set_password(md5Password);
+  // 先清理之前的数据再发送登录请求
+  {
+    std::lock_guard<std::mutex> guard(loginMapMtx_);
+    loginMap_.erase(username);
+  }
   sendMsg(cmsg::MSG_LOGIN_REQ, &req);
 }
 
@@ -18,6 +23,17 @@ void CAuthClient::LoginRes(cmsg::CMsgHead *head, CMsg *msg) {
     LOG_DEBUG("CAuthClient::LoginRes failed: CLoginRes ParseFromArray error!");
     return;
   }
+
+  if (res.username().empty()) {
+    return;
+  }
+
+  {
+    // 存储用户登录信息
+    std::lock_guard<std::mutex> guard(loginMapMtx_);
+    loginMap_[res.username()] = res;
+  }
+
   LOG_DEBUG(res.DebugString());
 }
 
@@ -37,6 +53,36 @@ void CAuthClient::addUserRes(cmsg::CMsgHead *head, CMsg *msg) {
   }
 
   LOG_DEBUG("addUser succsee!");
+}
+
+bool CAuthClient::getLoginInfo(std::string username, cmsg::CLoginRes *outInfo, int timeoutMs) {
+  if (!outInfo) {
+    LOG_DEBUG("outInfo is nullptr!");
+    return false;
+  }
+  int count = timeoutMs / 10;
+  if (count <= 0) {
+    count = 1;
+  }
+  for (int i = 0; i < count; ++i) {
+    loginMapMtx_.lock();
+    auto it = loginMap_.find(username);
+    if (it == loginMap_.end()) {
+      loginMapMtx_.unlock();
+      std::this_thread::sleep_for(std::chrono::milliseconds(10));
+      continue;
+    }
+    auto loginInfo = it->second;
+    loginMapMtx_.unlock();
+    if (loginInfo.res() != cmsg::CLoginRes::OK) {
+      return false;
+    }
+    outInfo->CopyFrom(loginInfo);
+    return true;
+  }
+
+
+  return false;
 }
 
 void CAuthClient::addUserReq(cmsg::CAddUserReq *user) {

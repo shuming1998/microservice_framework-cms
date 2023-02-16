@@ -52,6 +52,12 @@
     <ClCompile Include="configedit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clogingui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\cauthclient\cauthclient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\configclient\cconfigclient.h">
@@ -63,14 +69,23 @@
     <ClInclude Include="..\cplatform\cmsgtype.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\cauthclient\cauthclient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="configedit.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="clogingui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="configedit.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="clogingui.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

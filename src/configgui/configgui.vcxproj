@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\configclient;..\..\include;..\cplatform;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\configclient;..\..\include;..\cplatform;..\cauthclient;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -95,20 +95,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="configgui.qrc" />
+    <QtUic Include="clogingui.ui" />
     <QtUic Include="configedit.ui" />
     <QtUic Include="configgui.ui" />
     <QtMoc Include="configgui.h" />
+    <ClCompile Include="..\cauthclient\cauthclient.cpp" />
     <ClCompile Include="..\configclient\cconfigclient.cpp" />
     <ClCompile Include="..\cplatform\cmsgcom.pb.cc" />
     <ClCompile Include="..\cplatform\cmsgtype.pb.cc" />
+    <ClCompile Include="clogingui.cpp" />
     <ClCompile Include="configedit.cpp" />
     <ClCompile Include="configgui.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\cauthclient\cauthclient.h" />
     <ClInclude Include="..\configclient\cconfigclient.h" />
     <ClInclude Include="..\cplatform\cmsgcom.pb.h" />
     <ClInclude Include="..\cplatform\cmsgtype.pb.h" />
+    <QtMoc Include="clogingui.h" />
     <QtMoc Include="configedit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
