@@ -24,7 +24,6 @@ bool CAuthDAO::init() {
     return false;
   }
 
-
   return true;
 }
 

@@ -5,6 +5,7 @@
 #include <openssl/evp.h>
 #include <openssl/aes.h>
 #include <openssl/sha.h>
+#include <time.h>
 #ifdef _WIN32
 #include <io.h>
 #else
@@ -151,4 +152,14 @@ CCOME_API std::string CMD5Base64(const unsigned char *inData, unsigned long inDa
   base64Encode(buf, 16, base64);
   base64[24] = '\0';
   return std::string(base64);
+}
+
+CCOME_API std::string cgetTime(int timestamp, std::string fmt) {
+  char timeBuf[128] = { 0 };
+  time_t tm = timestamp;
+  if (timestamp <= 0) {
+    tm = time(0);
+  }
+  strftime(timeBuf, sizeof(timeBuf), fmt.c_str(), gmtime(&tm));
+  return std::string(timeBuf);
 }

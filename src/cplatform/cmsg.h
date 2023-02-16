@@ -12,7 +12,8 @@
 #define CONFIG_PORT           20019
 #define AUTH_PORT             20020
 #define AUTH_NAME             "AUTH"
-
+#define LOG_PORT              20021
+#define LOG_NAME              "LOG"
 
 class CMsg {
 public:

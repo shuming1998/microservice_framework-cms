@@ -13,6 +13,31 @@ message CMsgHead {
  
 }
 
+// 心跳
+message CMsgHeart {
+  int64 count = 1;
+}
+
+// 日志等级
+enum CLogLevel {
+	CLOG_DEBUG = 0;
+	CLOG_INFO = 1;
+	CLOG_ERROR = 2;
+	CLOG_FATAL = 3;
+}
+
+// 添加日志
+message CAddLogReq {
+  string service_ip = 1;
+  int32 service_port = 2;
+  string service_name = 3;
+  bytes log_txt = 4;
+  int32 log_time = 5;
+  CLogLevel log_level = 6;
+  string filename = 7;
+  int32 line = 8;
+}
+
 // 用户登录请求 MSG_LOGIN_REQ
 message CLoginReq {
   string username = 1;			// 用户名
@@ -133,11 +158,6 @@ message CGatewayConfig {
   string crtPath = 2;		// 证书路径
   string keyPath = 3;		// 私钥路径
   string caPath = 4;		// 证书签名路径
-}
-
-// 心跳
-message CMsgHeart {
-  int64 count = 1;
 }
 
 // 用户注册 微服务架构的用户系统，只为了做单点登录，不涉及权限，权限有具体的业务处理

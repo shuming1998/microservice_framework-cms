@@ -1,8 +1,10 @@
 #include "cthreadpool.h"
 #include "cthread.h"
 #include "ctask.h"
+#include "clogclient.h"
 #include <thread>
 #include <iostream>
+
 
 #ifdef _WIN32
 //和protobuf头文件会有冲突 ，protobuf的头文件要在windows.h之前

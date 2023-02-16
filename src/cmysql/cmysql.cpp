@@ -159,7 +159,7 @@ bool CMysql::query(const char *sql, unsigned long sqlLen) {
     std::cerr << "sql is empty or error format!\n";
     return false;
   }
-
+  std::cout << sql << '\n';
   // 执行 sql 语句
   int res = mysql_real_query((MYSQL *)mysql_, sql, sqlLen);
   if (res != 0) {

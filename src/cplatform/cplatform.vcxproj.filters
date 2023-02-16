@@ -37,6 +37,9 @@
     <ClCompile Include="cthread.cpp">
       <Filter>threadpool</Filter>
     </ClCompile>
+    <ClCompile Include="clogclient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cthreadpool.h">
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="cssl.h">
       <Filter>cssl</Filter>
+    </ClInclude>
+    <ClInclude Include="clogclient.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

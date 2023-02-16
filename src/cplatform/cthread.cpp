@@ -1,8 +1,10 @@
 #include "cthread.h"
 #include "ctask.h"
+#include "clogclient.h"
 #include <thread>
 #include <iostream>
 #include <event2/event.h>
+
 
 #ifdef _WIN32
 #else

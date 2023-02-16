@@ -1,10 +1,12 @@
 #include "cservice.h"
 #include "ctools.h"
 #include "cservicehandle.h"
+#include "clogclient.h"
 #include <event2/listener.h>
 #include <event2/bufferevent.h>
 #include <string.h>
 #include <sstream>
+
 
 static void sListenCb(struct evconnlistener *ev, evutil_socket_t sock, struct sockaddr *addr, int socklen, void *arg) {
   LOG_DEBUG("sListenCb");

@@ -1,3 +1,4 @@
+#include "clogclient.h"
 #include "ccometask.h"
 #include "ctools.h"
 #include "csslctx.h"

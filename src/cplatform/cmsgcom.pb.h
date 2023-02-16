@@ -52,7 +52,7 @@ struct TableStruct_cmsgcom_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[22]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -60,6 +60,9 @@ struct TableStruct_cmsgcom_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_cmsgcom_2eproto;
 namespace cmsg {
+class CAddLogReq;
+class CAddLogReqDefaultTypeInternal;
+extern CAddLogReqDefaultTypeInternal _CAddLogReq_default_instance_;
 class CAddUserReq;
 class CAddUserReqDefaultTypeInternal;
 extern CAddUserReqDefaultTypeInternal _CAddUserReq_default_instance_;
@@ -125,6 +128,7 @@ class CServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal;
 extern CServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal _CServiceMap_ServiceMapEntry_DoNotUse_default_instance_;
 }  // namespace cmsg
 PROTOBUF_NAMESPACE_OPEN
+template<> ::cmsg::CAddLogReq* Arena::CreateMaybeMessage<::cmsg::CAddLogReq>(Arena*);
 template<> ::cmsg::CAddUserReq* Arena::CreateMaybeMessage<::cmsg::CAddUserReq>(Arena*);
 template<> ::cmsg::CConfig* Arena::CreateMaybeMessage<::cmsg::CConfig>(Arena*);
 template<> ::cmsg::CConfigList* Arena::CreateMaybeMessage<::cmsg::CConfigList>(Arena*);
@@ -225,6 +229,33 @@ inline bool CMessageRes_CReturn_Parse(
     const std::string& name, CMessageRes_CReturn* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CMessageRes_CReturn>(
     CMessageRes_CReturn_descriptor(), name, value);
+}
+enum CLogLevel : int {
+  CLOG_DEBUG = 0,
+  CLOG_INFO = 1,
+  CLOG_ERROR = 2,
+  CLOG_FATAL = 3,
+  CLogLevel_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  CLogLevel_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool CLogLevel_IsValid(int value);
+constexpr CLogLevel CLogLevel_MIN = CLOG_DEBUG;
+constexpr CLogLevel CLogLevel_MAX = CLOG_FATAL;
+constexpr int CLogLevel_ARRAYSIZE = CLogLevel_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CLogLevel_descriptor();
+template<typename T>
+inline const std::string& CLogLevel_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CLogLevel>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function CLogLevel_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    CLogLevel_descriptor(), enum_t_value);
+}
+inline bool CLogLevel_Parse(
+    const std::string& name, CLogLevel* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CLogLevel>(
+    CLogLevel_descriptor(), name, value);
 }
 enum CServiceType : int {
   ONE = 0,
@@ -419,6 +450,331 @@ class CMsgHead :
 };
 // -------------------------------------------------------------------
 
+class CMsgHeart :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CMsgHeart) */ {
+ public:
+  CMsgHeart();
+  virtual ~CMsgHeart();
+
+  CMsgHeart(const CMsgHeart& from);
+  CMsgHeart(CMsgHeart&& from) noexcept
+    : CMsgHeart() {
+    *this = ::std::move(from);
+  }
+
+  inline CMsgHeart& operator=(const CMsgHeart& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CMsgHeart& operator=(CMsgHeart&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CMsgHeart& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CMsgHeart* internal_default_instance() {
+    return reinterpret_cast<const CMsgHeart*>(
+               &_CMsgHeart_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  void Swap(CMsgHeart* other);
+  friend void swap(CMsgHeart& a, CMsgHeart& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CMsgHeart* New() const final {
+    return CreateMaybeMessage<CMsgHeart>(nullptr);
+  }
+
+  CMsgHeart* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CMsgHeart>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CMsgHeart& from);
+  void MergeFrom(const CMsgHeart& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CMsgHeart* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cmsg.CMsgHeart";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int64 count = 1;
+  void clear_count();
+  static const int kCountFieldNumber = 1;
+  ::PROTOBUF_NAMESPACE_ID::int64 count() const;
+  void set_count(::PROTOBUF_NAMESPACE_ID::int64 value);
+
+  // @@protoc_insertion_point(class_scope:cmsg.CMsgHeart)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::int64 count_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cmsgcom_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CAddLogReq :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CAddLogReq) */ {
+ public:
+  CAddLogReq();
+  virtual ~CAddLogReq();
+
+  CAddLogReq(const CAddLogReq& from);
+  CAddLogReq(CAddLogReq&& from) noexcept
+    : CAddLogReq() {
+    *this = ::std::move(from);
+  }
+
+  inline CAddLogReq& operator=(const CAddLogReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CAddLogReq& operator=(CAddLogReq&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const CAddLogReq& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const CAddLogReq* internal_default_instance() {
+    return reinterpret_cast<const CAddLogReq*>(
+               &_CAddLogReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  void Swap(CAddLogReq* other);
+  friend void swap(CAddLogReq& a, CAddLogReq& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline CAddLogReq* New() const final {
+    return CreateMaybeMessage<CAddLogReq>(nullptr);
+  }
+
+  CAddLogReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CAddLogReq>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const CAddLogReq& from);
+  void MergeFrom(const CAddLogReq& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  void SerializeWithCachedSizes(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(CAddLogReq* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cmsg.CAddLogReq";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string service_ip = 1;
+  void clear_service_ip();
+  static const int kServiceIpFieldNumber = 1;
+  const std::string& service_ip() const;
+  void set_service_ip(const std::string& value);
+  void set_service_ip(std::string&& value);
+  void set_service_ip(const char* value);
+  void set_service_ip(const char* value, size_t size);
+  std::string* mutable_service_ip();
+  std::string* release_service_ip();
+  void set_allocated_service_ip(std::string* service_ip);
+
+  // string service_name = 3;
+  void clear_service_name();
+  static const int kServiceNameFieldNumber = 3;
+  const std::string& service_name() const;
+  void set_service_name(const std::string& value);
+  void set_service_name(std::string&& value);
+  void set_service_name(const char* value);
+  void set_service_name(const char* value, size_t size);
+  std::string* mutable_service_name();
+  std::string* release_service_name();
+  void set_allocated_service_name(std::string* service_name);
+
+  // bytes log_txt = 4;
+  void clear_log_txt();
+  static const int kLogTxtFieldNumber = 4;
+  const std::string& log_txt() const;
+  void set_log_txt(const std::string& value);
+  void set_log_txt(std::string&& value);
+  void set_log_txt(const char* value);
+  void set_log_txt(const void* value, size_t size);
+  std::string* mutable_log_txt();
+  std::string* release_log_txt();
+  void set_allocated_log_txt(std::string* log_txt);
+
+  // string filename = 7;
+  void clear_filename();
+  static const int kFilenameFieldNumber = 7;
+  const std::string& filename() const;
+  void set_filename(const std::string& value);
+  void set_filename(std::string&& value);
+  void set_filename(const char* value);
+  void set_filename(const char* value, size_t size);
+  std::string* mutable_filename();
+  std::string* release_filename();
+  void set_allocated_filename(std::string* filename);
+
+  // int32 service_port = 2;
+  void clear_service_port();
+  static const int kServicePortFieldNumber = 2;
+  ::PROTOBUF_NAMESPACE_ID::int32 service_port() const;
+  void set_service_port(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // int32 log_time = 5;
+  void clear_log_time();
+  static const int kLogTimeFieldNumber = 5;
+  ::PROTOBUF_NAMESPACE_ID::int32 log_time() const;
+  void set_log_time(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // .cmsg.CLogLevel log_level = 6;
+  void clear_log_level();
+  static const int kLogLevelFieldNumber = 6;
+  ::cmsg::CLogLevel log_level() const;
+  void set_log_level(::cmsg::CLogLevel value);
+
+  // int32 line = 8;
+  void clear_line();
+  static const int kLineFieldNumber = 8;
+  ::PROTOBUF_NAMESPACE_ID::int32 line() const;
+  void set_line(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:cmsg.CAddLogReq)
+ private:
+  class HasBitSetters;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_ip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr log_txt_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr filename_;
+  ::PROTOBUF_NAMESPACE_ID::int32 service_port_;
+  ::PROTOBUF_NAMESPACE_ID::int32 log_time_;
+  int log_level_;
+  ::PROTOBUF_NAMESPACE_ID::int32 line_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cmsgcom_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CLoginReq :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CLoginReq) */ {
  public:
@@ -461,7 +817,7 @@ class CLoginReq :
                &_CLoginReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   void Swap(CLoginReq* other);
   friend void swap(CLoginReq& a, CLoginReq& b) {
@@ -606,7 +962,7 @@ class CLoginRes :
                &_CLoginRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   void Swap(CLoginRes* other);
   friend void swap(CLoginRes& a, CLoginRes& b) {
@@ -810,7 +1166,7 @@ class CDirReq :
                &_CDirReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   void Swap(CDirReq* other);
   friend void swap(CDirReq& a, CDirReq& b) {
@@ -942,7 +1298,7 @@ class CDirRes_CDir :
                &_CDirRes_CDir_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   void Swap(CDirRes_CDir* other);
   friend void swap(CDirRes_CDir& a, CDirRes_CDir& b) {
@@ -1081,7 +1437,7 @@ class CDirRes :
                &_CDirRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   void Swap(CDirRes* other);
   friend void swap(CDirRes& a, CDirRes& b) {
@@ -1254,7 +1610,7 @@ class CRegisterReq :
                &_CRegisterReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   void Swap(CRegisterReq* other);
   friend void swap(CRegisterReq& a, CRegisterReq& b) {
@@ -1406,7 +1762,7 @@ class CMessageRes :
                &_CMessageRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   void Swap(CMessageRes* other);
   friend void swap(CMessageRes& a, CMessageRes& b) {
@@ -1575,7 +1931,7 @@ class CGetServiceReq :
                &_CGetServiceReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   void Swap(CGetServiceReq* other);
   friend void swap(CGetServiceReq& a, CGetServiceReq& b) {
@@ -1714,7 +2070,7 @@ class CServiceMap_CService :
                &_CServiceMap_CService_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   void Swap(CServiceMap_CService* other);
   friend void swap(CServiceMap_CService& a, CServiceMap_CService& b) {
@@ -1866,7 +2222,7 @@ class CServiceMap_CServiceList :
                &_CServiceMap_CServiceList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   void Swap(CServiceMap_CServiceList* other);
   friend void swap(CServiceMap_CServiceList& a, CServiceMap_CServiceList& b) {
@@ -1980,7 +2336,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
-    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[11];
+    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[13];
   }
 
   public:
@@ -2030,7 +2386,7 @@ class CServiceMap :
                &_CServiceMap_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   void Swap(CServiceMap* other);
   friend void swap(CServiceMap& a, CServiceMap& b) {
@@ -2184,7 +2540,7 @@ class CConfig :
                &_CConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   void Swap(CConfig* other);
   friend void swap(CConfig& a, CConfig& b) {
@@ -2362,7 +2718,7 @@ class CDownloadconfigReq :
                &_CDownloadconfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   void Swap(CDownloadconfigReq* other);
   friend void swap(CDownloadconfigReq& a, CDownloadconfigReq& b) {
@@ -2501,7 +2857,7 @@ class CConfigList :
                &_CConfigList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   void Swap(CConfigList* other);
   friend void swap(CConfigList& a, CConfigList& b) {
@@ -2633,7 +2989,7 @@ class CDownloadAllConfigReq :
                &_CDownloadAllConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   void Swap(CDownloadAllConfigReq* other);
   friend void swap(CDownloadAllConfigReq& a, CDownloadAllConfigReq& b) {
@@ -2766,7 +3122,7 @@ class CGatewayConfig :
                &_CGatewayConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   void Swap(CGatewayConfig* other);
   friend void swap(CGatewayConfig& a, CGatewayConfig& b) {
@@ -2889,132 +3245,6 @@ class CGatewayConfig :
 };
 // -------------------------------------------------------------------
 
-class CMsgHeart :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CMsgHeart) */ {
- public:
-  CMsgHeart();
-  virtual ~CMsgHeart();
-
-  CMsgHeart(const CMsgHeart& from);
-  CMsgHeart(CMsgHeart&& from) noexcept
-    : CMsgHeart() {
-    *this = ::std::move(from);
-  }
-
-  inline CMsgHeart& operator=(const CMsgHeart& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CMsgHeart& operator=(CMsgHeart&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const CMsgHeart& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const CMsgHeart* internal_default_instance() {
-    return reinterpret_cast<const CMsgHeart*>(
-               &_CMsgHeart_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    18;
-
-  void Swap(CMsgHeart* other);
-  friend void swap(CMsgHeart& a, CMsgHeart& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline CMsgHeart* New() const final {
-    return CreateMaybeMessage<CMsgHeart>(nullptr);
-  }
-
-  CMsgHeart* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<CMsgHeart>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const CMsgHeart& from);
-  void MergeFrom(const CMsgHeart& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  void SerializeWithCachedSizes(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedOutputStream* output) const final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(CMsgHeart* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cmsg.CMsgHeart";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_cmsgcom_2eproto);
-    return ::descriptor_table_cmsgcom_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // int64 count = 1;
-  void clear_count();
-  static const int kCountFieldNumber = 1;
-  ::PROTOBUF_NAMESPACE_ID::int64 count() const;
-  void set_count(::PROTOBUF_NAMESPACE_ID::int64 value);
-
-  // @@protoc_insertion_point(class_scope:cmsg.CMsgHeart)
- private:
-  class HasBitSetters;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::int64 count_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_cmsgcom_2eproto;
-};
-// -------------------------------------------------------------------
-
 class CAddUserReq :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:cmsg.CAddUserReq) */ {
  public:
@@ -3057,7 +3287,7 @@ class CAddUserReq :
                &_CAddUserReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   void Swap(CAddUserReq* other);
   friend void swap(CAddUserReq& a, CAddUserReq& b) {
@@ -3215,7 +3445,7 @@ class CDirConfig :
                &_CDirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   void Swap(CDirConfig* other);
   friend void swap(CDirConfig& a, CDirConfig& b) {
@@ -3456,6 +3686,288 @@ inline void CMsgHead::set_msg_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   msg_id_ = value;
   // @@protoc_insertion_point(field_set:cmsg.CMsgHead.msg_id)
+}
+
+// -------------------------------------------------------------------
+
+// CMsgHeart
+
+// int64 count = 1;
+inline void CMsgHeart::clear_count() {
+  count_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 CMsgHeart::count() const {
+  // @@protoc_insertion_point(field_get:cmsg.CMsgHeart.count)
+  return count_;
+}
+inline void CMsgHeart::set_count(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CMsgHeart.count)
+}
+
+// -------------------------------------------------------------------
+
+// CAddLogReq
+
+// string service_ip = 1;
+inline void CAddLogReq::clear_service_ip() {
+  service_ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddLogReq::service_ip() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.service_ip)
+  return service_ip_.GetNoArena();
+}
+inline void CAddLogReq::set_service_ip(const std::string& value) {
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.service_ip)
+}
+inline void CAddLogReq::set_service_ip(std::string&& value) {
+  
+  service_ip_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddLogReq.service_ip)
+}
+inline void CAddLogReq::set_service_ip(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddLogReq.service_ip)
+}
+inline void CAddLogReq::set_service_ip(const char* value, size_t size) {
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddLogReq.service_ip)
+}
+inline std::string* CAddLogReq::mutable_service_ip() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddLogReq.service_ip)
+  return service_ip_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddLogReq::release_service_ip() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddLogReq.service_ip)
+  
+  return service_ip_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddLogReq::set_allocated_service_ip(std::string* service_ip) {
+  if (service_ip != nullptr) {
+    
+  } else {
+    
+  }
+  service_ip_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_ip);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddLogReq.service_ip)
+}
+
+// int32 service_port = 2;
+inline void CAddLogReq::clear_service_port() {
+  service_port_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CAddLogReq::service_port() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.service_port)
+  return service_port_;
+}
+inline void CAddLogReq::set_service_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  service_port_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.service_port)
+}
+
+// string service_name = 3;
+inline void CAddLogReq::clear_service_name() {
+  service_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddLogReq::service_name() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.service_name)
+  return service_name_.GetNoArena();
+}
+inline void CAddLogReq::set_service_name(const std::string& value) {
+  
+  service_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.service_name)
+}
+inline void CAddLogReq::set_service_name(std::string&& value) {
+  
+  service_name_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddLogReq.service_name)
+}
+inline void CAddLogReq::set_service_name(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddLogReq.service_name)
+}
+inline void CAddLogReq::set_service_name(const char* value, size_t size) {
+  
+  service_name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddLogReq.service_name)
+}
+inline std::string* CAddLogReq::mutable_service_name() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddLogReq.service_name)
+  return service_name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddLogReq::release_service_name() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddLogReq.service_name)
+  
+  return service_name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddLogReq::set_allocated_service_name(std::string* service_name) {
+  if (service_name != nullptr) {
+    
+  } else {
+    
+  }
+  service_name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_name);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddLogReq.service_name)
+}
+
+// bytes log_txt = 4;
+inline void CAddLogReq::clear_log_txt() {
+  log_txt_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddLogReq::log_txt() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.log_txt)
+  return log_txt_.GetNoArena();
+}
+inline void CAddLogReq::set_log_txt(const std::string& value) {
+  
+  log_txt_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.log_txt)
+}
+inline void CAddLogReq::set_log_txt(std::string&& value) {
+  
+  log_txt_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddLogReq.log_txt)
+}
+inline void CAddLogReq::set_log_txt(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  log_txt_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddLogReq.log_txt)
+}
+inline void CAddLogReq::set_log_txt(const void* value, size_t size) {
+  
+  log_txt_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddLogReq.log_txt)
+}
+inline std::string* CAddLogReq::mutable_log_txt() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddLogReq.log_txt)
+  return log_txt_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddLogReq::release_log_txt() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddLogReq.log_txt)
+  
+  return log_txt_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddLogReq::set_allocated_log_txt(std::string* log_txt) {
+  if (log_txt != nullptr) {
+    
+  } else {
+    
+  }
+  log_txt_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), log_txt);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddLogReq.log_txt)
+}
+
+// int32 log_time = 5;
+inline void CAddLogReq::clear_log_time() {
+  log_time_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CAddLogReq::log_time() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.log_time)
+  return log_time_;
+}
+inline void CAddLogReq::set_log_time(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  log_time_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.log_time)
+}
+
+// .cmsg.CLogLevel log_level = 6;
+inline void CAddLogReq::clear_log_level() {
+  log_level_ = 0;
+}
+inline ::cmsg::CLogLevel CAddLogReq::log_level() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.log_level)
+  return static_cast< ::cmsg::CLogLevel >(log_level_);
+}
+inline void CAddLogReq::set_log_level(::cmsg::CLogLevel value) {
+  
+  log_level_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.log_level)
+}
+
+// string filename = 7;
+inline void CAddLogReq::clear_filename() {
+  filename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& CAddLogReq::filename() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.filename)
+  return filename_.GetNoArena();
+}
+inline void CAddLogReq::set_filename(const std::string& value) {
+  
+  filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.filename)
+}
+inline void CAddLogReq::set_filename(std::string&& value) {
+  
+  filename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:cmsg.CAddLogReq.filename)
+}
+inline void CAddLogReq::set_filename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:cmsg.CAddLogReq.filename)
+}
+inline void CAddLogReq::set_filename(const char* value, size_t size) {
+  
+  filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:cmsg.CAddLogReq.filename)
+}
+inline std::string* CAddLogReq::mutable_filename() {
+  
+  // @@protoc_insertion_point(field_mutable:cmsg.CAddLogReq.filename)
+  return filename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* CAddLogReq::release_filename() {
+  // @@protoc_insertion_point(field_release:cmsg.CAddLogReq.filename)
+  
+  return filename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void CAddLogReq::set_allocated_filename(std::string* filename) {
+  if (filename != nullptr) {
+    
+  } else {
+    
+  }
+  filename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), filename);
+  // @@protoc_insertion_point(field_set_allocated:cmsg.CAddLogReq.filename)
+}
+
+// int32 line = 8;
+inline void CAddLogReq::clear_line() {
+  line_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 CAddLogReq::line() const {
+  // @@protoc_insertion_point(field_get:cmsg.CAddLogReq.line)
+  return line_;
+}
+inline void CAddLogReq::set_line(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  line_ = value;
+  // @@protoc_insertion_point(field_set:cmsg.CAddLogReq.line)
 }
 
 // -------------------------------------------------------------------
@@ -4952,24 +5464,6 @@ inline void CGatewayConfig::set_allocated_capath(std::string* capath) {
 
 // -------------------------------------------------------------------
 
-// CMsgHeart
-
-// int64 count = 1;
-inline void CMsgHeart::clear_count() {
-  count_ = PROTOBUF_LONGLONG(0);
-}
-inline ::PROTOBUF_NAMESPACE_ID::int64 CMsgHeart::count() const {
-  // @@protoc_insertion_point(field_get:cmsg.CMsgHeart.count)
-  return count_;
-}
-inline void CMsgHeart::set_count(::PROTOBUF_NAMESPACE_ID::int64 value) {
-  
-  count_ = value;
-  // @@protoc_insertion_point(field_set:cmsg.CMsgHeart.count)
-}
-
-// -------------------------------------------------------------------
-
 // CAddUserReq
 
 // string username = 1;
@@ -5223,6 +5717,8 @@ inline void CDirConfig::set_allocated_root(std::string* root) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -5244,6 +5740,11 @@ template <> struct is_proto_enum< ::cmsg::CMessageRes_CReturn> : ::std::true_typ
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::cmsg::CMessageRes_CReturn>() {
   return ::cmsg::CMessageRes_CReturn_descriptor();
+}
+template <> struct is_proto_enum< ::cmsg::CLogLevel> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::cmsg::CLogLevel>() {
+  return ::cmsg::CLogLevel_descriptor();
 }
 template <> struct is_proto_enum< ::cmsg::CServiceType> : ::std::true_type {};
 template <>

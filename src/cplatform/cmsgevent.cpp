@@ -1,4 +1,5 @@
 #include "cmsgevent.h"
+#include "clogclient.h"
 #include "cmsgcom.pb.h"
 #include "ctools.h"
 #include <string>
@@ -58,16 +59,23 @@ void CMsgEvent::readCb() {
       clear();
       return;
     }
-
+    if (!pbHead_) {
+      return;
+    }
     auto msg = getMsg();
     if (!msg) {
       return;
     }
     // 在这里会调用注册的回调函数，所以 router 那边只需要注册，不需要调用
-    std::string ss;
-    ss = "CMsgEvent::readCb(): ";
-    ss += pbHead_->service_name();
-    LOG_DEBUG(ss.c_str());
+
+    // 避免死循环
+    if (pbHead_->msg_type() != cmsg::MSG_ADD_LOG_REQ) {
+      std::string ss;
+      ss = "CMsgEvent::readCb(): ";
+      ss += pbHead_->service_name();
+      LOG_DEBUG(ss.c_str());
+    }
+
     readCb(pbHead_, msg);
     clear();
   }

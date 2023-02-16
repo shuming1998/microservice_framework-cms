@@ -21,7 +21,7 @@ enum CMsgType {
   MSG_DELETE_CONFIG_RES = 16;		// 删除指定微服务配置响应			CMessageRes
   MSG_ADD_USER_REQ = 17;		    // 添加用户请求					CAddUserReq
   MSG_ADD_USER_RES = 18;		    // 添加用户响应					CMessageRes
-
+  MSG_ADD_LOG_REQ = 211;		    // 添加日志 不做响应				CAddLogReq
   MSG_HEART_REQ = 65534;			// 心跳
   MSG_MAX_TYPE = 65535;				// 边界用于排除错误数据
 }
