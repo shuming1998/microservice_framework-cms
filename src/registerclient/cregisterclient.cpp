@@ -1,4 +1,5 @@
 #include "cregisterclient.h"
+#include "clogclient.h"
 #include "cmsgcom.pb.h"
 #include "ctools.h"
 #include <fstream>

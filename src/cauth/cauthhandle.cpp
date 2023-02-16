@@ -1,4 +1,5 @@
 #include "cauthhandle.h"
+#include "clogclient.h"
 #include "ctools.h"
 #include "cauthdao.h"
 

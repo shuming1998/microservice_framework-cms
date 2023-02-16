@@ -1,6 +1,7 @@
 #include "cconfigclient.h"
 #include "cmsgcom.pb.h"
 #include "ctools.h"
+#include "clogclient.h"
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
 #include <map>

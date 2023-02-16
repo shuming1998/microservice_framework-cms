@@ -1,4 +1,5 @@
 #include "cserviceproxyclient.h"
+#include "clogclient.h"
 #include "ctools.h"
 
 bool CServiceProxyClient::sendMsg(cmsg::CMsgHead *head, CMsg *msg, CMsgEvent *ev) {

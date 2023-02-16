@@ -1,5 +1,6 @@
 #include "cdirservicehandle.h"
 #include "ctools.h"
+#include "clogclient.h"
 #include <iostream>
 
 CDirServiceHandle::CDirServiceHandle() {}

@@ -2,6 +2,7 @@
 #include "cmsgcom.pb.h"
 #include "cregisterclient.h"
 #include "ctools.h"
+#include "clogclient.h"
 #include <thread>
 
 // 开启自动重连的线程

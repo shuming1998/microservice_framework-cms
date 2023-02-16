@@ -1,4 +1,5 @@
 #include "cregisterclient.h"
+#include "clogclient.h"
 #include "ctools.h"
 #include <iostream>
 #include <string>

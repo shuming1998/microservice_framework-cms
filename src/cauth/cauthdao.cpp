@@ -1,4 +1,5 @@
 #include "cauthdao.h"
+#include "clogclient.h"
 #include "cmysql.h"
 #include "ctools.h"
 #include "cmsgcom.pb.h"

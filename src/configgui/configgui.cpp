@@ -1,5 +1,6 @@
 #include "configgui.h"
 #include "ctools.h"
+#include "clogclient.h"
 #include "cconfigclient.h"
 #include "configedit.h"
 #include "clogingui.h"

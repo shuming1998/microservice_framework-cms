@@ -5,6 +5,7 @@
 #include "cregisterclient.h"
 #include "cconfigclient.h"
 #include "ctools.h"
+#include "clogclient.h"
 #include "cmsgcom.pb.h"
 #include <iostream>
 

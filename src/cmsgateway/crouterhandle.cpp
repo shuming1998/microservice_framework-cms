@@ -1,5 +1,6 @@
 #include "crouterhandle.h"
 #include "cserviceproxy.h"
+#include "clogclient.h"
 #include "ctools.h"
 
 void CRouterHandle::readCb(cmsg::CMsgHead *head, CMsg *msg) {

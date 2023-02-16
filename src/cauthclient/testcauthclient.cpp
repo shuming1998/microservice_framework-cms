@@ -1,4 +1,3 @@
-
 #include "cauthclient.h"
 #include <thread>
 #include <iostream>

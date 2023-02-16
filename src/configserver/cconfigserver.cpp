@@ -1,6 +1,7 @@
 #include "cconfigserver.h"
 #include "cregisterclient.h"
 #include "cconfighandle.h"
+#include "clogclient.h"
 #include "ctools.h"
 
 CServiceHandle *CConfigServer::createServiceHandle() {

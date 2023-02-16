@@ -1,3 +1,4 @@
+#include "clogclient.h"
 #include "configdao.h"
 #include "cmysql.h"
 #include "ctools.h"

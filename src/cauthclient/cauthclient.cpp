@@ -1,4 +1,5 @@
 ﻿#include "cauthclient.h"
+#include "clogclient.h"
 #include "ctools.h"
 #include "cmsgcom.pb.h"
 #include <string>

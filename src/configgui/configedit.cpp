@@ -1,4 +1,5 @@
 #include "configedit.h"
+#include "clogclient.h"
 #include "cconfigclient.h"
 #include "ctools.h"
 #include <QFileDialog>

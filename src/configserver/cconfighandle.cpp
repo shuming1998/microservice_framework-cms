@@ -1,4 +1,5 @@
 #include "cconfighandle.h"
+#include "clogclient.h"
 #include "configdao.h"
 #include "ctools.h"
 
