@@ -1,8 +1,10 @@
 stop_register_server
-killall register_client
 stop_config_server
-killall config_client
+stop_cauth
+stop_clog
 stop_cms_gateway
+killall config_client
+killall register_client
 cd src
 cd cmysql
 make clean
@@ -35,6 +37,16 @@ make -j32
 make install
 cd ../
 cd cmsgateway
+make clean
+make -j32
+make install
+cd ../
+cd clog
+make clean
+make -j32
+make install
+cd ../
+cd cauth
 make clean
 make -j32
 make install

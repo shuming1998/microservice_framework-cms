@@ -1,6 +1,11 @@
 stop_register_server
 stop_config_server
 stop_cms_gateway
+stop_cauth
+stop_clog
+
 start_register_server
 start_config_server
 start_cms_gateway
+start_cauth
+start_clog

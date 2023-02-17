@@ -1,6 +1,6 @@
 syntax="proto3";
 package cmsg;
- 
+
 import "cmsgtype.proto";
 
 // 消息头
@@ -10,7 +10,7 @@ message CMsgHead {
   string token = 3;				// 令牌，如果是登录消息则为空
   string service_name = 4;		// 微服务的名称，用于路由
   int64 msg_id = 5;				// 事件 id，用于 在 CServiceProxyClient 中标识事件
- 
+
 }
 
 // 心跳

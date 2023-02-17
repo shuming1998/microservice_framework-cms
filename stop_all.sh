@@ -1,5 +1,7 @@
-stop_register_server
 killall register_client
-stop_config_server
 killall config_client
+stop_register_server
+stop_config_server
 stop_cms_gateway
+stop_cauth
+stop_clog

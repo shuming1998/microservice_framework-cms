@@ -23,18 +23,24 @@ register_server
 watch_register_server
 start_register_server
 stop_register_server
-
 config_server
 watch_config_server
 start_config_server
 stop_config_server
-
-config_client
-
 cms_gateway
 watch_cms_gateway
 start_cms_gateway
 stop_cms_gateway
+clog
+watch_clog
+start_clog
+stop_clog
+cauth
+watch_auth
+start_auth
+stop_auth
+config_client
+register_client
 ######### 可执行文件 END #########
 
 ## Ignore Visual Studio temporary files, build results, and
