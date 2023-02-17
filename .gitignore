@@ -17,6 +17,8 @@ bin/*
 *.lib
 *.cache
 
+!makefile
+
 register_server
 watch_register_server
 start_register_server
@@ -29,14 +31,14 @@ cms_gateway
 watch_cms_gateway
 start_cms_gateway
 stop_cms_gateway
-clog
+/clog/clog
 watch_clog
 start_clog
 stop_clog
-cauth
-watch_auth
-start_auth
-stop_auth
+/cauth/cauth
+watch_cauth
+start_cauth
+stop_cauth
 config_client
 register_client
 
