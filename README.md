@@ -39,7 +39,7 @@
 
 **Linux ([Ubuntu 20.04.5 LTS](https://releases.ubuntu.com/focal))**
 
-0. 依赖库
+0. 依赖环境
 
    ```shell
    $ sudo apt-get install gcc g++ perl make automake libtool unzip
