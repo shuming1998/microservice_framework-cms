@@ -1,65 +1,121 @@
-# Microservice_Framework
+# microservice_framework: cms
 
-### Environment (root)
+**RPC 框架 cms 源代码**
 
-#### MooseFS:
+| 目录名称       | 功能      |
+| :------------- | --------- |
+| configserver   | 配置中心  |
+| registerserver | 注册中心  |
+| cmsgateway     | 网关      |
+| cauth          | 鉴权中心  |
+| clog           | 日志中心  |
+| cplatform      | 通信平台  |
+| cmysql         | MySQL API |
 
-```shell
-$ apt install build-essential libpcap-dev zlib1g-dev libfuse-dev pkg-config
-$ git clone git@github.com:moosefs/moosefs.git
-$ cd moosefs
-$ ./linux_build.sh
+| 目录名称       | 功能               |
+| -------------- | ------------------ |
+| registerclient | 注册中心客户端     |
+| configclient   | 配置中心客户端     |
+| configgui      | 配置中心客户端界面 |
 
-# 0. If mfsmount install failed for fuse version to old: build new version fuse from source code: 
-$ apt install ninja-build meson
-$ git clone git@github.com:libfuse/libfuse.git
-$ cd libfuse && mkdir build && cd build
-$ meson ..
-$ cd ../
-$ python3 -m pytest test/
-$ ninja install
 
-# 1. configure and run mfsmaster
-$ groupadd mfs
-$ useradd -g mfs mfs
-$ cd /etc/mfs
-$ cp mfsmaster.cfg.sample mfsmaster.cfg
-$ cp mfsexports.cfg.sample mfsexports.cfg
-$ cd /var/lib/mfs
-$ cp metadata.mfs.empty metadata.mfs
-$ chown mfs:mfs /var/lib/mfs
-$ mfsmaster
 
-###############################################
-# Configure Multiple Chunkservers:      
-# Install mfs in other server  		    
-# Repeat the  2. step		          
-###############################################
-# 2. configure and run mfschunkserver
-$ echo "[outer ip]  mfsmaster" | grep /etc/hosts
-$ mkdir /mnt/hd1
-$ mkdir /mnt/hd2
-$ chown mfs:mfs /mnt/hd1
-$ chown mfs:mfs /mnt/hd2
-$ chmod 770 /mnt/hd1
-$ chmod 770 /mnt/hd2
-$ cd /etc/mfs
-$ cp mfschunkserver.cfg.sample mfschunkserver.cfg
-$ cp mfshdd.cfg.sample mfshdd.cfg
-$ vim mfshdd.cfg
-/mnt/hd1
-/mnt/hd2
-$ mfschunkserver
+**项目依赖**
 
-# 3. begin to use mfs
-$ mkdir /mnt/mfs
-$ mfsmount -H mfsmaster /mnt/mfs
-# Set/cat the number of backups
-$ mfssetgoal -r 3 /mnt/mfs
-$ mfssetgoal /mnt/mfs
-# view file info
-$ mfsfileinfo /mnt/mfs/[filename]
+**[Windows 10](https://en.wikipedia.org/wiki/Windows_10)**
+
+```
+> Visual Studio 15 2017
+> Qt 5.12
+> OpenSSL 3.0
+> zlib 1.2.11
+> nasm 2.13.03
+> libevent
+> protobuf 3.8.0
+> mysql 5.7.40
 ```
 
 
+
+**Linux ([Ubuntu 20.04.5 LTS](https://releases.ubuntu.com/focal))**
+
+0. 依赖库
+
+   ```shell
+   $ sudo apt-get install gcc g++ perl make automake libtool unzip
+   ```
+
+1. zlib-1.2.11 (https://github.com/madler/zlib)
+
+   ```shell
+   $ git clone -b 1.2.11 git@github.com:madler/zlib.git
+   $ cd zlib
+   $ make -j32
+   ```
+
+2. OpenSSL-3.0 (https://github.com/openssl/openssl)
+
+   ```shell
+   $ git clone -b openssl-3.0.0 git@github.com:openssl/openssl.git
+   $ cd openssl
+   $ ./config
+   $ make -j32
+   $ sudo make install
+   ```
+
+3. libevent (https://github.com/libevent/libevent)
+
+   ```shell
+   $ git clone git@github.com:libevent/libevent.git
+   $ cd libevent
+   $ ./configure
+   $ make -j32
+   $ sudo make install
+   ```
+
+4. MySQL 8.0
+
+   ```shell
+   $ sudo apt install net-tools
+   $ sudo apt-get install mysql-server -y
+   $ sudo apt install libmysqlclient-dev -y
+   
+   # 修改配置文件，设置不区分语句大小写
+   $ sudo vim /etc/mysql/my.cnf
+   [mysqld]
+   lower_case_table_names=1
+   
+   # 更改初始密码
+   $ mysql -u root -p
+   Enter password: [初始密码]
+   mysql> ALTER USER "root"@"localhost" IDENTIFIED BY "设置密码"
+   mysql> exit
+   
+   # 配置任意 ip 可远程访问
+   $ mysql -u root -p
+   Enter password: [设置的密码]
+   mysql> use mysql
+   mysql> update user set host="%" where user="root";
+   mysql> flush privileges;
+   ```
+
+   
+
+**cms 编译和安装**
+
+```shell
+$ git clone git@github.com:shuming1998/microservice_framework.git
+$ cd microservice_framework
+$ ./build_all.sh
+```
+
+
+
+**运行/停止所有服务**
+
+```shell
+$ cd $ cd microservice_framework
+$ start_all.sh
+$ stop_all.sh
+```
 
