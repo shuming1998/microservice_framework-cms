@@ -1,22 +1,20 @@
 # microservice_framework: cms
 
-**RPC 框架 cms 源代码**
+**Windows/Linux 跨平台 RPC 框架 cms 源代码目录 src**
 
-| 目录名称       | 功能      |
-| :------------- | --------- |
-| configserver   | 配置中心  |
-| registerserver | 注册中心  |
-| cmsgateway     | 网关      |
-| cauth          | 鉴权中心  |
-| clog           | 日志中心  |
-| cplatform      | 服务通信库  |
-| cmysql         | MySQL API |
-
-| 目录名称       | 功能               |
-| -------------- | ------------------ |
-| registerclient | 注册中心客户端     |
-| configclient   | 配置中心客户端     |
-| configgui      | 配置中心客户端界面 |
+| 目录名称       | 功能      | 项目间依赖关系(不含第三方库) |
+| :------------- | --------- | :------------- |
+| cmysql         | MySQL SDK            | 无 |
+| cplatform      | 服务通信 SDK         | 无 |
+| registerclient | 注册中心 SDK         | cplatform                                       |
+| configclient   | 配置中心 SDK         | cplatform registerclient                        |
+| configgui      | Windows 配置中心 GUI | cplatform                                       |
+|                |                      |                                                 |
+| registerserver | 注册中心             | cplatform                                       |
+| clog           | 日志中心             | cmysql、register_client、cplatform              |
+| configserver   | 配置中心             | cmysql、cplatform、registerclient               |
+| cauth          | 鉴权中心             | cmysql、cplatform、registerclient、configclient |
+| cmsgateway     | 网关                 | cmysql、cplatform、registerclient、configclient |
 
 
 
@@ -39,10 +37,10 @@
 
 **Linux ([Ubuntu 20.04.5 LTS](https://releases.ubuntu.com/focal))**
 
-0. 依赖环境
+0. 编译依赖工具
 
    ```shell
-   $ sudo apt-get install gcc g++ perl make automake libtool unzip
+   $ sudo apt-get install gcc g++ perl make automake libtool
    ```
 
 1. zlib-1.2.11 (https://github.com/madler/zlib)
