@@ -114,7 +114,7 @@ $ ./build_all.sh
 **运行/停止所有服务**
 
 ```shell
-$ cd $ cd microservice_framework
+$ cd microservice_framework
 $ start_all.sh
 $ stop_all.sh
 ```
