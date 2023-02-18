@@ -9,7 +9,7 @@
 | cmsgateway     | 网关      |
 | cauth          | 鉴权中心  |
 | clog           | 日志中心  |
-| cplatform      | 通信平台  |
+| cplatform      | 服务通信库  |
 | cmysql         | MySQL API |
 
 | 目录名称       | 功能               |
