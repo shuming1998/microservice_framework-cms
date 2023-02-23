@@ -99,7 +99,7 @@
 
    
 
-**cms 编译和安装**
+**Linux 平台下编译和安装 cms**
 
 ```shell
 $ git clone git@github.com:shuming1998/microservice_framework.git
@@ -109,7 +109,7 @@ $ ./build_all.sh
 
 
 
-**运行/停止所有服务**
+**Linux 平台下运行/停止所有服务**
 
 ```shell
 $ cd microservice_framework
