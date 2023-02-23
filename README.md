@@ -1,6 +1,6 @@
 # microservice_framework: cms
 
-**Windows/Linux 跨平台 RPC 框架 cms 源代码目录 src**
+**Windows/Linux 跨平台微服务框架 cms 源代码目录 src**
 
 | 目录名称       | 功能      | 依赖关系(不含第三方库) |
 | :------------- | --------- | :------------- |
