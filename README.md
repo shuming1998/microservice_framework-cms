@@ -5,9 +5,9 @@
 | 目录名称       | 功能      | 依赖关系(不含第三方库) |
 | :------------- | --------- | :------------- |
 | cmysql         | MySQL SDK            | 无 |
-| cplatform      | 服务通信 SDK         | 无 |
-| registerclient | 注册中心 SDK         | cplatform                                       |
-| configclient   | 配置中心 SDK         | cplatform registerclient                        |
+| cplatform      | 服务通信 客户端         | 无 |
+| registerclient | 注册中心 客户端         | cplatform                                       |
+| configclient   | 配置中心 客户端         | cplatform registerclient                        |
 | configgui      | Windows 配置中心 GUI | cplatform                                       |
 |                |                      |                                                 |
 | registerserver | 注册中心             | cplatform                                       |
